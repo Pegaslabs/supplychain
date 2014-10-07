@@ -1,0 +1,40 @@
+<div class="modal" id="user_prefs_modal" tabindex="-1" role="dialog" aria-labelledby="user_prefs_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{userpreferences.user.username}} -- account</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" role="form">
+          <div class="form-group">
+            <label for="username">username: </label>
+            <p class="form-control-static">
+              {{userpreferences.user.username}}
+              <a target="_blank" href="/admin/auth/user/{{userpreferences.user.id}}">(edit)</a>
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="email">email: </label>
+            <p class="form-control-static">
+              {{userpreferences.user.email}}
+              <a target="_blank" href="/admin/auth/user/{{userpreferences.user.id}}">(edit)</a>
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="default location">Default Location: </label>
+            <p class="form-control-static">
+              {{userpreferences.default_location.name}}
+              <a target="_blank" href="/admin/accounts/userpreferences/{{userpreferences.id}}">(edit)</a>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" ng-click="update_user_prefs()">Update</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

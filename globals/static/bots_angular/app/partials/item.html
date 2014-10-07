@@ -1,0 +1,193 @@
+<div ng-include src="'static/bots_angular/app/partials/header.html'"></div>
+<div class="container ">
+  <div ng-hide="show_header" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+  </div>
+  <hr ng-hide="show_header"/>
+  <div ng-show="show_header">
+    <h3>Stock Card: {{item.name}}</h3>
+    <h5 class="left_margin">at {{curr_location.name}} 
+      | {{item.category.name}}  | {{item.dispense_size}} pack size
+    </h5>
+    <div ng-show="itemlot_filter"  class="alert alert-info">
+      Filtering on Item Lot ID {{itemlot_filter.id}}, expiration {{itemlot_filter.expiration | date:'MMMM d, yyyy' }}, lot num {{itemlot_filter.lot_num}}
+      <a href ng-click="remove_itemlot_filter()">(remove)</a>
+    </div>
+    <div></div>
+
+    <br>
+    <ul class="nav nav-tabs">
+      <li ng-class="{active: tabs[1]}"><a href ng-click="tab_switch(1)">at {{curr_location.name}}</a></li>
+      <li ng-class="{active: tabs[4]}" class="monthly_consumption_tab"><a href ng-click="tab_switch(4)">monthly consumption</a></li>
+      <li ng-hide="itemlot_filter" ng-class="{active: tabs[5]}"><a href ng-click="tab_switch(5)">quantities by lot</a></li>
+      <li ng-class="{active: tabs[2]}"><a href ng-click="tab_switch(2)" tooltip="Inventories display quantities in pack size, e..g two bottle of ibuprofine that holds 100 pills each is shown as '2', not 200">at inventories</a></li>
+      <li ng-class="{active: tabs[3]}"><a class="at_dispensaries_tab" href ng-click="tab_switch(3)" tooltip="Dispensaries display quantities in dispense size, e..g two bottle of ibuprofine that holds 100 pills each is shown as '200', not 2">at dispensaries</a></li>
+    </ul>
+    <br>
+  </div>
+  <div ng-show="tabs[1]" class="">
+    <div ng-if="item_pagination_config">
+      <div class="right">
+        <ia-pagination pagination-config="item_pagination_config" loading="loading_items"></ia-pagination>
+      </div>
+
+      <table class="table table-striped table-condensed ">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Shipment </th>
+            <th>From</th>
+            <th>To</th>
+            <th>System Lot ID</th>
+            <th> Lot Number</th>
+            <th>Expiration Date </th>
+            <th>Quantity Change </th>
+            <th>Stock Balance</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr ng-hide="loading_items" ng-repeat="stockchange in stockchanges" class="stock_table">
+            <td>{{stockchange.date | date:'MMMM d, yyyy'}}</td>
+            <td><a href="/#/shipment/{{stockchange.shipment.id}}">{{stockchange.shipment.name}}</a></td>
+            <td>{{stockchange.shipment.from_location}}</td>
+            <td>{{stockchange.shipment.to_location}}</td>
+            <td><a href ng-click="filter_itemlot(stockchange.itemlot.id)">{{stockchange.itemlot.id}}</a></td>
+            <td>{{stockchange.itemlot.lot_num}}</td>
+            <td>{{stockchange.itemlot.expiration | date:'MMMM d, yyyy' }}</td>
+            <td>{{stockchange.qty}}</td>
+            <td>{{stockchange.soh}}</td>
+            <td>{{stockchange.user.username}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-show="loading_all" class="progress progress-striped active">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        </div>
+      </div>      <div ng-show="loading_items" class="progress progress-striped active">
+      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      </div>
+    </div>
+
+  </div>
+</div>
+<div ng-show="tabs[2]" class="">
+  <div class="col-sm-8">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Site</th>
+          <th>Stock Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="location in items_by_site | orderBy:orderProp">
+          <td><a href ng-click="change_loc(location.location.id)">{{item.name}} at <strong>{{location.location.name}}</strong></a></td>
+          <td>{{location.soh}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div ng-show="tabs[3]" class="">
+  <div class="col-sm-8">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Site</th>
+          <th>Stock Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="location in items_by_site_dispensary | orderBy:orderProp">
+          <td><a href class="dispensary_link" ng-click="change_loc(location.location.id)">{{item.name}} at <strong>{{location.location.name}}</strong></a></td>
+          <td>{{location.soh}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div ng-show="tabs[4]" class="col-sm-10 monthly_consumption">
+  <div class="row">
+    <div class="col-sm-6 tab_title">
+      Monthly consumption at {{curr_location.name}}   
+    </div>
+    <div class="col-sm-6" ng-hide="loading_years_complete">
+      <div class="progress progress-striped active">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped table-sm ">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Jan</th>
+        <th>Feb</th>
+        <th>Mar</th>
+        <th>Apr</th>
+        <th>May</th>
+        <th>Jun</th>
+        <th>Jul</th>
+        <th>Aug</th>
+        <th>Sep</th>
+        <th>Oct</th>
+        <th>Nov</th>
+        <th>Dec</th>
+        <th>AMC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="year" ng-repeat="year in years">
+        <td>{{year.year}}</td>
+        <td class="month" ng-repeat="month in year.months track by $index">{{month}}</td>
+        <td class="calendar_amc">{{year.amc | number:0}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    AMC Last six months: {{last_six_months_amc | number:0}}</br></br>
+    AMC Last twelve months: {{last_twelve_months_amc | number:0}}</br></br>
+    AMC To date: {{to_date_amc | number:0}}
+  </div>
+</div>
+<div ng-show="tabs[5]" class="col-sm-10">
+  <div class="row">
+    <div class="col-sm-6">
+      Current Quantities by lot at {{curr_location.name}}   
+    </div>
+  </div>
+  <div ng-if="itemlots_pagination_config">
+    <ia-pagination pagination-config="itemlots_pagination_config" loading="loading_itemlots"></ia-pagination>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>System Lot ID</th>
+          <th>Serial No</th>
+          <th>Expiration</th>
+          <th>Unit Price</th>
+          <th>Qty today</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-hide="loading_itemlots" ng-repeat="itemlot in itemlots | orderBy:'-soh'">
+          <td><a href ng-click="filter_itemlot(itemlot.id)">{{itemlot.id}}</a></td>
+          <td>{{itemlot.lot_num}}</td>
+          <td>{{itemlot.expiration | date: 'MMMM d, yyyy'}}</td>
+          <td>{{itemlot.unit_price}}</td>
+          <td>{{itemlot.soh}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-show="loading_itemlots" class="progress progress-striped active">
+      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>

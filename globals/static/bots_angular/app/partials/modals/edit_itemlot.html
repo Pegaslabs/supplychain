@@ -1,0 +1,59 @@
+<!-- edit itemlot modal -->
+<div class="modal" tabindex="-1" id="edit_itemlot_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4><strong>{{editing_itemlot.item.name}}</strong> for shipment {{shipment.id}}</h4> 
+						<div class="small left_margin">{{editing_itemlot.item.category.name}}</div>
+					</div>
+					<hr>
+					<div ng-include src="'static/bots_angular/app/partials/modals/affected_stockchanges.html'"></div>
+
+
+					<div class="form-group">
+						<label for="qty" class="col-sm-4">Quantity (required): </label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input qty_input" id="qty" ng-class="{invalid: editing_itemlot.invalid_qty}" ng-model="editing_itemlot.qty" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="expiration"  class="col-sm-4">Expiration:</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input" ng-class="{invalid: editing_itemlot.invalid_expiration}" ng-model="editing_itemlot.expiration" placeholder="dd/mm/yy" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lot_num" class="col-sm-4">Serial/lot number:</label>
+						<div class="col-sm-4">
+							<input type="text" id="lot_num" class="form-control input" ng-model="editing_itemlot.lot_num" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="unit_price" class="col-sm-4">Unit price:</label>
+						<div class="col-sm-4">
+							<input type="text" id="unit_price" class="form-control input" ng-class="{invalid: editing_itemlot.invalid_unit_price}" ng-model="editing_itemlot.unit_price" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="total_price" class="col-sm-4">Total price (calculated):</label>
+						<div id="total_price" class="col-sm-4">
+							{{editing_itemlot.qty * editing_itemlot.unit_price | number:2}} 
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" ng-hide="itemlot_loading" class="btn btn-default cancel" data-dismiss="modal">Cancel</button>
+						<button type="submit" ng-hide="itemlot_loading" ng-click="submit_edit(editing_itemlot)" id="submit_edit" class="btn btn-primary">OK</button>
+						<div ng-show="itemlot_loading" class="progress progress-striped active">
+							<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

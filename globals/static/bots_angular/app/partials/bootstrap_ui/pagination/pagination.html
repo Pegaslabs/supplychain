@@ -1,0 +1,10 @@
+<div ng-show="itemsOnPage">
+	<ul class="pagination pagination-sm">
+		<li>
+			<a class="not_link">{{((page-1)*itemsPerPage)+1}} - {{((page-1)*itemsPerPage)+itemsOnPage}} of {{totalItems | number:0}}</a>
+		</li>
+		<li ng-repeat="page in pages" ng-show="{{pages.length > 5}}" ng-class="{active: page.active, disabled: page.disabled}">
+			<a ng-click="selectPage(page.number)">{{page.text}}</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,24 @@
+<div class="dropdown">
+  <input type="text" data-toggle="dropdown" class="dropdown-toggle form-control input {{searchDropConfig.input_class}}" placeholder="{{searchDropConfig.placeholder}}" ng-change="search(q)" ng-focus="drop()" ng-model="q">
+  <ul class="dropdown-menu search-dropdown-nav"  role="menu" aria-labelledby="dLabel">
+    <li ng-hide="loading_search" ng-repeat="result in search_results">
+      <a href ng-click="select_result(result)">{{result.name}}<span ng-show="result.category" class="small"> - {{result.category.name}}</span></a>
+    </li>
+    <li ng-hide="no_results" class="divider">
+    </li>
+    <li ng-hide="no_results"><a href><span ng-hide="search_results.length === 0">1</span><span ng-show="search_results.length === 0">0</span> - {{search_results.length}} of {{search_meta.total_count}}</a>
+    </li>
+    <li ng-show="no_results">
+      <a href ng-click="searchDropConfig.add_result(q)">
+        <span>No {{searchDropConfig.result_name}} matches that search.</span> 
+        <span ng-show="searchDropConfig.add_results" >
+         Create new {{searchDropConfig.result_name}} <strong>{{q}}</strong>
+       </span>
+     </a>
+   </li>
+   <li ng-show="loading_search" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+  </li>
+</ul>
+</div>

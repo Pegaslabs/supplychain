@@ -1,0 +1,25 @@
+
+<!-- add from_location modal -->
+<div class="modal" id="add_from_location_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Create new supplier <strong>{{new_from_location_name}}</strong></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" role="form">
+          <div class="form-group">
+            <label for="new_from_location_name">New supplier: </label>
+            <input type="text" class="form-control input new_from_location_name" ng-model="new_from_location_name"/>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary confirm_new_from_location" tooltip="This will create an external location, a location at which you do not track stock. To receive stock from a location where you monitor stock levels, use a 'Transfer'." ng-click="add_from_location(new_from_location_name)">Create supplier</button>
+      </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

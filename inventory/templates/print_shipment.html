@@ -1,0 +1,82 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8" />
+	<title>Bots Inventory</title>
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/static/bots_angular/app/css/bootstrap.css" />
+  <link rel="stylesheet" href="/static/bots_angular/app/css/print_shipment.css" />
+
+</head>
+<body>
+	{% for shipment_list in shipment_item_lists %}
+	<div class="container top page-break">
+		<div class="photo_div">
+			<img src="/static/img/letterhead.png" class="photo" width="500"/>
+		</div>
+		{% if internal_billing_document %}
+		<h3>Internal Billing Document</h3>
+		{% endif %}
+		<div><strong>Issuing Facility:</strong> {{shipment.from_location}} <strong>Issued to:</strong> {{shipment.to_location}} 
+		</div>
+		<div><strong>Date of issue:</strong> {{shipment.date|date:"D d M Y" }}</div>
+		<div class="shipment_lower">
+			{% if shipment.shipment_id %} 
+			<strong>Supplier id: </strong>{{shipment.shipment_id}} 
+			{% else %}
+			<strong>System Delivery note number:</strong> {{shipment.name}}.{{forloop.counter}}
+			{% endif %}
+		</div>
+		{% if shipment.supplier %}<div>Supplier: {{shipment.supplier}}</div>{% endif %}
+		{% if shipment.supplier_shipment_id %} Supplier Delivery note number: {{shipment.supplier_shipment_id}}{% endif %}
+		<div><strong>Total Price (ZAR):</strong> {{shipment.price|floatformat:"2"}} </div><br>
+		<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Item Name</th>
+					<th>Expiration</th>
+					<th>Lot Num</th>
+					<th>Qty Issued</th>
+					<th>Qty Received</th>
+					<th>Unit Price</th>
+					<th>Total Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in shipment_list %}
+				<tr>
+					<td>{{forloop.counter}}</td>
+					<td>
+						{{item.itemlot.item.name}}
+					</td>
+					<td>{{item.itemlot.expiration|date:"d/m/y"}}</td>
+					<td>{{item.itemlot.lot_num}}</td>
+					<td>{{item.qty}}</td>
+					<td></td>
+					<td>{{item.itemlot.unit_price|floatformat:"2"}}</td>
+					<td>{{item.price|floatformat:"2"}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div>
+			<div class="issued_by"><strong>Issued By:</strong><br>
+				Name: _____________________________<br><br>
+				Date: _____________________________<br><br>
+				Signature: _____________________________
+			</div>
+			<div class="received_by"><strong>Received By:</strong><br>
+				Name: _____________________________<br><br>
+				Date: _____________________________<br><br>
+				Signature: _____________________________
+			</div>
+		</div>
+		<br>
+	</div>
+
+	{% endfor %}
+</body>
+</html>

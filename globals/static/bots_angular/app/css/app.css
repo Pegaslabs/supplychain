@@ -1,0 +1,106 @@
+/* app css stylesheet */
+.container-main{margin-top:50px;}
+
+/*boostrap ui href stuff */
+.nav, .pagination, .carousel a { cursor: pointer; }
+
+.pagination{margin:5px 0;}
+
+.right{float:right;}
+
+.not_link:hover{cursor:text; background-color:inherit !important;}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {cursor:text !important;}
+
+.search-dropdown{margin-left:15px; width:97%; }
+
+.small{font-size:80%;}
+.super_small{font-size:11px;}
+
+.search-dropdown-nav{background-color:#ffffff !important; width:100%; padding:0; color:#222 !important;} 
+
+.item_search_directive {width:350%;}
+/*.search-dropdown-nav a{background-color:#ffffff !important; font-color:#000000;}*/
+.search-dropdown-nav>li>a{
+display: block !important;
+padding: 3px 20px !important;
+clear: both !important;
+font-weight: normal !important;
+line-height: 1.428571429 !important;
+color: #555555 !important;
+white-space: nowrap !important;
+text-decoration:none;
+font-size:1.3em;
+}
+
+.search-dropdown-nav>li>a:hover{
+background-color: #eeeeee !important;
+}
+
+.left_margin{
+	margin-left:15px;
+}
+
+.modal-dialog-big
+{
+	width: 800px;
+}
+
+.negative, .invalid{
+	color:red;
+}
+
+.right_caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-left: 4px solid #000000;
+  border-top: 4px solid transparent;
+  border-right: 0 dotted;
+  border-bottom: 4px solid transparent;
+}
+
+.styleless_a,.styleless_a:hover,.styleless_a:visited{
+  text-decoration: none !important;
+  color:#000000;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-success {
+color: #3c763d;
+background-color: #dff0d8;
+border-color: #d6e9c6;
+}
+
+.alert-warning {
+color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #faebcc;
+}
+
+.alert-info {
+background-color: #d9edf7;
+border-color: #bce8f1;
+color: #31708f;
+}
+
+.filter_controls .location_input_directive{width:80%;}

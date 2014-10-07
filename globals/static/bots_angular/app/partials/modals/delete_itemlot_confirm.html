@@ -1,0 +1,56 @@
+<!-- delete itemlot modal -->
+<div class="modal" id="delete_itemlot_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Delete {{deleting_itemlot.item.name}} from shipment?</h3> 
+            <div class="small left_margin">{{deleting_itemlot.item.category.name}}</div>
+          </div>
+          <hr>
+          <div ng-include src="'static/bots_angular/app/partials/modals/affected_stockchanges.html'"></div>
+          <div class="form-group">
+            <label for="qty" class="col-sm-4">Quantity (required): </label>
+            <div class="col-sm-4">
+              <span>{{deleting_itemlot.qty}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expiration"  class="col-sm-4">Expiration:</label>
+            <div class="col-sm-4">
+              <span>{{deleting_itemlot.expiration | date: 'MMMM d, yyyy'}}</span>  
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lot_num" class="col-sm-4">Serial/lot number:</label>
+            <div class="col-sm-4">
+              <span>{{deleting_itemlot.lot_num}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="unit_price" class="col-sm-4">Unit price:</label>
+            <div class="col-sm-4">
+              <span>{{deleting_itemlot.unit_price}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="total_price" class="col-sm-4">Total price (calculated):</label>
+            <div id="total_price" class="col-sm-4">
+              {{deleting_itemlot.qty * deleting_itemlot.unit_price | number:2}} 
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-hide="itemlot_loading" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" ng-hide="itemlot_loading" ng-click="delete_itemlot(deleting_itemlot)" id="submit_delete" class="btn btn-danger">Confirm Delete</button>
+            <div ng-show="delete_itemlot_loading" class="progress progress-striped active">
+              <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

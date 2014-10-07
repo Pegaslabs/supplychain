@@ -1,0 +1,23 @@
+<div ng-show="shipment.active && (editing_itemlot.id || deleting_itemlot.id)">
+	<div class="">Warning: Active Lot</div>
+	<div class="">This lot has the following stock changes made on it that may be affected by any edits:</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-show="show_affected" ng-repeat="stockchange in affected_stockchanges">
+				<td>{{stockchange.date | date:'MMMM d, yyyy' }}</td>
+				<td>{{stockchange.qty}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-show="show_affected">Affected stockchanges on other shipments: {{affected_stockchanges_total_count}} total</div>
+	<div ng-hide="show_affected" class="progress progress-striped active">
+		<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+	</div>
+	<hr>
+</div>

@@ -1,0 +1,73 @@
+<!-- confirm shipment modal -->
+<div class="modal" id="confirm_shipment_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm <span ng-hide="dispense">Shipment</span><span ng-show="dispense">Dispense report</span> <strong>{{shipment.name}}</strong></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group" >
+            <label class="col-sm-4 control-label"><span ng-hide="dispense">Shipment</span><span ng-show="dispense">Dispense Report</span>: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{shipment.name}} | system ID {{shipment.id}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label class="col-sm-4 control-label">on: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{shipment.date | date:'MMMM d, yyyy'}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label class="col-sm-4 control-label">From: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{shipment.from_location.name}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label class="col-sm-4 control-label">To: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{shipment.to_location.name}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group" ng-hide="dispense">
+            <label for="total_items" class="col-sm-4 control-label">Total value of items: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{total_price | number:2}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group" >
+            <label for="total_items" class="col-sm-4 control-label">Total number of items: </label>
+            <div class="col-sm-4">
+              <p class="form-control-static">
+                {{pagination_data.total_count}}
+                <span ng-show="shipment.shipment_type=='T'">{{shipment.item_count}}
+              </p>
+            </div>
+          </div>
+          <div class="alert alert-warning" ng-show="future_date">
+            <strong>Future Shipment Date</strong><hr class="no_margins">
+            <br>
+            Note: this shipment is scheduled to arrive in the future. All of the stock changes will not be included in inventory quantities until the shipment date, <strong>{{shipment.date | date:'MMMM d, yyyy'}}</strong>.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" ng-click="activate_shipment()" class="btn btn-primary confirm_shipment">Confirm <span ng-hide="dispense">Shipment</span><span ng-show="dispense">Report</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

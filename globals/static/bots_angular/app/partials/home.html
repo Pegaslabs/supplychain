@@ -1,0 +1,71 @@
+<div ng-include src="'static/bots_angular/app/partials/header.html'" ></div>
+<div class="container ">
+	<h3>Dashboard -- Central Warehouse</h3>
+	<br>
+	<ul class="nav nav-tabs">
+		<li ng-class="{active: tabs[1]}"><a href ng-click="tab_switch(1)">Expiring -- next six months</a></li>
+		<li ng-class="{active: tabs[2]}"><a href ng-click="tab_switch(2)">Data quality issues </a></li>
+	</ul>
+	<div ng-show="tabs[1]">
+		<br>
+		<table ng-show="!loading_report" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Item Category</th>
+					<th>ItemLot System ID</th>
+					<th>Expiration</th>
+					<th>ItemLot Number</th>
+					<th>Expired Qty</th>
+					<th>Unit Price</th>
+					<th>Total Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in report_rows">
+					<td><a href="#/item/{{row[0]}}?location=1">{{row[1]}}</a></td>
+					<td class="small">{{row[2]}}</td>
+					<td><a href="#/item/{{row[0]}}?location=1&itemlot={{row[3]}}">{{row[3]}}</a></td>
+					<td>{{row[4]}}</td>
+					<td>{{row[5]}}</td>
+					<td>{{row[6]}}</td>
+					<td>{{row[7] | number:2}}</td>
+					<td>{{row[8] | number:2}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-show="loading_report" class="progress progress-striped active">
+			<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+			</div>
+		</div>
+	</div>
+	<div ng-show="tabs[2]">
+		<br>
+		<table ng-show="!loading_quality" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Item Category</th>
+					<th>ItemLot System ID</th>
+					<th>Expiration</th>
+					<th>ItemLot Number</th>
+					<th>Qty</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in dquality_report_rows">
+					<td><a href="#/item/{{row[0]}}?location=1">{{row[1]}}</a></td>
+					<td class="small">{{row[2]}}</td>
+					<td><a href="#/item/{{row[0]}}?location=1&itemlot={{row[3]}}">{{row[3]}}</a></td>
+					<td>{{row[4]}}</td>
+					<td>{{row[5]}}</td>
+					<td>{{row[6]}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-show="loading_quality" class="progress progress-striped active" style="width: 80%">
+			<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,63 @@
+<div ng-include src="'static/bots_angular/app/partials/header.html'"></div>
+<div class="container">
+    <div>
+        <h3>Transactions Reporting</h3>
+        <hr>
+    </div>
+<!--     <div >
+        <h4>Filter Transactions</h4>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="date" class="col-sm-2 control-label">Location: </label>
+                <div class="col-sm-10">
+                  <div class="input-append">
+                    <input type="text" class="form-control col-sm-6" ng-change="filter_column(location_q)" ng-model="location_q" placeholder="" >
+                      <button class="add-on btn btn-default btn-sm">search</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+      <hr>
+      <h4>Statistics</h4>
+      Total rows: {{filtered_transactions.length | number:0}}<br/>
+      Total value: {{total_val | number:2}}
+      <hr>
+  </div>
+ -->  <span ng-hide="loading_transactions">
+    <span ia-download-directive rows="transactions" filename="download_filename"></span>
+    <div>
+        <br>
+        Showing 100 of {{transactions.length | number:0}} rows
+    </div>
+</span>
+<!-- <button class="btn btn-default btn-sm" ng-click="delete_cache()">delete local cash</button> -->
+<table class="table table-striped super_small">
+    <thead>
+        <tr>
+            <th>date</th>
+            <th>Shipment</th>
+            <th>Location</th>
+            <th>From Location</th>
+            <th>From L Type</th>
+            <th>To Location</th>
+            <th>To L Type</th>
+            <th>Item</th>
+            <th>Item Category</th>
+            <th>Item Expiration</th>
+            <th>Item Lot Num</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>User</th>
+            <th>Total Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-hide="loading_transactions" ng-repeat="transaction in view_transactions">
+            <td ng-repeat="field in transaction track by $index">{{field}}</td>
+        </tr>
+    </tbody>
+</table>
+<div ng-show="loading_transactions" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+</div>

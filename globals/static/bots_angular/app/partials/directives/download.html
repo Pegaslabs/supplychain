@@ -1,0 +1,5 @@
+<button ng-click="start_download()" ng-class="{disabled : downloading}" class="btn btn-sm ">
+    <span ng-show="downloading">Downloading {{firstPage.meta.total_count | number:0}} rows...</span>
+    <span ng-hide="downloading">Download</span>
+</button> 
+<button  ng-show="downloading" ng-click="cancel_download()" class="btn btn-sm">Cancel</button> 
