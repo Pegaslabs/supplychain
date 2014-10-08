@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.db.models import Q
 import math
-import pytz
 from django.db.models import Sum
 from django.contrib.auth.models import User
 from inventory.models import Item, ItemLot, StockChange, Shipment, Location, ItemAttribute

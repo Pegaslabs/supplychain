@@ -4,7 +4,6 @@ from django.utils import timezone
 import httplib
 from django.db.models import Q
 from datetime import datetime,timedelta
-import pytz
 from django.utils.dateparse import parse_datetime
 from django.db.models import Sum
 from django.contrib.auth.models import User

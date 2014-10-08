@@ -1,15 +1,5 @@
 # Django settings for bots project.
 
-# import socket
-# local_name = socket.gethostname()
-# if local_name.startswith('apac'):
-#     # local
-#     # dbpath = 'C:/software/data/bots/indicators'
-#     # prod db mirrored
-#     dbpath = 'C:/Users/Kevin/Downloads/test_db'
-# else:
-#     dbpath = '/opt/botsenv/data/bots_sqlite_db'
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -25,13 +15,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        # 'NAME': 'C:/Users/JohnHB/Dropbox/bots_production_13aug',
-        # 'NAME': 'C:/Users/JohnHB/Documents/bots_test',
-        'NAME': 'C:/Users/Kevin/Downloads/test_db_one',                      # Or path to database file if using sqlite3.
+        'NAME': 'C:/Users/YOURNAME/Documents/YOURSETUP',
+        'NAME': 'REPLACE THIS LINE WITH A PATH THAT WORKS',                      # Or path to database file if using sqlite3.
         # 'NAME': "bots",                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'botsims',
-        'PASSWORD': 'pass',
+        # 'USER': 'botsims',
+        # 'PASSWORD': 'pass',
         'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
