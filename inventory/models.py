@@ -191,6 +191,7 @@ class ItemLot(models.Model):
 
 # e.g. attribute : "no_soh", value: null (in use)
 # e.g. attribute : "original_shipment" : value: "123" (not in use, just example)
+# TODO remove, not used
 class ItemLotAttribute(models.Model):
     attribute = models.CharField(max_length=200)
     value = models.CharField(max_length=200,null=True,blank=True)
@@ -255,6 +256,7 @@ class StockChange(models.Model):
         else:
             self.active = self.shipment.active
         self.modified = timezone.now()
+        # TODO this needs to be removed & fixed globally 
         self.date = timezone.localtime(self.date).replace(hour=0)
         self.date = timezone.localtime(self.date).replace(minute=0)
         self.date = timezone.localtime(self.date).replace(second=0)
@@ -343,11 +345,7 @@ class Location(models.Model):
         ('P', 'Patient'),
     )
     def __unicode__(self):
-        name = self.name
-        # if self.location_type == "P":
-        #     if self.patient.identifier:
-        #         return self.patient.identifier + " - " + self.name
-        return name + " - " + self.get_location_type_display()
+        return self.name
     location_type = models.CharField(max_length=2, choices=LOCATION_TYPES)
     name = models.CharField(max_length=100)
 
@@ -388,15 +386,14 @@ class Patient(models.Model):
         ('F', 'Female')
     )
     def __unicode__(self):
-        return self.location.__unicode__()
+        return self.location.name
     gender = models.CharField(max_length=2, choices=GENDER_TYPES,null=True)
-    # if needed we'll do this later with many to patient table like openmrs
-    identifier = models.CharField(max_length=100,unique=True)
-    name = models.CharField(max_length=100)
+    # if needed we'll do this later with many to many table like openmrs
+    identifier = models.CharField(max_length=100,blank=True,null=True)
     dob = models.DateTimeField(null=True)
     # this is not an openmrs location, nor a location drugs are shipped to.
     # like openerp, models patients as physcial locations themseleves
-    location = models.ForeignKey('Location',blank=True,null=True)
+    location = models.ForeignKey('Location')
 
     # CP tracks only district
     district = models.ForeignKey('District',blank=True,null=True)
@@ -408,10 +405,5 @@ class Patient(models.Model):
         ''' On save, update timestamps '''
         if not self.created:
             self.created = timezone.now()
-            l = Location(user=self.user,name=self.identifier,location_type="P")
-            l.save()
-            self.location = l
-        self.location.name = self.identifier
-        self.location.save()
         self.modified = timezone.now()
         super(Patient, self).save(*args, **kwargs)

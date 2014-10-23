@@ -5,7 +5,6 @@ from inventory import reporting_utils
 from datetime import timedelta,datetime
 from django.utils import timezone
 from django.http import Http404
-from bots import settings
 from tastypie.resources import ModelResource,Resource
 from inventory.models import Item,ItemCategory,ItemAttribute,ItemLotAttribute,ItemLot,StockChange,Shipment,Location,District,Patient
 from accounts.models import UserPreferences
@@ -16,14 +15,6 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.authentication import SessionAuthentication,Authentication
 from tastypie.authorization import Authorization
 from django.core.exceptions import ObjectDoesNotExist
- 
- # I don't know what's going on with tastypie or djangor or http-proxy 
- # but they're not playing nice. disabling csrf for e2e testing 
-def get_auth():
-    # if settings.testing:
-    #     return Authentication()
-    # else:
-    return SessionAuthentication()
 
 class UserResource(ModelResource):
     class Meta:
@@ -33,7 +24,7 @@ class UserResource(ModelResource):
         filtering = {'username' : ALL}
         excludes = ['password', 'last_name', 'first_name', 'last_login','date_joined', 'is_active', 'is_staff', 'is_superuser']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
 
 class ItemCategoryResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
@@ -45,7 +36,7 @@ class ItemCategoryResource(ModelResource):
         ordering = {'name' : ALL}
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         return super(ItemCategoryResource,self).obj_create(bundle, **kwargs)  
@@ -61,7 +52,7 @@ class ItemResource(ModelResource):
         excludes = ['modified','created']
         ordering = {'name' : ALL, 'name_lower' : ALL, 'category' : ALL}
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def dehydrate(self, bundle):
         if bundle.request.GET.get('soh'):
             l = Location.objects.get(id=bundle.request.GET.get('location'))
@@ -131,40 +122,28 @@ class ItemResource(ModelResource):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         return super(ItemResource,self).obj_create(bundle, **kwargs)  
 
-class ItemAttributeResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
-    item = fields.ForeignKey(ItemResource, 'item')
-    class Meta:
-        queryset = ItemCategory.objects.all()
-        always_return_data = True
-        resource_name = 'itemattribute'
-        excludes = ['modified','created']
-        authorization= Authorization()
-        authentication = get_auth()
-
 class LocationResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
-    patient = fields.ForeignKey('inventory.api.PatientResource','patient',blank=True,null=True)
+    # patient = fields.ForeignKey('inventory.api.PatientResource','patient',blank=True,null=True)
     class Meta:
         queryset = Location.objects.all()
         always_return_data = True
         resource_name = 'location'
-        filtering = {'location_type' : ALL_WITH_RELATIONS, 'patient': ALL_WITH_RELATIONS, 'name' : ALL}
+        filtering = {'location_type' : ALL_WITH_RELATIONS, 'name' : ALL, 'id' : ALL}
         ordering = {'name' : ALL}
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def build_filters(self, filters=None):
         if filters is None:
             filters = {}
         orm_filters = super(LocationResource, self).build_filters(filters)
-        if('name__contains' in filters):
-            query = filters['name__contains']
-            qset = (Q(name__icontains=query) | Q(patient__identifier__icontains=query))
-            orm_filters.update({'custom': qset})
+        # if('name__contains' in filters):
+        #     query = filters['name__contains']
+        #     qset = (Q(name__icontains=query) | Q(patient__identifier__icontains=query))
+        #     orm_filters.update({'custom': qset})
         return orm_filters
     def apply_filters(self, request, applicable_filters):
-        print applicable_filters
         if 'custom' in applicable_filters:
             custom = applicable_filters.pop('custom')
             applicable_filters.pop('name__contains')
@@ -179,6 +158,7 @@ class LocationResource(ModelResource):
         if bundle.obj.location_type == "P":
             bundle.data['name'] = bundle.obj.__unicode__()
         return bundle
+
 class UserPreferencesResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user',full=True)
     default_location = fields.ForeignKey(LocationResource, 'default_location',full=True)
@@ -190,7 +170,7 @@ class UserPreferencesResource(ModelResource):
         resource_name = 'userpreferences'
         authorization= Authorization()
         excludes = ['modified','created']
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def authorized_read_list(self, object_list, bundle):
         try:
             return object_list.filter(user=bundle.request.user)
@@ -211,7 +191,7 @@ class ShipmentResource(ModelResource):
         resource_name = 'shipment'
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         return super(ShipmentResource,self).obj_create(bundle, **kwargs)
@@ -245,7 +225,7 @@ class ItemLotResource(ModelResource):
         resource_name = 'itemlot'
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def build_filters(self, filters=None):
         if filters is None:
             filters = {}
@@ -324,7 +304,7 @@ class ItemLotAttributeResource(ModelResource):
         resource_name = 'itemlotattribute'
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         bundle = super(ItemLotAttributeResource,self).obj_create(bundle, **kwargs)
@@ -345,7 +325,7 @@ class StockChangeResource(ModelResource):
         resource_name = 'stockchange'
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def dehydrate_soh(self, bundle):
         if bundle.request.GET.get('itemlot'):
             return bundle.obj.soh(item=False)
@@ -416,7 +396,7 @@ class DistrictResource(ModelResource):
         ordering = {'name' : ALL}
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         return super(DistrictResource,self).obj_create(bundle, **kwargs)  
@@ -428,11 +408,11 @@ class PatientResource(ModelResource):
     class Meta:
         queryset = Patient.objects.all()
         always_return_data = True
-        filtering = {'name' : ALL,'identifier' : ALL,'location' : ALL}
+        filtering = {'name' : ALL,'identifier' : ALL,'location' : ALL_WITH_RELATIONS}
         resource_name = 'patient'
         excludes = ['modified','created']
         authorization= Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         return super(PatientResource,self).obj_create(bundle, **kwargs)
@@ -451,7 +431,7 @@ class SearchResource(Resource):
         allowed_methods = ['get']
         object_class = SearchObject
         authorization = Authorization()
-        authentication = get_auth()
+        authentication = SessionAuthentication()
         object_name = "search"
         include_resource_uri = False
 
@@ -484,14 +464,12 @@ class SearchResource(Resource):
             return Shipment.objects.filter(Q(id__startswith=query) | Q(name__startswith=query)).order_by('id','name')
         elif "patient" in query:
             query = query.strip("patient ")
-            patients = Patient.objects.filter(identifier__icontains=query).order_by('identifier')
-            locations = Location.objects.filter(name__icontains=query,location_type="P").order_by('name')
-            return list(chain(patients,locations))
+            return Patient.objects.filter(Q(identifier__icontains=query) | Q(location__name__startswith=query)).order_by('location__name').order_by('identifier')
 
         items = Item.objects.filter(name__icontains=query).order_by('name')
         locations = Location.objects.filter(name__icontains=query).exclude(location_type="P").order_by('name')
         shipments = Shipment.objects.filter(Q(id__startswith=query) | Q(name__startswith=query)).order_by('name')
-        patients = Patient.objects.filter(identifier__icontains=query).order_by('identifier')
+        patients = Patient.objects.filter(Q(identifier__icontains=query) | Q(location__name__startswith=query)).order_by('location__name').order_by('identifier')
 
         return list(chain(items, locations, shipments, patients))
 
