@@ -65,7 +65,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
     # putting the stockchange qualifiers on the join instead
     # of a "where" so they don't filter out the zero values, as this is the item level
     q_item = """
-        select i.id, i.name,c.name,count(active_sc.id),sum(active_sc.qty),sum(il.unit_price*sc.qty), avg(il.unit_price)
+        select i.id, i.name,c.name,count(active_sc.id),sum(active_sc.qty), avg(il.unit_price)*sum(active_sc.qty), avg(il.unit_price)
             from inventory_item i
             join inventory_itemcategory c on c.id=i.category_id
             left join inventory_itemlot il on il.item_id=i.id 
@@ -160,7 +160,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
         join inventory_itemlot il on il.id=sc.itemlot_id
         join inventory_item i on i.id=il.item_id
         join inventory_itemcategory c on c.id=i.category_id
-        join auth_user u on u.id=sc.user_id where sc.qty > 0;"""
+        join auth_user u on u.id=sc.user_id where s.active=1;"""
     if report_type == "Inventory":
         if itemlot_level:
             cursor.execute(q_itemlot)

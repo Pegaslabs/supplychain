@@ -1,0 +1,43 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+<div class="container ">
+  <div ng-hide="show_results" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+  </div>
+  <hr ng-hide="show_results"/>
+  <div ng-show="show_results">
+    <div class="row">
+      <h3 class="left">{{title}}</h3>
+      <div ng-if="location.location_type === 'P'" view-patient-directive patient-location="location"></div>
+      <div class="right">
+        <ia-pagination pagination-config="shipments_pagination_config" loading="loading_shipments"></ia-pagination>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Shipment</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Date</th>
+          <th>Total Value</th>
+          <th>Items</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-hide="loading_shipments" ng-repeat="shipment in shipments | orderBy: date">
+          <td> <a href="#/shipment/{{shipment.id}}" class="shipment_link"> {{shipment.name}}<span ng-hide="shipment.name">{{shipment.id}}</span> <span ng-hide="is_transfer"> | {{shipment.id}}</span></td>
+          <td><a href ng-click="filter_from_location(shipment.from_location.id)">{{shipment.from_location.name}}</a></td>
+          <td><a href ng-click="filter_to_location(shipment.to_location.id)">{{shipment.to_location.name}}</a></td>
+          <td>{{shipment.date | date:'MMMM d, yyyy'}}</td>
+          <td>{{shipment.price}}</td>
+          <td>{{shipment.item_count}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-show="loading_shipments" class="progress progress-striped active">
+      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+  </div>
+
+</div>

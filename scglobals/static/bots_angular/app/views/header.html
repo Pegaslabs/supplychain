@@ -1,0 +1,66 @@
+<div class="navbar navbar-default navbar-fixed-top" ng-controller="GlobalCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="#/" class="navbar-brand">Bots</a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Receive<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=true">All</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=false">Pending</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="#/shipment/edit_receive/">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Transfer<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="download">
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=true">All</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=false">Pending</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="#/shipment/edit_transfer/">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Dispense<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=true">All Dispense Reports</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=false">Pending Dispense Reports</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="#/shipment/edit_transfer/?dispense=true">Create Dispense Report</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li><a tabindex="-1" href="#/reports/">Standard Reports</a></li>
+            <li><a tabindex="-1" href="#/transactions">All Transactions</a></li>
+            <li><a tabindex="-1" href="#/ilp">Items, Locations, Patients</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left item_search_container">
+        <ia-search-drop class="item_search_directive" search-drop-config="item_search_config"></ia-search-drop>
+      </form>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ng-show="logged_in" href="/accounts/signout">Sign Out</a></li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+<div class="container-main"></div>
+  <div class="alert hide alert-danger container" id="server_error">
+<button type="button" class="close" aria-hidden="true">&times;</button>
+    <strong>Server Error</strong> -- <span class="error_text">please try again later.</span> 
+  </div>
+
+<div ng-include src="'static/bots_angular/app/views/modals/user_prefs.html'"></div>

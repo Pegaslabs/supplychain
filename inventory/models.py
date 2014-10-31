@@ -23,17 +23,17 @@ class Item(models.Model):
     user = models.ForeignKey(User)
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
-        if not self.created:
+        if not self.id:
             self.created = timezone.now()
         # check if dispense_size has changed
         else:
             old = Item.objects.get(id=self.id)
             if self.dispense_size != old.dispense_size:
-                for l in Location.objects.filter(location_type__in="D,P"):
-                    for sc in StockChange.objects.filter(location=l,itemlot__item=self):
+                for l in Location.objects.filter(location_type__in="D"):
+                    for sc in StockChange.objects.filter(location=l,itemlot__item=self,shipment__from_location__location_type__in="I"):
                         try:
-                            sc.qty = sc.qty / old.dispense_size
-                            sc.qty = sc.qty * self.dispense_size
+                            sc.qty = int(sc.qty) / int(old.dispense_size)
+                            sc.qty = int(sc.qty) * int(self.dispense_size)
                         except:
                             pass
                         sc.save()

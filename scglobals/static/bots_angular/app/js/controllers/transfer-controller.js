@@ -158,14 +158,15 @@ controller('TransferCtrl', ['$scope','$http','$location','$filter','ServerDataSe
     $scope.$watch('shipment.to_location',function(){
         if ($scope.shipment && $scope.shipment.to_location !== undefined){
             $scope.editing_to_location = false;
+            $scope.try_create_new_shipment();
         }
     });
     $scope.add_to_location_toggle = function(to_location){
         $scope.new_to_location_name = to_location;
         $("#add_to_location_modal").modal();
     };
-    $scope.edit_patient_toggle = function(name){
-        $("#add_patient_modal").modal();
+    $scope.edit_patient_toggle = function(){
+        $("#edit_patient_modal").modal();
     };
     $scope.to_location_search_config = {
         placeholder : "Clinic name, e.g. Nohana",
@@ -175,14 +176,6 @@ controller('TransferCtrl', ['$scope','$http','$location','$filter','ServerDataSe
         input_class : "to_location_input",
         add_results : true,
         add_result : $scope.add_to_location_toggle
-    };
-    $scope.district_search_config = {
-        placeholder : "District, e.g. Mafeteng",
-        url : "/api/v1/district/?format=json&order_by=name",
-        result_name : "district",
-        select_result: $scope.submit_district,
-        add_results : true,
-        add_result : $scope.add_district
     };
     $scope.patient_search_config = {
         placeholder : "Patient identifier or name, e.g. GLC2345",

@@ -1,0 +1,27 @@
+
+<!-- add to location modal -->
+<div class="modal" id="edit_location_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit location <strong>{{editing_location_name}}</strong></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" role="form">
+          <div class="form-group">
+            <label>Edit location: </label>
+            <input type="text" class="form-control input" ng-model="editinglocation.name"/>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-sm" ng-class="{active: editinglocation.location_type === 'S'}" ng-click="switch_type('S')">External</button>
+            <button class="btn btn-primary btn-sm" ng-class="{active: editinglocation.location_type === 'I'}" ng-click="switch_type('I')">Inventory</button>
+            <button class="btn btn-primary btn-sm" ng-class="{active: editinglocation.location_type === 'D'}" ng-click="switch_type('D')">Dispensary</button>
+        </div>
+            <button type="button" class="btn btn-primary" ng-click="submit_edit()">Submit</button>
+            <button type="button" class="btn btn-default"  data-dismiss="modal">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

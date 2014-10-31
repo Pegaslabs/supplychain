@@ -1,6 +1,6 @@
 angular.module('SupplyChainApp.ShipmentsCtrl', []).
-controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "UtilsService", 
-  function($scope, $http,$location,$routeParams,UtilsService) {
+controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "UtilsService", "ServerDataService",
+  function($scope, $http,$location,$routeParams,UtilsService,ServerDataService) {
 
     $scope.title = "Shipments";
     $scope.url = "/api/v1/shipment/?format=json&order_by=-date&order_by=-id&" + $location.url().split("?")[1];
@@ -13,6 +13,9 @@ controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "Uti
         $scope.tastypiemeta = data["meta"];
       }
     };
+    ServerDataService.get("location",$routeParams["location"]).then(function(data){
+      $scope.location = data;
+    });
 
     if ($routeParams["from_location__location_type"] === "S"){
       $scope.title = "Received " + $scope.title;
@@ -26,6 +29,11 @@ controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "Uti
     if ("location_name" in $routeParams){
       $scope.title = $routeParams["location_name"] + " - " + $scope.title;
     }
+
+    if ($routeParams["active"] === "false"){
+      $scope.title = $scope.title + " | Pending";
+    }
+
     $scope.download_filename = $scope.title;
 
     $scope.show_results = true;

@@ -1,0 +1,50 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+<div class="container ">
+  <div ng-hide="show_results" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+  </div>
+  <hr ng-hide="show_results"/>
+  <div ng-show="show_results">
+    <h3>{{shipment.from_location.name}} to {{shipment.to_location.name}}</h3>
+    <h4 class="left_margin"> on {{shipment.date | date: 'MMMM d, yyyy'}} | <a href="#/shipment/edit_{{receive_or_transfer}}?shipment={{shipment.id}}" class="edit_link">Edit</a> | <a target="_blank" href="/print/shipment/{{shipment.id}}/">Print</a> | <a target="_blank" href="/print/shipment/{{shipment.id}}/?internal_billing=true">Print Internal Billing</a></h4>
+    <br>
+    <div class="row left_margin"><strong>Shipment Id:</strong> {{shipment.name}}</div>
+    <div class="row left_margin" ng-hide="is_transfer"><strong>Shipment System Id:</strong> {{shipment.id}}</div>
+    <div class="row left_margin" ng-hide="dispense"><strong>Total value:</strong> {{shipment.price | number:2}}</div>
+    <div class="row left_margin"><strong>Number of Items:</strong> {{total_count}}</div>
+    <div class="row left_margin"><strong>Created by:</strong> {{shipment.user.username}}</div>
+    <div class="right" ng-if="stockchanges_pagination_config">
+        <ia-pagination pagination-config="stockchanges_pagination_config" loading="loading_stockchanges"></ia-pagination>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Item Category</th>
+          <th>Quantity</th>
+          <th>Expiration</th>
+          <th>Lot Num</th>
+          <th ng-hide="dispense">Unit Price</th>
+          <th ng-hide="dispense">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-show="stockchanges.length === 0  || stockchanges" ng-repeat="stockchange in stockchanges">
+          <td><a href="#/item/{{stockchange.itemlot.item.id}}">{{stockchange.itemlot.item.name}}</a></td>
+          <input type="hidden" class="hide" ng-model="itemlot.id"/>
+          <td class="small">{{stockchange.itemlot.item.category.name}}</td>
+          <td>{{stockchange.qty}}</td>
+          <td>{{stockchange.itemlot.expiration | date:'MMMM d, yyyy' }}</td>
+          <td>{{stockchange.itemlot.lot_num}}</td>
+          <td ng-hide="dispense">{{stockchange.itemlot.unit_price | number:2}}</td>
+          <td ng-hide="dispense">{{stockchange.qty * stockchange.itemlot.unit_price | number:2}} </td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-hide="stockchanges.length === 0 || stockchanges" class="progress progress-striped active">
+      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+  </div>
+
+</div>

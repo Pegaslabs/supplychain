@@ -1,0 +1,142 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+<div class="container ">
+
+  <div>
+    <h3 id="title"><span ng-hide="dispense">Transfer Shipment</span><span ng-show="dispense">Dispense Report</span> <span id="shipment_name" ng-show="shipment.name">-  {{shipment.name}} <span ng-show="shipment.id">| {{shipment.id}}</span></span></h3>
+    <div class="left_margin" ng-show="shipment.active">Editing an active shipment.</div>
+    <hr>
+  </div>
+
+  <div ng-hide="show_results" class="progress progress-striped active">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+  </div>
+  <div ng-show="show_results">
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="date" class="col-sm-2 control-label">Shipment Date: </label>
+        <div class="col-sm-10">
+          <input ng-show="editing_date" type="text" class="form-control input input_date" ng-blur="submit_date()" placeholder="dd/mm/yy" ng-model="shipment.date">
+          <div ng-show="bad_date" id="bad_date" class="text-danger">Invalid, date must be valid and in the format dd/mm/yy</div>
+          <p class="form-control-static" ng-hide="editing_date">
+            <span class="date_text">{{shipment.date |  date:'MMMM d, yyyy' }}</span>
+        | <a href id="change_date" ng-click="edit_date()">change</a>
+          </p>
+        </div>
+      </div>
+      <div class="form-group from_location">
+        <label for="from_location" class="col-sm-2 control-label">From Location: </label>
+        <div class="col-sm-10">
+          <span ng-show="editing_from_location"><ia-search-drop search-drop-config="from_location_search_config"></ia-search-drop></span>
+          <p class="form-control-static" ng-hide="editing_from_location">
+            <span class="from_location_text">{{shipment.from_location.name}}</span>
+         <a href id="change_from_location" ng-click="edit_from_Location()">change</a>
+          </p>
+        </div>
+      </div>
+      <div class="form-group to_location" ng-hide="dispense">
+        <label for="to_location" class="col-sm-2 control-label">To Location: </label>
+        <div class="col-sm-10">
+          <span ng-show="editing_to_location"><ia-search-drop search-drop-config="to_location_search_config"></ia-search-drop></span>
+          <p class="form-control-static" ng-hide="editing_to_location">
+            <span class="to_location_text">{{shipment.to_location.name}}</span> | 
+            <a href id="change_to_location" ng-click="edit_to_location()">change</a>
+          </p>
+        </div>
+      </div>
+      <div class="form-group" ng-show="dispense">
+        <label for="to_location" class="col-sm-2 control-label">Patient: </label>
+        <div class="col-sm-10">
+          <span ng-show="editing_to_location"><ia-search-drop search-drop-config="patient_search_config"></ia-search-drop></span>
+          <p class="form-control-static" ng-hide="editing_to_location">
+            {{shipment.to_location.name}} <span ng-show="patient"> | {{patient.name}}, {{patient.gender}}, {{patient.dob | date:'yyyy'}}, {{patient.district.name}}</span> |
+            <a href id="change_to_location" ng-click="edit_to_location()">switch patient</a> | 
+            <a href ng-click="edit_patient_toggle()">edit patient details</a>
+          </p>
+        </div>
+      </div>
+      <div class="form-group add_item" ng-show="shipment.id">
+        <label for="add_item" class="col-sm-2 control-label">Select items <span ng-hide="dispense">for shipment</span><span ng-show="dispense">to dispense</span>:</label>
+        <div class="col-sm-10">
+          <ia-search-drop search-drop-config="item_search_config"></ia-search-drop>
+        </div>
+      </div>
+      <div>
+        <div class="form-group" ng-if="items_pagination_config">
+          <div class="right">
+            <ia-pagination pagination-config="items_pagination_config" loading="loading_items"></ia-pagination>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Item Category</th>
+                <th>Lot Num</th>
+                <th>Expiration</th>
+                <th>Qty</th>
+                <th ng-hide="dispense">Value</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-hide="loading_items" ng-repeat="item in items | orderObjectBy:'name'">
+                <td>{{item.name}}</td>
+                <td class="small">{{item.category.name}}</td>
+                <td>
+                  <a ng-click="edit_item(item)" href ng-show="item.stockchanges.length > 1">Multiple</a>
+                  <span ng-show="item.stockchanges.length === 1">{{item.stockchanges[0]["itemlot"]["lot_num"]}}</span>
+                </td>
+                <td>
+                  <a href ng-click="edit_item(item)" ng-show="item.stockchanges.length > 1">Multiple</a>
+                  <span ng-show="item.stockchanges.length === 1">{{item.stockchanges[0]["itemlot"]["expiration"] | date:'MMMM d, yyyy'}}</span>
+                </td>
+                <td>{{item.qty}}</td>
+                <td ng-hide="dispense">{{item.price | number:2}} </td>
+                <td>
+                  <button ng-click="edit_item(item)" class="btn btn-default edit_item_btn">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div ng-show="loading_items" class="progress progress-striped active">
+            <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+          </div>
+        </div>
+        <div ng-hide="dispense" class="form-group" ng-show="items" >
+          <label for="total_items" class="col-sm-2 control-label">Total value of items: </label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              {{total_price | number:2}}
+            </p>
+          </div>
+        </div>
+        <div class="form-group" ng-show="items" >
+          <label for="total_items" class="col-sm-2 control-label">Total number of items: </label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              {{shipment.item_count}}
+            </p>
+          </div>
+        </div>
+        <hr>
+        <span ng-include src="'static/bots_angular/app/views/modals/delete_stockchange_confirm.html'"></span>
+        <span ng-hide="shipment.active">
+          <button class="btn btn-primary submit_shipment" data-toggle="modal" data-target="#confirm_shipment_modal" ng-show="items"><span ng-hide="dispense">Transfer</span><span ng-show="dispense">Submit</span></button>
+        </span>
+        <span ng-show="shipment.active">
+          <a ng-show="items" class="btn btn-primary" href="#/shipment/{{shipment.id}}/">Done Editing</a>
+        </span>
+        <button class="btn btn-default delete_shipment" data-toggle="modal" data-backdrop="false" data-target="#delete_shipment_modal" ng-show="items">Delete <span ng-hide="dispense">Shipment</span><span ng-show="dispense">Report</span></button>
+      </div>
+      <br>
+      <br>
+    </form>
+  </div>
+</div>
+
+<div edit-patient-directive patient-location="shipment.to_location"></div>
+<div ng-include src="'static/bots_angular/app/views/modals/add_to_location.html'"></div>
+<div ng-include src="'static/bots_angular/app/views/modals/edit_item_transfer.html'"></div>
+<div ng-include src="'static/bots_angular/app/views/modals/confirm_shipment.html'"></div>
+<div ng-include src="'static/bots_angular/app/views/modals/delete_shipment_confirm.html'"></div>

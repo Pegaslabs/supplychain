@@ -14,6 +14,7 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.TransactionsCtrl',
   'SupplyChainApp.ReportsCtrl',
   'SupplyChainApp.ItemCtrl',
+  'SupplyChainApp.IlpCtrl',
   'SupplyChainApp.LoginCtrl',
   'SupplyChainApp.ReceiveCtrl',
   'SupplyChainApp.TransferCtrl',
@@ -21,7 +22,11 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.UserPrefsService',
   'SupplyChainApp.ServerDataService',
   'SupplyChainApp.directives',
+  'SupplyChainApp.editItemDirective',
+  'SupplyChainApp.editLocationDirective',
+  'SupplyChainApp.iaDownloadDirective',
   'SupplyChainApp.editPatientDirective',
+  'SupplyChainApp.viewPatientDirective',
 ]);
 
 SupplyChainApp.run(function ($http, $cookies,$rootScope,$location) {
@@ -42,7 +47,7 @@ SupplyChainApp.run(function ($http, $cookies,$rootScope,$location) {
           $rootScope.userpreferences = data["objects"][0];
         }).error(function(data){
           // no logged user, we should be going to #login
-          if ( next.templateUrl == "static/bots_angular/app/partials/login.html" ) {
+          if ( next.templateUrl == "static/bots_angular/app/views/login.html" ) {
             // already going to #login, no redirect needed
           } else {
             // not going to #login, we should redirect now
@@ -57,45 +62,49 @@ SupplyChainApp.run(function ($http, $cookies,$rootScope,$location) {
 
 SupplyChainApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl: 'static/bots_angular/app/partials/home.html', 
+    templateUrl: 'static/bots_angular/app/views/home.html', 
     controller: 'HomeCtrl'
   });
   $routeProvider.when('/dash', {
-    templateUrl: 'static/bots_angular/app/partials/home.html', 
+    templateUrl: 'static/bots_angular/app/views/home.html', 
     controller: 'HomeCtrl'
   });
   $routeProvider.when('/login', {
-    templateUrl: 'static/bots_angular/app/partials/login.html', 
+    templateUrl: 'static/bots_angular/app/views/login.html', 
     controller: 'LoginCtrl'
   });
   $routeProvider.when('/shipments', {
-    templateUrl: 'static/bots_angular/app/partials/shipments.html', 
+    templateUrl: 'static/bots_angular/app/views/shipments.html', 
     controller: 'ShipmentsCtrl'
   });
   $routeProvider.when('/shipment/edit_receive', {
-    templateUrl: 'static/bots_angular/app/partials/edit_receive.html', 
+    templateUrl: 'static/bots_angular/app/views/edit_receive.html', 
     controller: 'ReceiveCtrl',
     reloadOnSearch: false
   });
   $routeProvider.when('/shipment/edit_transfer', {
-    templateUrl: 'static/bots_angular/app/partials/edit_transfer.html', 
+    templateUrl: 'static/bots_angular/app/views/edit_transfer.html', 
     controller: 'TransferCtrl'
   });
   $routeProvider.when('/transactions', {
-    templateUrl: 'static/bots_angular/app/partials/transactions.html', 
+    templateUrl: 'static/bots_angular/app/views/transactions.html', 
     controller: 'TransactionsCtrl'
   });
+  $routeProvider.when('/ilp', {
+    templateUrl: 'static/bots_angular/app/views/ilp.html', 
+    controller: 'IlpCtrl'
+  });
   $routeProvider.when('/shipment/:shipmentId', {
-    templateUrl: 'static/bots_angular/app/partials/shipment.html', 
+    templateUrl: 'static/bots_angular/app/views/shipment.html', 
     controller: 'ShipmentCtrl'
   });
   $routeProvider.when('/reports', {
-    templateUrl: 'static/bots_angular/app/partials/reports.html', 
+    templateUrl: 'static/bots_angular/app/views/reports.html', 
     controller: 'ReportsCtrl', 
     reloadOnSearch: false
   });
   $routeProvider.when('/item/:itemId', {
-    templateUrl: 'static/bots_angular/app/partials/item.html', 
+    templateUrl: 'static/bots_angular/app/views/item.html', 
     controller: 'ItemCtrl'
   });
 }]);

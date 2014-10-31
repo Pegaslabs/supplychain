@@ -113,12 +113,10 @@ factory('UtilsService', function () {
             // [inside here are windows/unix not safe filename chars] replace with ""
             a.download = filename.replace(/[\/:*?"<>|]/g,"") + ".xls";
             // var tsvString = rows.join("\n");
-            // console.log(tsvString);
             var tsv_rows = [];
             _.forEach(rows,function(row){
                 tsv_rows.push(row.join("\t"));
             });
-            // console.log(tsv_rows);
             var blob = new Blob([tsv_rows.join("\n")], { type: 'text/plain' });
             a.href = URL.createObjectURL(blob);
             a.target = '_blank';

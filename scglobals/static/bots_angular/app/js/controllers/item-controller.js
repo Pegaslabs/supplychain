@@ -12,7 +12,7 @@ controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location",
 		return dat;
 	}
 	// get today
-	var d = new Date().addDays(1);
+	var d = new Date();
 	var today = d.getFullYear() + "-" + (Number(d.getMonth()) + 1) + "-" + d.getDate();
 
 	var url = '/api/v1/item/' + $routeParams['itemId'] + "?format=json";
@@ -100,6 +100,17 @@ controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location",
 			})(i);
 		}
 	};
+
+
+	$scope.done_editing = function(){
+		// gotta be a better way to do this in angular
+		// window.location.reload();
+		$("#edit_item_modal").modal("hide");
+	};
+	$scope.edit_item = function(){
+		$("#edit_item_modal").modal();
+	};
+
 	$scope.paginate = function(page_num){
 		$scope.item_pagination_config = {
 			url : stockchanges_url,

@@ -78,6 +78,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 		add_result : $scope.add_from_location_toggle
 	};
 	$scope.submit_to_location = function(location){
+		$("#edit_location_modal").modal("hide");
 		$scope.shipment.to_location = location;
 		if ($scope.shipment.id){
 			var serialized_shipment = {
@@ -90,11 +91,10 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 			$scope.try_create_new_shipment();
 		}
 		$scope.editing_to_location = false;
-		$scope.show_to_location_query = false;
 	};
-	$scope.add_to_location_toggle = function(to_location){
-		$scope.new_to_location_name = to_location;
-		$("#add_to_location_modal").modal();
+	$scope.add_to_location_toggle = function(to_loc_name){
+		$scope.shipment.to_location = {'name': to_loc_name, 'location_type' : 'I'};
+		$("#edit_location_modal").modal();
 	};
 	$scope.to_location_search_config = {
 		placeholder : "Clinic name, e.g. Nohana",
@@ -105,10 +105,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 		add_results : true,
 		add_result : $scope.add_to_location_toggle
 	};
-
-
 	// **** Edit shipment details ****
-
 	$scope.submit_name = function(){
 		if($scope.shipment){
 			// submit edit
@@ -175,19 +172,6 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 
 	$scope.edit_to_location = function(){
 		$scope.editing_to_location = true;
-		$scope.to_location_q = "";
-	};
-
-	$scope.add_to_location = function(to_location_name,location_type){
-		if (to_location_name !== ""){
-			ServerDataService.save('location',{"name" : to_location_name, "location_type" : location_type}).then(function(data){
-				$scope.shipment.to_location = data;
-				$("#add_to_location_modal").modal("hide");
-				$scope.editing_to_location = false;
-				$scope.show_to_location_query = false;
-				$scope.try_create_new_shipment();
-			});
-		}
 	};
 
 	$scope.try_create_new_shipment = function(){
@@ -210,106 +194,65 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 
 	// **** Adding/editing items to shipment ****
 
-
 	$scope.add_item = function(item){
 		$scope.add_item_results = [];
 		$scope.show_item_query = false;
 		$scope.add_item_q = "";
 		$scope.editing_itemlot = {};
 		$scope.editing_itemlot.item = item;
+		$("#edit_item_modal").modal("hide");
 		$('#edit_itemlot_modal').modal();
 		$("#qty").focus();
-	};
-	$scope.create_item = function(new_item_name){
-		$scope.new_item = {};
-		$scope.new_item.name = new_item_name;
-		$scope.new_item.dispense_size = 1;
-		$('#add_item_modal').modal();
-	};
-	$scope.item_search_config = {
-		placeholder : "item name, e.g. Amoxicillin",
-		add_results : true,
-		add_result : $scope.create_item,
-		url : "/api/v1/item/?format=json&order_by=name_lower&limit=10",
-		result_name : "item",
-		input_class : "add_item_input",
-		select_result : $scope.add_item
-	};
-	$scope.select_category = function(category){
-		$scope.new_item.category = category;
-		$scope.show_category_query = false;
-	};
-	$scope.change_category = function(){
-		$scope.new_item.category = undefined;
-		$scope.show_category_query = true;
-	};
-	$scope.add_category = function(category_q){
-		if (category_q){
-			var category = {"name" : category_q};
-			ServerDataService.save('itemcategory',category).then(function(data){
-				$scope.new_item.category = data;
-				$scope.show_category_query = false;
-			});
-		}
-	};
-	$scope.category_search_config = {
-		placeholder : "Category name, e.g. Tables and capsules",
-		add_results : true,
-		add_result : $scope.add_category,
-		input_class : "category_search_input",
-		url : "/api/v1/itemcategory/?format=json&order_by=name&limit=10",
-		result_name : "category",
-		select_result : $scope.select_category
-	};
-	$scope.submit_new_item = function(){
-		if($scope.new_item && $scope.new_item.name && $scope.new_item.category){
-			var serialized_item = {
-				"name" : $scope.new_item.name,
-				"category" : {"id" : $scope.new_item.category.id},
-				"dispense_size" : $scope.new_item.dispense_size,
-			};
-			ServerDataService.save('item',serialized_item).then(function(data){
-				$scope.new_item = data;
-				$scope.show_category_query = false;
-				$scope.add_item($scope.new_item);
-				$("#add_item_modal").modal("hide");
-				$($('.add_item_input')[0]).focus();
-			});
-		}
-	};
-	$scope.check_affected = function(itemlot){
-		if ($scope.shipment.active && itemlot.id){
-			$scope.show_affected = false;
-			$http.get("/api/v1/stockchange/?format=json&limit=5&order_by=-date&itemlot=" +  itemlot.id).success(function(data){
-				var total_count = data["meta"]["total_count"];
-				$scope.affected_stockchanges = [];
-				for (counter in data["objects"]){
-					if (data["objects"][counter].shipment !==itemlot.shipment){
-						$scope.affected_stockchanges.push(data["objects"][counter]);
-					}
-					else{
-						total_count -= 1;
-					}
-				}
-				$scope.affected_stockchanges_total_count = total_count;
-				if ($scope.affected_stockchanges_total_count === 0){
-					$scope.affected_stockchanges.push({});
-				}
-				$scope.show_affected = true;
-			});
-		}
-	};
-	$scope.edit_itemlot = function(itemlot){
-		$("#qty").focus();
-		$scope.check_affected(itemlot);
-		$scope.editing_itemlot = itemlot;
-		$scope.editing_itemlot.curr_qty = itemlot.qty;
-		if ($scope.editing_itemlot.expiration){
-			$scope.editing_itemlot.expiration = $filter('date')($scope.editing_itemlot.expiration, "dd/MM/yy");
-		}
-		$('#edit_itemlot_modal').modal();
-	};
-	$scope.submit_edit = function(itemlot){
+        // $($('.add_item_input')[0]).focus();
+    };
+    $scope.create_item = function(edit_item_name){
+    	$scope.edit_item = {};
+    	$scope.edit_item.name = edit_item_name;
+    	$scope.edit_item.dispense_size = 1;
+    	$('#edit_item_modal').modal();
+    };
+    $scope.item_search_config = {
+    	placeholder : "item name, e.g. Amoxicillin",
+    	add_results : true,
+    	add_result : $scope.create_item,
+    	url : "/api/v1/item/?format=json&order_by=name_lower&limit=10",
+    	result_name : "item",
+    	input_class : "add_item_input",
+    	select_result : $scope.add_item
+    };
+    $scope.check_affected = function(itemlot){
+    	if ($scope.shipment.active && itemlot.id){
+    		$scope.show_affected = false;
+    		$http.get("/api/v1/stockchange/?format=json&limit=5&order_by=-date&itemlot=" +  itemlot.id).success(function(data){
+    			var total_count = data["meta"]["total_count"];
+    			$scope.affected_stockchanges = [];
+    			for (counter in data["objects"]){
+    				if (data["objects"][counter].shipment !==itemlot.shipment){
+    					$scope.affected_stockchanges.push(data["objects"][counter]);
+    				}
+    				else{
+    					total_count -= 1;
+    				}
+    			}
+    			$scope.affected_stockchanges_total_count = total_count;
+    			if ($scope.affected_stockchanges_total_count === 0){
+    				$scope.affected_stockchanges.push({});
+    			}
+    			$scope.show_affected = true;
+    		});
+    	}
+    };
+    $scope.edit_itemlot = function(itemlot){
+    	$("#qty").focus();
+    	$scope.check_affected(itemlot);
+    	$scope.editing_itemlot = itemlot;
+    	$scope.editing_itemlot.curr_qty = itemlot.qty;
+    	if ($scope.editing_itemlot.expiration){
+    		$scope.editing_itemlot.expiration = $filter('date')($scope.editing_itemlot.expiration, "dd/MM/yy");
+    	}
+    	$('#edit_itemlot_modal').modal();
+    };
+    $scope.submit_edit = function(itemlot){
 		// validate required
 		itemlot.invalid_qty = !isNumeric(itemlot.qty) || itemlot.qty <= 0;
 		// validate not required
@@ -342,9 +285,29 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 			};
 			ServerDataService.save('itemlot',serialized_itemlot).then(function(data){
 				itemlot = data;
+				ServerDataService.list('stockchange',{'itemlot' : itemlot.id}).then(function(data){
+					if (data.objects.length > 0){
+						_.forEach(data.objects,function(sc){
+							if (sc.qty > 0){
+								sc.qty = itemlot.qty;
+								ServerDataService.update('stockchange',sc);
+							}
+						});
+					}else{
+						var sc_pos = {
+							"change_type" : "T",
+							"itemlot" : "/api/v1/itemlot/" + itemlot.id + "/",
+							"shipment" : "/api/v1/shipment/" + $scope.shipment.id + "/",
+							"location" : "/api/v1/location/" + $scope.shipment.to_location.id + "/",
+							"date" : $scope.shipment.date,
+							"qty" : itemlot.qty
+						};
+						ServerDataService.save('stockchange',sc_pos);
+					}
+				});
 				$('#edit_itemlot_modal').modal("hide");
 				$('.add_item_input').val("");
-                $('.add_item_input').focus();
+				$('.add_item_input').focus();
 				if (new_item_lot){
 					// new page? (new shipment, page hasn't been reloaded)
 					if (!$scope.pagination_data){
@@ -435,9 +398,9 @@ $scope.delete_shipment = function(){
 
 Date.prototype.addDays = function(days)
 {
-    var dat = new Date(this.valueOf());
-    dat.setDate(dat.getDate() + days);
-    return dat;
+	var dat = new Date(this.valueOf());
+	dat.setDate(dat.getDate() + days);
+	return dat;
 }
 var isNumeric = function (n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);

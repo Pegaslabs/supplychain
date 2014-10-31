@@ -1,0 +1,10 @@
+<div>
+	<strong>Patient details <a href ng-click="edit_patient_toggle()">(edit)</a></strong>
+	<div><strong>Name:</strong> {{patient.name}}</div>
+	<div><strong>Identifier:</strong> {{patient.identifier}}</div>
+	<div><strong>DOB:</strong> {{patient.dob |  date:'MMMM d, yyyy' }}</div>
+	<div><strong>Gender:</strong> {{patient.gender}}</div>
+	<div><strong>District:</strong> {{patient.district.name}}</div>
+</div>
+
+<div edit-patient-directive patient-location="patientLocation" patient="patient">why no happn</div>

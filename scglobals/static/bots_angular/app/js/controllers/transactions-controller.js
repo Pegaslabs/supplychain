@@ -28,7 +28,6 @@ controller('TransactionsCtrl',[
     //             return first + second[12];
     //         },acc);
     //         $scope.total_val = sum;
-    //         console.log(sum);
     //     };
     // };
     }

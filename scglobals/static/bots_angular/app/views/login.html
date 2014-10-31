@@ -1,0 +1,19 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+
+
+<div class="container ">
+    <h3>Inventory Management Log on</h3>
+    <form role="form">
+      <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" tabindex="1" placeholder="" ng-model="user.username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password"  tabindex="2" placeholder="" ng-model="user.password">
+          <div ng-show="user_pass_wrong" class="text-danger user_pass_wrong">Username or password is incorrect.</div>
+          <div ng-show="user_pass_missing" class="text-danger user_pass_missing">Please enter your username & password.</div>
+    </div>
+    <button type="submit" class="btn btn-default log-in-submit" tabindex="3" ng-click="login(user)">Submit</button>
+</form>
+</div>

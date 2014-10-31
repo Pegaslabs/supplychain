@@ -42,15 +42,15 @@ class ItemCategoryResource(ModelResource):
         return super(ItemCategoryResource,self).obj_create(bundle, **kwargs)  
 
 class ItemResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+    user = fields.ForeignKey(UserResource, 'user',full=True)
     category = fields.ForeignKey(ItemCategoryResource, 'category',full=True)
     class Meta:
         queryset = Item.objects.all()
         always_return_data = True
         resource_name = 'item'
-        filtering = {'alias' : ALL, 'name' : ALL, 'name_lower' : ALL, 'category' : ALL}
-        excludes = ['modified','created']
-        ordering = {'name' : ALL, 'name_lower' : ALL, 'category' : ALL}
+        filtering = {'alias' : ALL, 'name' : ALL, 'name_lower' : ALL, 'category' : ALL, 'created' : ALL}
+        excludes = ['modified']
+        ordering = {'name' : ALL, 'name_lower' : ALL, 'category' : ALL, "created" : ALL}
         authorization= Authorization()
         authentication = SessionAuthentication()
     def dehydrate(self, bundle):
@@ -123,15 +123,15 @@ class ItemResource(ModelResource):
         return super(ItemResource,self).obj_create(bundle, **kwargs)  
 
 class LocationResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+    user = fields.ForeignKey(UserResource, 'user',full=True)
     # patient = fields.ForeignKey('inventory.api.PatientResource','patient',blank=True,null=True)
     class Meta:
         queryset = Location.objects.all()
         always_return_data = True
         resource_name = 'location'
         filtering = {'location_type' : ALL_WITH_RELATIONS, 'name' : ALL, 'id' : ALL}
-        ordering = {'name' : ALL}
-        excludes = ['modified','created']
+        ordering = {'name' : ALL, 'created' : ALL}
+        excludes = ['modified']
         authorization= Authorization()
         authentication = SessionAuthentication()
     def build_filters(self, filters=None):
@@ -274,20 +274,6 @@ class ItemLotResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
         bundle = super(ItemLotResource,self).obj_create(bundle, **kwargs)
-        if bundle.obj.qty != 0:
-            # existing
-            try:
-                sc = StockChange.objects.filter(itemlot=bundle.obj).order_by('id')[0]
-                sc.qty=bundle.obj.qty
-                sc.active=bundle.obj.active
-                sc.user=bundle.request.user
-                sc.location=bundle.obj.shipment.to_location
-                sc.date=bundle.obj.shipment.date
-                sc.save()
-            except IndexError:
-                StockChange(qty=bundle.obj.qty,user=bundle.request.user,
-                    location=bundle.obj.shipment.to_location,date=bundle.obj.shipment.date,
-                    shipment=bundle.obj.shipment,itemlot=bundle.obj,change_type="R").save()
         return bundle
     def get_object_list(self, request):
         l = super(ItemLotResource, self).get_object_list(request)
@@ -348,29 +334,27 @@ class StockChangeResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         bundle.data["user"] = {"id" : bundle.request.user.id}
         bundle = super(StockChangeResource,self).obj_create(bundle, **kwargs)
-        if bundle.obj.shipment.shipment_type == "T":
-            StockChange(qty=(0-int(bundle.obj.qty)),user=bundle.request.user,
-                location=bundle.obj.shipment.from_location,date=bundle.obj.shipment.date,
-                shipment=bundle.obj.shipment,itemlot=bundle.obj.itemlot,change_type="T").save()
-            # translate dispense size: 10 items w/ dispense_size 50 = 500 items
-            if bundle.obj.shipment.to_location.location_type=="D" and bundle.obj.shipment.from_location.location_type=="I":
-                if bundle.obj.itemlot.item.dispense_size:
-                    bundle.obj.qty = bundle.obj.qty * bundle.obj.itemlot.item.dispense_size
-                    bundle.obj.save()
-            if bundle.obj.shipment.to_location.location_type=="I" and bundle.obj.shipment.from_location.location_type=="D":
-                if bundle.obj.itemlot.item.dispense_size:
-                    bundle.obj.qty = bundle.obj.qty / bundle.obj.itemlot.item.dispense_size
-                    bundle.obj.save()
+        StockChange(qty=(0-int(bundle.obj.qty)),user=bundle.request.user,
+            location=bundle.obj.shipment.from_location,date=bundle.obj.shipment.date,
+            shipment=bundle.obj.shipment,itemlot=bundle.obj.itemlot,change_type="T").save()
+        # translate dispense size: 10 items w/ dispense_size 50 = 500 items
+        if bundle.obj.shipment.to_location.location_type=="D" and bundle.obj.shipment.from_location.location_type=="I":
+            if bundle.obj.itemlot.item.dispense_size:
+                bundle.obj.qty = bundle.obj.qty * bundle.obj.itemlot.item.dispense_size
+                bundle.obj.save()
+        if bundle.obj.shipment.to_location.location_type=="I" and bundle.obj.shipment.from_location.location_type=="D":
+            if bundle.obj.itemlot.item.dispense_size:
+                bundle.obj.qty = bundle.obj.qty / bundle.obj.itemlot.item.dispense_size
+                bundle.obj.save()
         return bundle
     def obj_update(self, bundle, **kwargs):
         bundle = super(StockChangeResource,self).obj_update(bundle, **kwargs)
-        if bundle.obj.shipment.shipment_type == "T":
-            sc = StockChange.objects.filter(shipment=bundle.obj.shipment,itemlot=bundle.obj.itemlot).order_by('qty')[0]
-            sc.qty = 0 - int(bundle.obj.qty)
-            sc.active=bundle.obj.active
-            sc.location=bundle.obj.shipment.from_location
-            sc.date=bundle.obj.shipment.date
-            sc.save()
+        sc = StockChange.objects.filter(shipment=bundle.obj.shipment,itemlot=bundle.obj.itemlot).order_by('qty')[0]
+        sc.qty = 0 - int(bundle.obj.qty)
+        sc.active=bundle.obj.active
+        sc.location=bundle.obj.shipment.from_location
+        sc.date=bundle.obj.shipment.date
+        sc.save()
         if bundle.obj.shipment.to_location.location_type=="D" and bundle.obj.shipment.from_location.location_type=="I":
             if bundle.obj.itemlot.item.dispense_size:
                 bundle.obj.qty = bundle.obj.qty * bundle.obj.itemlot.item.dispense_size
@@ -404,13 +388,14 @@ class DistrictResource(ModelResource):
 class PatientResource(ModelResource):
     district = fields.ForeignKey(DistrictResource,'district',full=True,blank=True,null=True)
     location = fields.ForeignKey(LocationResource,'location',full=True,blank=True,null=True)
-    user = fields.ForeignKey(UserResource, 'user')
+    user = fields.ForeignKey(UserResource, 'user',full=True)
     class Meta:
         queryset = Patient.objects.all()
         always_return_data = True
         filtering = {'name' : ALL,'identifier' : ALL,'location' : ALL_WITH_RELATIONS}
+        ordering = {'created' : ALL}
         resource_name = 'patient'
-        excludes = ['modified','created']
+        excludes = ['modified']
         authorization= Authorization()
         authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):

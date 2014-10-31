@@ -2,11 +2,16 @@
 
 ## 2.1.2 -- 2014 Oct 10
 
+#### improvements
+- patients now have names stored on location table only, identifier is not mandatory, search searches both
+- patients can be edited from "shipments" page
+
 #### housekeeping
 - renamed InventoryApp to SupplyChainApp, changed the whole project to just "supplychain" 
-- reduced folders, unused files
+- removed all sorts of unused folders, unused files
 
 #### bug
+ - patient location was getting added twice
  - expiration reports have this challenge where in the future, you can search for item lots that have qty at a location at the end of the date query range, and that have an expiration in the range. But in the past, they all return zero at the end, because they've all been moved to "expired". So to remedy, the expirations query now searches for items moved to the expired location (27 id, hard coded) and "adds" them to the regular quantities.
  - locations=blank is now locations=1 hardcoded for now (no one else is supposed to be using this other than CP)
  - switched order of delete & submit buttons on shipments for khauhelo's "delete on enter" bug 

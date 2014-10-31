@@ -11,7 +11,7 @@ directive('iaSearchDrop',
 		scope: {
 			"searchDropConfig" : "="
 		},
-		templateUrl: 'static/bots_angular/app/partials/directives/search_drop.html',
+		templateUrl: 'static/bots_angular/app/views/directives/search_drop.html',
 		replace: true,
 		link: function(scope, element, attrs) {
 			if (scope.searchDropConfig.select_result){
@@ -75,7 +75,7 @@ directive('iaPagination', ['$http', function($http) {
 			"paginationConfig" : "=",
 			"loading" : "="
 		},
-		templateUrl: 'static/bots_angular/app/partials/directives/pagination.html',
+		templateUrl: 'static/bots_angular/app/views/directives/pagination.html',
 		replace: true,
 		link: function(scope, element, attrs) {
 			scope.pageConfig = {};

@@ -27,10 +27,10 @@ controller('GlobalCtrl', [
     			$location.path("/shipment/" + item.id + "/").search({});
     		}
             else if (item.resource_type === "Patient"){
-    			$location.path("/shipments/").search({"location" : item.id,"location_name" : item.name});
+    			$location.path("/shipments/").search({"location" : item.id,"location_name" : item.name,"active" : "true"});
     		}
             else{
-    			$location.path("/shipments/").search({"location" : item.id, "location_name" : item.name});
+    			$location.path("/shipments/").search({"location" : item.id, "location_name" : item.name,"active" : "true"});
     		}
     	}
     	$scope.item_search_config = {
