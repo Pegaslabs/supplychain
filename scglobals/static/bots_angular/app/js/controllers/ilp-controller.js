@@ -36,7 +36,7 @@ controller('IlpCtrl', [
 
 		$scope.locations_pagination_config = {
 		  itemsPerPage : 30,
-		  url : "/api/v1/location/?format=json&order_by=-name&order_by=-created&location_type__in=I,D,S,V",
+		  url : "/api/v1/location/?format=json&order_by=-created&location_type__in=I,D,S,V",
 
 		  callback : function(data){
 		    $scope.locations = data["objects"];
