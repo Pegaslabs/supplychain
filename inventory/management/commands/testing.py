@@ -5,7 +5,8 @@ from inventory.models import Item, ItemLot, StockChange, Shipment, Location, Ite
 from django.db.models import Sum
 
 class Command(BaseCommand):
-    item = Item.objects.get(id=556)
-    item.dispense_size = 60
-    item.save()
-
+    # item = Item.objects.get(id=374)
+    itemlots = ItemLot.objects.filter(item__id=372)
+    l = Location.objects.get(id=1)
+    for i in itemlots:
+    	print i.unit_price,"\t",i.soh(l,"2014-10-31")

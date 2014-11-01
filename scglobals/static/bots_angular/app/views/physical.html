@@ -1,0 +1,60 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+<div class="container">
+	<div>
+		<h4>Submit Physical Inventory</h4>
+		<hr>
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="date" class="col-sm-2 control-label">Physical Inventory Date: </label>
+				<div class="col-sm-10">
+					<input ng-show="editing_date" type="text" class="form-control input input_date" ng-blur="submit_date()" placeholder="dd/mm/yy" ng-model="date">
+					<div ng-show="bad_date" id="bad_date" class="text-danger">Invalid, date must be valid and in the format dd/mm/yy</div>
+					<p class="form-control-static" ng-hide="editing_date">
+						<span class="date_text">{{date |  date:'MMMM d, yyyy' }}</span>
+						| <a href id="change_date" ng-click="edit_date()">change</a>
+					</p>
+				</div>
+			</div>
+			<div class="form-group from_location">
+				<label for="from_location" class="col-sm-2 control-label">At Location: </label>
+				<div class="col-sm-10">
+					<span ng-show="editing_location"><ia-search-drop search-drop-config="location_search_config"></ia-search-drop></span>
+					<p class="form-control-static" ng-hide="editing_location">
+						<span class="from_location_text">{{location.name}}</span>
+						<a href id="change_from_location" ng-click="edit_Location()">change</a>
+					</p>
+				</div>
+			</div>
+		</form>
+		<hr>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Item Category</th>
+					<th>ItemLot System ID</th>
+					<th>Expiration</th>
+					<th>ItemLot Number</th>
+					<!-- <th>Transactions</th> -->
+					<th>Quantity</th>
+					<!-- <th>Unit Price</th> -->
+					<!-- <th>Total Value</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in report_rows">
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
+					<td class="small">{{row[2]}}</td>
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}&itemlot={{row[3]}}">{{row[3]}}</a></td>
+					<td>{{row[4]}}</td>
+					<td>{{row[5]}}</td>
+					<!-- <td>{{row[6]}}</td> -->
+					<td>{{row[7]}}</td>
+					<!-- <td>{{row[8] | number:2}}</td> -->
+					<!-- <td>{{row[7] * row[8] | number:2}}</td> -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

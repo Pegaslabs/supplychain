@@ -18,6 +18,7 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.LoginCtrl',
   'SupplyChainApp.ReceiveCtrl',
   'SupplyChainApp.TransferCtrl',
+  'SupplyChainApp.PhysicalCtrl',
   'SupplyChainApp.UtilsService',
   'SupplyChainApp.UserPrefsService',
   'SupplyChainApp.ServerDataService',
@@ -101,6 +102,11 @@ SupplyChainApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/reports', {
     templateUrl: 'static/bots_angular/app/views/reports.html', 
     controller: 'ReportsCtrl', 
+    reloadOnSearch: false
+  });
+  $routeProvider.when('/physical', {
+    templateUrl: 'static/bots_angular/app/views/physical.html', 
+    controller: 'PhysicalCtrl', 
     reloadOnSearch: false
   });
   $routeProvider.when('/item/:itemId', {
