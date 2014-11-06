@@ -7,6 +7,7 @@ bugs (in priority)
 -dates are wrong for same day inventory
 -edit patient on Shipment page requires reloading to see changes
 -make an item 0 on an existing shipment, leaves the zero there
+-allow virtual location on location edit
 
 patient tasks (in priority)
 -patient search needs to show name, age, gender

@@ -6,7 +6,7 @@ from datetime import timedelta,datetime
 from django.utils import timezone
 from django.http import Http404
 from tastypie.resources import ModelResource,Resource
-from inventory.models import Item,ItemCategory,ItemAttribute,ItemLotAttribute,ItemLot,StockChange,Shipment,Location,District,Patient
+from inventory.models import Item,ItemCategory,ItemAttribute,ItemLotAttribute,ItemLot,StockChange,Shipment,Location,District,Patient,PhysicalInventory
 from accounts.models import UserPreferences
 from django.db.models import Sum
 from django.contrib.auth.models import User
@@ -460,3 +460,19 @@ class SearchResource(Resource):
 
     def obj_get_list(self, bundle, **kwargs):
         return self.get_object_list(bundle, **kwargs)
+
+class PhysicalInventoryResource(ModelResource):
+    location = fields.ForeignKey(LocationResource, 'location',full=True)
+    debits_shipment = fields.ForeignKey(ShipmentResource,'debits_shipment',full=True)
+    credits_shipment = fields.ForeignKey(ShipmentResource,'credits_shipment',full=True)
+    user = fields.ForeignKey(UserResource, 'user',full=True)
+    class Meta:
+        queryset = PhysicalInventory.objects.all()
+        always_return_data = True
+        resource_name = 'physicalinventory'
+        filtering = {'username' : ALL}
+        authorization= Authorization()
+        authentication = SessionAuthentication()
+    def obj_create(self, bundle, **kwargs):
+        bundle.data['user'] = {"id" : bundle.request.user.id}
+        return super(PhysicalInventoryResource,self).obj_create(bundle, **kwargs)

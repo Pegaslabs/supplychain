@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, DetailView
-from inventory.api import UserResource,ItemCategoryResource,ItemResource,LocationResource,ShipmentResource,ItemLotResource,ItemLotAttributeResource,StockChangeResource,UserPreferencesResource,PatientResource,DistrictResource,SearchResource
+from inventory.api import UserResource,ItemCategoryResource,ItemResource,LocationResource,ShipmentResource,ItemLotResource,ItemLotAttributeResource,StockChangeResource,UserPreferencesResource,PatientResource,DistrictResource,SearchResource,PhysicalInventoryResource
 from tastypie.api import Api
 
 # Uncomment the next two lines to enable the admin:
@@ -20,6 +20,7 @@ v1_api.register(StockChangeResource())
 v1_api.register(PatientResource())
 v1_api.register(DistrictResource())
 v1_api.register(SearchResource())
+v1_api.register(PhysicalInventoryResource())
 
 urlpatterns = patterns('',
 

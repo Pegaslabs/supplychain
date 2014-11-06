@@ -407,3 +407,22 @@ class Patient(models.Model):
             self.created = timezone.now()
         self.modified = timezone.now()
         super(Patient, self).save(*args, **kwargs)
+
+class PhysicalInventory(models.Model):
+    def __unicode__(self):
+        return self.location.name + ": Physical Inventory " + str(self.date)
+    location = models.ForeignKey('Location')
+    date = models.DateTimeField(default=timezone.now)
+    debits_shipment = models.ForeignKey('Shipment',related_name='debits_shipment')
+    credits_shipment = models.ForeignKey('Shipment',related_name='credits_shipment')
+    line_items = models.TextField()
+
+    created = models.DateTimeField(editable=False,null=True)
+    modified = models.DateTimeField(null=True)
+    user = models.ForeignKey(User)
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.created:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        super(PhysicalInventory, self).save(*args, **kwargs)

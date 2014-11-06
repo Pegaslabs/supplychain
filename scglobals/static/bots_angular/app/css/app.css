@@ -104,3 +104,8 @@ color: #31708f;
 }
 
 .filter_controls .location_input_directive{width:80%;}
+
+.well_overflow{
+  overflow:scroll;
+  max-height:300px;
+}

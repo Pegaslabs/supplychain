@@ -31,9 +31,7 @@ controller('PhysicalCtrl', [
 		$scope.submit_location = function(location){
 			$scope.location=location;
 			$scope.editing_location = false;
-			$http.get("/report.json?location=" + $scope.location.id + "&category=&report_type=Inventory&itemlot_level=true&date=" +$filter('date')($scope.date, "yyyy-MM-dd")).then(function(data){
-				$scope.report_rows = data.data;
-			});
+			$("#confirm_physical_modal").modal();
 		};
 
 		$scope.edit_Location = function(){
@@ -46,4 +44,60 @@ controller('PhysicalCtrl', [
 			result_name : "location",
 			select_result: $scope.submit_location
 		};
+
+		var create_physical = function(){
+			var debits_shipment = {
+				"date" : $scope.date,
+				"to_location" : "/api/v1/location/" + $scope.virtual_location.id + "/",
+				"from_location" : "/api/v1/location/" + $scope.location.id + "/",
+				"shipment_type" : "T",
+			};
+			var credits_shipment = {
+				"date" : $scope.date,
+				"to_location" : "/api/v1/location/" + $scope.location.id + "/",
+				"from_location" : "/api/v1/location/" + $scope.virtual_location.id + "/",
+				"shipment_type" : "R",
+			};
+			ServerDataService.update('shipment',{'objects' : [debits_shipment,credits_shipment]}).then(function(data){
+				// need to find which is which from the response
+				if (data.objects[0].to_location.name === $scope.virtual_location.name){
+					$scope.debits_shipment = data.objects[0];
+					$scope.credits_shipment = data.objects[1];
+				}
+				else{
+					$scope.debits_shipment = data.objects[1];
+					$scope.credits_shipment = data.objects[0];
+				}
+				var physicalinventory = {
+					'location' : "/api/v1/location/" + $scope.location.id + "/",
+					'date' : $scope.date,
+					'debits_shipment' : "/api/v1/shipment/" + $scope.debits_shipment.id + "/",
+					'credits_shipment' : "/api/v1/shipment/" + $scope.credits_shipment.id + "/"
+				};
+				ServerDataService.save('physicalinventory',physicalinventory).then(function(data){
+					$location.path('/edit-physical/').search("physicalinventory", data.id);
+				});
+			});
+		};
+
+		$scope.confirm_physical = function(){
+			$("#confirm_physical_modal").modal("hide");
+			var virtual_location = {
+				'location_type' : 'V',
+				'name' : $scope.location.name + " Stock Count"
+			};
+			ServerDataService.list('location',{"name" : virtual_location.name}).then(function(data){
+				if (data.objects.length > 0){
+					$scope.virtual_location = data.objects[0];
+					create_physical();
+				}
+				else{
+					ServerDataService.save('location',virtual_location).then(function(data){
+						$scope.virtual_location = data;
+						create_physical();
+					});
+				}
+			});
+		};
+
 	}]);

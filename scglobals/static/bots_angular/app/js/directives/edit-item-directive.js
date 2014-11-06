@@ -35,7 +35,6 @@ directive('editItemDirective',
           select_result : $scope.select_category
         };
         $scope.submit_item = function(){
-          console.log($scope.editingitem);
           if($scope.editingitem && $scope.editingitem.name && $scope.editingitem.category){
             var serialized_item = {
               "name" : $scope.editingitem.name,

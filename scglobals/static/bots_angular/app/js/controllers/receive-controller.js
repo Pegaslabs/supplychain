@@ -98,7 +98,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 	};
 	$scope.to_location_search_config = {
 		placeholder : "Clinic name, e.g. Nohana",
-		url : "/api/v1/location/?format=json&order_by=name&location_type__in=I",
+		url : "/api/v1/location/?format=json&order_by=name",
 		result_name : "location",
 		select_result: $scope.submit_to_location,
 		input_class : "to_location_input",

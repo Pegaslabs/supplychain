@@ -1,0 +1,82 @@
+<div ng-include src="'static/bots_angular/app/views/header.html'"></div>
+<div class="container">
+	<div>
+		<h4>Edit Physical Inventory at {{pi.location.name}} on {{pi.date |  date:'MMMM d, yyyy' }} </h4>
+		<hr>
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Select item:</label>
+				<div class="col-sm-10">
+					<ia-search-drop search-drop-config="item_search_config"></ia-search-drop>
+				</div>
+			</div>
+            <hr>
+			<div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Editing item:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{editing_itemlot.item.name}} -- {{editing_itemlot.item.category.name}}</p>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Expiration</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control input expiration" ng-model="editing_itemlot.expiration">
+						<div ng-show="bad_date" id="bad_date" class="text-danger">Invalid, date must be valid and in the format dd/mm/yy</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Qty</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control input" ng-model="editing_itemlot.qty">
+					</div>
+				</div>
+                <button type="button" ng-click="add_itemlot(editing_itemlot)" class="btn btn-xs" >Confirm</button>
+			</div>
+		</form>
+		<hr> 
+        <div ng-repeat="itemlot in itemlots track by $index">
+            {{itemlot.item.name}} | {{itemlot.item.category.name}} | {{itemlot.expiration | date: 'dd/MM/yy'}} |  {{itemlot.qty}} | <a href ng-click="edit_itemlot(itemlot)">edit</a> | <a href ng-click="show_remove = true;">remove</a> <span ng-show="show_remove"> | confirm remove: <a href ng-click="remove_itemlot(itemlot)">yes</a> | <a ng-click="show_remove=false;" href>cancel</a>
+        </div>
+	</div>
+	<br>
+	<button class="btn btn-primary btn-sm" ng-click="submit_stockcount()">Submit Stock Count</button> 
+	<hr>
+
+	<div ng-show="show_results">
+		Item batches being deducted: {{removal_scs.length}}
+		<div class="well well_overflow">
+			<div ng-repeat="sc in removal_scs">
+		         {{sc.item.name}} | {{sc.item.category.name}} | {{sc.expiration | date: 'dd/MM/yy'}} | {{sc.qty}}
+			</div>
+		</div>
+		Item batches being increased: {{editable_itemlot_credits.length}}
+		<div class="well well_overflow">
+			<div ng-repeat="sc in editable_itemlot_credits">
+		         {{sc.item.name}} | {{sc.item.category.name}} | {{sc.expiration | date: 'dd/MM/yy'}} | {{sc.qty}}
+			</div>
+		</div>
+		Item batches being added: {{new_itemlots.length}}
+		<div class="well well_overflow">
+			<div ng-repeat="sc in new_itemlots">
+		         {{sc.item.name}} | {{sc.item.category.name}} | {{sc.expiration | date: 'dd/MM/yy'}} | {{sc.qty}}
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="submit_corrections()">Make Corrections (cannot be undone)</button>
+		<div ng-show="running_updates">
+			<br>
+			Updating stock count, this can take 20 minutes. Please do not close your browser window.
+			<br>
+			<div class="progress progress-striped active">
+			    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%"></div>
+			</div>
+		</div>
+		<div ng-show="updates_complete">
+			Updates complete. Debits & credits shipments created: <br>
+			<a href="#/shipment/{{pi.debits_shipment.id}}">Debits Shipment from {{pi.debits_shipment.from_location.name}} to {{pi.debits_shipment.to_location.name}}</a><br>
+			<a href="#/shipment/{{pi.credits_shipment.id}}">Credits Shipment from {{pi.credits_shipment.from_location.name}} to {{pi.credits_shipment.to_location.name}}</a>
+		</div>
+	</div>
+	<br><br><br><br><br><br>
+</div>
+<div edit-item-directive editingitem="edit_item" callback="new_item_submitted"></div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from inventory.models import Item, ItemCategory, ItemAttribute, ItemLot, ItemLotAttribute, StockChange, Shipment, Location, District, Patient
+from inventory.models import Item, ItemCategory, ItemAttribute, ItemLot, ItemLotAttribute, StockChange, Shipment, Location, District, Patient, PhysicalInventory
 
 class ItemAdmin(admin.ModelAdmin):
 	fields = ['name', 'dispense_size',  'modified', 'category', 'user']
@@ -19,9 +19,11 @@ class ShipmentAdmin(admin.ModelAdmin):
 class LocationAdmin(admin.ModelAdmin):
 	fields = ['name', 'location_type',  'modified', 'user']
 class DistrictAdmin(admin.ModelAdmin):
-  fields = ['name',  'modified', 'user']
+    fields = ['name',  'modified', 'user']
 class PatientAdmin(admin.ModelAdmin):
-  fields = ['identifier', 'district', 'dob', 'gender', 'location',  'modified', 'user']
+    fields = ['identifier', 'district', 'dob', 'gender', 'location',  'modified', 'user']
+class PhysicalInventoryAdmin(admin.ModelAdmin):
+	fields = ['location', 'date', 'debits_shipment', 'credits_shipment', 'modified', 'user','line_items']
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(ItemCategory, ItemCategoryAdmin)
@@ -33,3 +35,4 @@ admin.site.register(Shipment, ShipmentAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(District, DistrictAdmin)
 admin.site.register(Patient, PatientAdmin)
+admin.site.register(PhysicalInventory, PhysicalInventoryAdmin)

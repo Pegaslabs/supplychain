@@ -19,6 +19,7 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.ReceiveCtrl',
   'SupplyChainApp.TransferCtrl',
   'SupplyChainApp.PhysicalCtrl',
+  'SupplyChainApp.EditPhysicalCtrl',
   'SupplyChainApp.UtilsService',
   'SupplyChainApp.UserPrefsService',
   'SupplyChainApp.ServerDataService',
@@ -106,8 +107,11 @@ SupplyChainApp.config(['$routeProvider', function($routeProvider) {
   });
   $routeProvider.when('/physical', {
     templateUrl: 'static/bots_angular/app/views/physical.html', 
-    controller: 'PhysicalCtrl', 
-    reloadOnSearch: false
+    controller: 'PhysicalCtrl'
+  });
+  $routeProvider.when('/edit-physical', {
+    templateUrl: 'static/bots_angular/app/views/edit_physical.html', 
+    controller: 'EditPhysicalCtrl'
   });
   $routeProvider.when('/item/:itemId', {
     templateUrl: 'static/bots_angular/app/views/item.html', 
