@@ -35,7 +35,7 @@
           <input type="hidden" class="hide" ng-model="itemlot.id"/>
           <td class="small">{{stockchange.itemlot.item.category.name}}</td>
           <td>{{stockchange.qty}}</td>
-          <td>{{stockchange.itemlot.expiration | date:'MMMM d, yyyy' }}</td>
+          <td>{{stockchange.itemlot.expiration | date:'MM/yyyy' }}</td>
           <td>{{stockchange.itemlot.lot_num}}</td>
           <td ng-hide="dispense">{{stockchange.itemlot.unit_price | number:2}}</td>
           <td ng-hide="dispense">{{stockchange.qty * stockchange.itemlot.unit_price | number:2}} </td>

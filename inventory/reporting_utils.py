@@ -42,6 +42,8 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
         issafenumber(end_date.split("-")[2])
     if category_id:
         category_text = "where c.id=%s" % issafenumber(category_id)
+        if report_type == "Inventory":
+            category_text = "and c.id=%s" % issafenumber(category_id)
     else:
         category_text = ""
 
@@ -50,31 +52,29 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
     # cp wants zero values included at the item level but not the itemlot level
     # "having" instead of "where" allows filtering on a sum
     q_itemlot = """
-        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,count(active_sc.id),sum(active_sc.qty),il.unit_price
-            from inventory_item i
+        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(sc.qty),il.unit_price
+            from inventory_shipment ship 
+            join inventory_stockchange sc on sc.shipment_id=ship.id and sc.location_id=%s
+            join inventory_itemlot il on sc.itemlot_id=il.id
+            join inventory_item i on i.id=il.item_id
             join inventory_itemcategory c on c.id=i.category_id
-            left join inventory_itemlot il on il.item_id=i.id 
-            left join inventory_stockchange sc on sc.itemlot_id=il.id and sc.location_id=%s and sc.date<="%s"
-            left join inventory_shipment active_shipment on active_shipment.id=sc.shipment_id and active_shipment.active=1
-            left join inventory_stockchange active_sc on active_sc.id=sc.id and active_sc.shipment_id=active_shipment.id
+            where (ship.from_location_id=%s or ship.to_location_id=%s ) and ship.active=1 and ship.date <="%s"
             %s
             group by il.id
-                having sum(active_sc.qty) <> 0
-            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),date,category_text)
+                having sum(sc.qty) <> 0
+                order by i.name_lower ASC, il.expiration ASC;""" % (issafenumber(location_id),location_id,location_id,date,category_text)
 
-    # putting the stockchange qualifiers on the join instead
-    # of a "where" so they don't filter out the zero values, as this is the item level
     q_item = """
-        select i.id, i.name,c.name,count(active_sc.id),sum(active_sc.qty), avg(il.unit_price)*sum(active_sc.qty), avg(il.unit_price)
-            from inventory_item i
+        select i.id,i.name,c.name,sum(sc.qty),avg(il.unit_price)
+            from inventory_shipment ship 
+            join inventory_stockchange sc on sc.shipment_id=ship.id and sc.location_id=%s
+            join inventory_itemlot il on sc.itemlot_id=il.id
+            join inventory_item i on i.id=il.item_id
             join inventory_itemcategory c on c.id=i.category_id
-            left join inventory_itemlot il on il.item_id=i.id 
-            left join inventory_stockchange sc on sc.itemlot_id=il.id and sc.location_id=%s and sc.date<="%s"
-            left join inventory_shipment active_shipment on active_shipment.id=sc.shipment_id and active_shipment.active=1
-            left join inventory_stockchange active_sc on active_sc.id=sc.id and active_sc.shipment_id=active_shipment.id
+            where (ship.from_location_id=%s or ship.to_location_id=%s ) and ship.active=1 and ship.date <="%s"
             %s
             group by i.id
-            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),date,category_text)
+                order by i.name_lower ASC;""" % (issafenumber(location_id),location_id,location_id,date,category_text)
     q_consumption_itemlot = """
         select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(active_sc_start.qty),sum(active_sc_received.qty),sum(active_sc_end.qty),-1*sum(active_sc_consumed.qty),-1*sum(active_sc_expired.qty),-1*sum(active_sc_lost_damaged.qty),-1*sum(active_sc_adjustments.qty),avg(il.unit_price)
             from inventory_item i

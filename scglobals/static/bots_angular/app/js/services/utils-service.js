@@ -73,8 +73,15 @@ factory('UtilsService', function () {
                     }
                 }
                 var ds = d.split("/");
-                var year = (ds[2].length !== 4) ? ("-20" + ds[2]) : "-" + ds[2];
-                var d = new Date(ds[1] + "-" + ds[0] + year);
+                // allowing 5/2015 instead of 1/5/2015
+                if(ds.length == 2){
+                    var year = (ds[1].length !== 4) ? ("-20" + ds[1]) : "-" + ds[1];
+                    var d = new Date(ds[0] + "-01" + year);
+                }
+                else{
+                    var year = (ds[2].length !== 4) ? ("-20" + ds[2]) : "-" + ds[2];
+                    var d = new Date(ds[1] + "-" + ds[0] + year);
+                }
                 if (isNaN(d) || year.length !== 5){
                     throw "exception";
                 }
@@ -100,8 +107,15 @@ factory('UtilsService', function () {
                 }
             }
             var ds = d.split("/");
-            var year = (ds[2].length !== 4) ? ("-20" + ds[2]) : "-" + ds[2];
-            var d = new Date(ds[1] + "-" + ds[0] + year);
+            // allowing 5/2015 instead of 1/5/2015
+            if(ds.length == 2){
+                var year = (ds[1].length !== 4) ? ("-20" + ds[1]) : "-" + ds[1];
+                var d = new Date(ds[0] + "-01" + year);
+            }
+            else{
+                var year = (ds[2].length !== 4) ? ("-20" + ds[2]) : "-" + ds[2];
+                var d = new Date(ds[1] + "-" + ds[0] + year);
+            }
             if (isNaN(d)){
                 throw "exception";
             }

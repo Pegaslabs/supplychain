@@ -1,0 +1,351 @@
+id          name            name                sum(sc.qty)  avg(il.unit_price)
+----------  --------------  ------------------  -----------  ------------------
+556         3TC 150mg   60  ARV'S PREPARATIONS  0                              
+558         ABC 300mg 60    ARV'S PREPARATIONS  0                              
+557         ABC/3TC 600/30  ARV'S PREPARATIONS  2                              
+737         Acetyl-salicyl  Tablets and Capsul  2            43.93             
+140         Acetyl-salicyl  Tablets and Capsul  0            54.5              
+125         Aciclovir 200m  Tablets and Capsul  3            25.74             
+281         Aciclovir 5% c  TOPICAL CREAM,LOTI  0            5.44              
+126         Aciclovir 800m  Tablets and Capsul  4            11.2333333333333  
+127         Activated char  Tablets and Capsul  1            39.0              
+50          Adrenaline 1mg  INJECTIONS & IV IN  2            2.412             
+128         Albendazole  2  Tablets and Capsul  1            153.0             
+335         Alcohol swab 2  MEDICAL SUPPLIES    0            22.5              
+582         Alcohol swab 2  NTP consignment     0            0.0               
+3           Alcophyllex 20  SYRUPS, MIXTURE, S  0            9.4078947368421   
+327         Ambubag adult   MEDICAL SUPPLIES    2                              
+129         Aminophyllin 1  Tablets and Capsul  3            66.65             
+51          Aminophyllin 2  INJECTIONS & IV IN  5                              
+130         Amitriptyline   Tablets and Capsul  0            91.09             
+131         Amitriptyline   Tablets and Capsul  2            154.02            
+4           Amoxicillin 12  SYRUPS, MIXTURE, S  25           6.30052631578947  
+586         Amoxicillin 25  NTP consignment     0                              
+133         Amoxicillin 25  Tablets and Capsul  5            157.87            
+132         Amoxicillin 25  Tablets and Capsul  0            86.62             
+52          Ampicillin 250  INJECTIONS & IV IN  0            2.0               
+137         Anti- Haemorrh  Tablets and Capsul  0            153.877142857143  
+317         Anti-D inj amp  FRIDGE-LINE PREPAR  1            579.7             
+282         Aqueous cream   TOPICAL CREAM,LOTI  0            12.6              
+273         Arachis Oil 20  EYE & EAR PREPARAT  0            9.4               
+139         Artane 2mg 100  Tablets and Capsul  2            28.5630769230769  
+141         Ascorbic acid   Tablets and Capsul  0            145.3375          
+142         Atenolol 100mg  Tablets and Capsul  4            10.0875           
+144         Atenolol 50mg   Tablets and Capsul  2            7.958             
+560         AZT/3TC 300mg/  ARV'S PREPARATIONS  28                             
+562         AZT/3TC 30mg/6  ARV'S PREPARATIONS  0                              
+775         AZT/3TC 60mg/3  ARV'S PREPARATIONS  5                              
+561         AZT/3TC/NVP 30  ARV'S PREPARATIONS  65                             
+776         AZT/3TC/NVP 60  ARV'S PREPARATIONS  70                             
+7           Beclomethasone  SYRUPS, MIXTURE, S  0            36.8              
+55          Benzathine pen  INJECTIONS & IV IN  2            5.23375           
+56          Benzylpenicill  INJECTIONS & IV IN  3            7.35              
+284         Betamethasone   TOPICAL CREAM,LOTI  0            45.7377272727273  
+146         Bisacodyl 5mg   Tablets and Capsul  0                              
+285         Calamine Lotio  TOPICAL CREAM,LOTI  30           4.44              
+147         Calcium Glucon  Tablets and Capsul  0            36.5005           
+149         Captopril 25mg  Tablets and Capsul  35           11.0728571428571  
+150         Captopril 50mg  Tablets and Capsul  0            61.49             
+151         Carbamazipine   Tablets and Capsul  2            162.62            
+345         Cather 2 way F  MEDICAL SUPPLIES    0            26.02             
+346         Cather 2 way F  MEDICAL SUPPLIES    0            27.306            
+668         Catheter 2 way  MEDICAL SUPPLIES    0            61.44             
+669         Catheter 2 way  MEDICAL SUPPLIES    0            50.7              
+783         Catheter 2 way  MEDICAL SUPPLIES    8                              
+713         Cefixem 400gm   NTP consignment     2                              
+63          Ceftriaxone 10  INJECTIONS & IV IN  0            7.2               
+657         Ceftriaxone 10  NTP consignment     0            13.36             
+714         Ceftriaxone 25  NTP consignment     1                              
+65          Ceftriaxone 25  INJECTIONS & IV IN  0            3.62916666666667  
+64          Ceftriaxone 50  INJECTIONS & IV IN  0            5.94              
+152         Child Growth V  Tablets and Capsul  0            31.84             
+275         Chloramphenico  EYE & EAR PREPARAT  10           7.99636363636364  
+274         Chloramphenico  EYE & EAR PREPARAT  10           4.42444444444445  
+659         Chlorhexidine   SYRUPS, MIXTURE, S  0            5.75263157894737  
+10          Chlorphenirami  SYRUPS, MIXTURE, S  0            3.22736842105263  
+155         Chlorphenirami  Tablets and Capsul  1            23.344375         
+726         Chlorphenirami  SYRUPS, MIXTURE, S  0            87.73             
+156         Chlorpromazine  Tablets and Capsul  0            134.94            
+536         Chromic cut gu  SUTURES             1            92.47             
+537         Chromic cut gu  SUTURES             0            106.7             
+534         Chromic cut gu  SUTURES             0            84.94             
+535         Chromic cut gu  SUTURES             1            364.0             
+683         Chromic cutgut  MEDICAL SUPPLIES    1            268.74            
+734         Chromic cutgut  SUTURES             1            408.0             
+158         Cimetidine 200  Tablets and Capsul  1            125.192727272727  
+160         Ciprofloxacin   Tablets and Capsul  0            4.1775            
+677         Ciprofloxacin   Tablets and Capsul  0            30.9              
+716         Clarithromycin  NTP consignment     2                              
+287         Clotrimazole 1  TOPICAL CREAM,LOTI  26           3.66473684210526  
+288         Clotrimazole 1  TOPICAL CREAM,LOTI  15                             
+163         Clotrimazole 1  Tablets and Capsul  5            4.74384615384615  
+13          Cloxacillin 12  SYRUPS, MIXTURE, S  5            6.49857142857143  
+164         Cloxacillin 25  Tablets and Capsul  3            208.110434782609  
+14          Co-trimoxazole  SYRUPS, MIXTURE, S  0            4.53              
+166         Co-trimoxazole  Tablets and Capsul  17                             
+167         Co-trimoxazole  ARV'S PREPARATIONS  16                             
+168         Co-Trimoxazole  Tablets and Capsul  0            87.36             
+350         Colostomy bag   MEDICAL SUPPLIES    2            632.949090909091  
+650         Copper T        FAMILY PLANING PRE  10                             
+354         Cotton wool 50  MEDICAL SUPPLIES    1            25.0429411764706  
+356         Crepe bandage   MEDICAL SUPPLIES    2            41.6035714285714  
+357         Crepe bandage   MEDICAL SUPPLIES    1            27.0327272727273  
+358         Crepe bandage   MEDICAL SUPPLIES    2            35.0261538461538  
+359         Crepe bandage   MEDICAL SUPPLIES    0            52.1745454545455  
+763         Crepe bandage1  MEDICAL SUPPLIES    2                              
+169         Dapsone 100mg   Tablets and Capsul  0            215.743529411765  
+360         Delivery pack   MEDICAL SUPPLIES    0            66.85             
+570         Depo provera 1  FAMILY PLANING PRE  0            0.0               
+16          Dextromethorph  SYRUPS, MIXTURE, S  0            22.8              
+777         Dextromethorph  SYRUPS, MIXTURE, S  18                             
+71          Dextrose 5% +   INJECTIONS & IV IN  2            14.0              
+72          Dextrose 5% 10  INJECTIONS & IV IN  3            10.325            
+73          Dextrose 50% 5  INJECTIONS & IV IN  1            17.35             
+76          Diazepam 10mg/  INJECTIONS & IV IN  0            25.776            
+171         Diazepam 5mg 1  Tablets and Capsul  1            96.8775           
+173         Diclofenac 25m  Tablets and Capsul  6            22.656            
+175         Diclofenac 50   Tablets and Capsul  1            56.5581818181818  
+174         Diclofenac 50m  Tablets and Capsul  0            34.0              
+77          Diclofenac 75m  INJECTIONS & IV IN  0            0.913333333333333 
+363         Digital Thermo  MEDICAL SUPPLIES    1            7.34              
+18          Diphenhydramin  SYRUPS, MIXTURE, S  0            2.99473684210526  
+177         Diphenoxylate-  Tablets and Capsul  5            12.24             
+178         Doxycycline 10  Tablets and Capsul  0            157.665454545455  
+365         Dust musks 20   MEDICAL SUPPLIES    1                              
+663         EFV 200mg 30    ARV'S PREPARATIONS  6                              
+778         EFV 50mg 28     ARV'S PREPARATIONS  10                             
+565         EFV 600mg  30   ARV'S PREPARATIONS  57                             
+702         Elbow length 7  MEDICAL SUPPLIES    35           1.36              
+289         Emulsifying oi  TOPICAL CREAM,LOTI  1            26.775            
+319         Ergometrine 0.  FRIDGE-LINE PREPAR  0            47.55             
+19          Erythromycin 1  SYRUPS, MIXTURE, S  60           7.22076923076923  
+180         Erythromycin 2  Tablets and Capsul  3            356.43            
+779         Ethambutol 100  TB Medication       1                              
+290         Eusol solution  TOPICAL CREAM,LOTI  1            34.8              
+372         Examination gl  MEDICAL SUPPLIES    0            39.67             
+375         Examination gl  MEDICAL SUPPLIES    0            45.67             
+374         Examination gl  MEDICAL SUPPLIES    1            41.981            
+667         Fabric plaster  MEDICAL SUPPLIES    1            21.132            
+572         Female condoms  FAMILY PLANING PRE  18                             
+182         Ferrous Salpha  Tablets and Capsul  0            32.38             
+20          Ferrous Sulfat  SYRUPS, MIXTURE, S  80                             
+596         Ferrous Sulfat  NTP consignment     0            30.9              
+719         Fluconazole 20  NTP consignment     1                              
+21          Flusin 100ml s  SYRUPS, MIXTURE, S  0            41.0              
+276         FML-Neo eye dr  EYE & EAR PREPARAT  17           41.33             
+185         Folic acid 5mg  Tablets and Capsul  2            48.015            
+656         Folic acid 5mg  NTP consignment     0            34.35             
+82          Furosemide 20m  INJECTIONS & IV IN  0            1.34              
+186         Furosemide 40m  Tablets and Capsul  0            51.5              
+391         Gauze Bandage   MEDICAL SUPPLIES    3                              
+394         Gauze roll 90c  MEDICAL SUPPLIES    0            104.309333333333  
+395         Gauze swabs 10  MEDICAL SUPPLIES    2            14.6157142857143  
+83          Gentamycin 80m  INJECTIONS & IV IN  10           3.3               
+291         Gentian violet  TOPICAL CREAM,LOTI  0            3.8               
+188         Glibenclamide   Tablets and Capsul  1            31.688            
+189         Griseofulvin 1  Tablets and Capsul  2            222.24            
+749         Guafenesin,Bro  SYRUPS, MIXTURE, S  30           7.0               
+193         Haloperidol 5m  Tablets and Capsul  0            9.785             
+725         Hand and body   TOPICAL CREAM,LOTI  0            21.6              
+292         Hand Sanitizer  TOPICAL CREAM,LOTI  2            140.0             
+195         Hydrochlorthia  Tablets and Capsul  4            34.616            
+196         Hydrochlorthia  Tablets and Capsul  3            90.21             
+268         Hydrochlorthia  Tablets and Capsul  0            173.073333333333  
+293         Hydrocortisone  TOPICAL CREAM,LOTI  1            140.452941176471  
+600         Hydrocortisone  NTP consignment     0                              
+88          Hydrocortisone  INJECTIONS & IV IN  8            4.71272727272727  
+198         Hyoscine 10mg   Tablets and Capsul  1            276.63            
+89          Hyoscine 20mg/  INJECTIONS & IV IN  8            33.55             
+8           Hyoscine 5mg/5  SYRUPS, MIXTURE, S  1            13.61             
+399         I.v cannulae 2  MEDICAL SUPPLIES    15           2.1               
+603         I.v cannulae 2  NTP consignment     0            1.6               
+401         I.v cannulae 2  MEDICAL SUPPLIES    5            1.56              
+199         Ibuprofen 200m  Tablets and Capsul  2            64.5853333333333  
+200         Ibuprofen 400m  Tablets and Capsul  3            108.497826086956  
+295         Ichthamol 10%   TOPICAL CREAM,LOTI  0            78.0              
+739         Implanon 68mg   FAMILY PLANING PRE  0                              
+732         Indomethacin 2  Tablets and Capsul  0            62.59             
+315         Insulin Actrap  FRIDGE-LINE PREPAR  4            42.0              
+316         Insulin Actrap  FRIDGE-LINE PREPAR  1            42.0              
+403         Insulin syring  MEDICAL SUPPLIES    2            41.45             
+202         Iodized throat  Tablets and Capsul  2            93.43125          
+780         Isoniazid 100m  ARV'S PREPARATIONS  3                              
+738         Isoniazid 300m  Tablets and Capsul  11                             
+573         Jadelle Implan  FAMILY PLANING PRE  0                              
+574         Jadelle insert  FAMILY PLANING PRE  0            0.0               
+296         K-Y lubricatin  TOPICAL CREAM,LOTI  1            30.896            
+747         Kaltra 80/20mg  ARV'S PREPARATIONS  1                              
+205         Ketoconazole 2  Tablets and Capsul  2            40.0              
+23          Lactulose 3.3g  SYRUPS, MIXTURE, S  4            19.7557894736842  
+575         Levonogestrel   FAMILY PLANING PRE  2                              
+571         Levonorgestrel  FAMILY PLANING PRE  2            0.0               
+90          Lignocain Hcl   INJECTIONS & IV IN  0            6.8               
+92          Lignocain Hcl   INJECTIONS & IV IN  0            8.625             
+405         Linen Saver 1.  MEDICAL SUPPLIES    150                            
+406         Linen Saver 1.  MEDICAL SUPPLIES    0            178.0             
+24          Liquid paraffi  SYRUPS, MIXTURE, S  30           6.83333333333333  
+25          Liquid paraffi  SYRUPS, MIXTURE, S  0            120.39            
+206         Loperamide 2mg  Tablets and Capsul  0            1.11              
+95          Magnesium Sulp  INJECTIONS & IV IN  0            1.7               
+209         Magnesium Tris  Tablets and Capsul  1            33.7309090909091  
+27          Magnesium Tris  SYRUPS, MIXTURE, S  0            4.88              
+26          Magnesium Tris  SYRUPS, MIXTURE, S  0            8.58              
+577         Male condoms 1  FAMILY PLANING PRE  0                              
+576         Male condoms 1  FAMILY PLANING PRE  7            0.0               
+789         MBPIII          ARV'S PREPARATIONS  7                              
+210         Mebendazole 10  Tablets and Capsul  0            6.48888888888889  
+28          Mebendazole 10  SYRUPS, MIXTURE, S  5            7.18166666666667  
+408         Medicine Bottl  MEDICAL SUPPLIES    286          1.112             
+410         Medicine label  MEDICAL SUPPLIES    0            111.136           
+212         Mefenamic Acid  Tablets and Capsul  1            77.904            
+29          Mefenamic Acid  SYRUPS, MIXTURE, S  0            12.15             
+297         Mercurochrome   TOPICAL CREAM,LOTI  7            4.768             
+215         Metformin 500m  Tablets and Capsul  0            53.56             
+216         Metformin 850m  Tablets and Capsul  0            12.9925           
+298         Methyl salicyl  TOPICAL CREAM,LOTI  0            21.5666666666667  
+300         Methylated spi  TOPICAL CREAM,LOTI  1            59.565            
+218         Methyldopa 250  Tablets and Capsul  1            268.49            
+220         Metochlopramid  Tablets and Capsul  1                              
+30          Metronidazole   SYRUPS, MIXTURE, S  0            6.53142857142857  
+222         Metronidazole   Tablets and Capsul  5            90.79             
+221         Metronidazole   Tablets and Capsul  0            52.44             
+224         Metronidazole   Tablets and Capsul  0            124.845           
+223         Metronidazole   Tablets and Capsul  0            67.0              
+99          Metronidazole   INJECTIONS & IV IN  4                              
+31          Miconazole 2%   SYRUPS, MIXTURE, S  0            38.3338461538462  
+711         Microgynon 0.1  FAMILY PLANING PRE  0            0.0               
+578         Microgynone 3*  FAMILY PLANING PRE  0            0.0               
+674         Microlut 1*28   FAMILY PLANING PRE  15           0.0               
+676         Microlut 3*35   FAMILY PLANING PRE  2            0.0               
+32          Mist Tussi Inf  SYRUPS, MIXTURE, S  0            4.41578947368421  
+225         Multivitamin 1  Tablets and Capsul  0            22.68             
+33          Multivitamin s  SYRUPS, MIXTURE, S  0            2.31238095238095  
+416         N95 Masks  20   NTP consignment     1                              
+418         Needle 18G  10  MEDICAL SUPPLIES    2            10.03             
+419         Needle 20G  10  MEDICAL SUPPLIES    0            12.56             
+420         Needle 21G 100  MEDICAL SUPPLIES    4            11.0916666666667  
+421         Needle 23G 100  MEDICAL SUPPLIES    4            10.594            
+424         Neubulizer mas  MEDICAL SUPPLIES    2                              
+425         Neubulizer mas  MEDICAL SUPPLIES    2                              
+227         Nicotinamide 2  Tablets and Capsul  0            119.88            
+229         Nifedipine 10m  Tablets and Capsul  0            10.85             
+230         Nifedipine 10m  Tablets and Capsul  1            158.0             
+228         Nifedipine 5mg  Tablets and Capsul  0            24.46             
+231         Nitrofurantoin  Tablets and Capsul  1                              
+580         Noristerate 20  FAMILY PLANING PRE  15           0.0               
+781         NVP 50 MG / 5   ARV'S PREPARATIONS  4                              
+540         Nylon reverse   SUTURES             2            95.02             
+649         Nystatin 100,0  SYRUPS, MIXTURE, S  0            10.3128571428571  
+34          Nystatin 10000  SYRUPS, MIXTURE, S  0            4.641             
+430         Ointment jars   MEDICAL SUPPLIES    1            56.5              
+431         Ointment jars   MEDICAL SUPPLIES    0            104.77            
+432         Ointments labe  MEDICAL SUPPLIES    0            43.68             
+433         One Touch Sele  MEDICAL SUPPLIES    2            135.413333333333  
+35          Oral Rehydrati  SYRUPS, MIXTURE, S  0            110.584           
+644         Oral Rehydrati  SYRUPS, MIXTURE, S  0            232.21            
+444         Oxygen masks a  MEDICAL SUPPLIES    4                              
+278         Oxymetazoline   EYE & EAR PREPARAT  6            10.0757142857143  
+277         Oxymetazoline   EYE & EAR PREPARAT  5            10.865            
+322         Oxytocin 10IU/  FRIDGE-LINE PREPAR  17           11.9892307692308  
+447         P.O.P Bandage   MEDICAL SUPPLIES    3                              
+448         P.O.P Bandage   MEDICAL SUPPLIES    5                              
+36          Paracetamol 12  SYRUPS, MIXTURE, S  20           3.8               
+238         Paracetamol 50  Tablets and Capsul  40           8.396             
+239         Paracetamol 50  Tablets and Capsul  0            64.1428571428571  
+240         Paracetomol +   Tablets and Capsul  0            252.16            
+241         Paracetomol +   Tablets and Capsul  0            85.14             
+451         Paraffin Gauze  MEDICAL SUPPLIES    0            20.24             
+453         Peak flow mete  MEDICAL SUPPLIES    1                              
+37          Penicillin vk   SYRUPS, MIXTURE, S  6            7.11428571428571  
+242         Phenobarbital   Tablets and Capsul  1            76.8              
+38          Phenobarbiton   SYRUPS, MIXTURE, S  1            53.32             
+244         Phenoxymethyl   Tablets and Capsul  0            289.050909090909  
+681         Phenoxymethylp  Tablets and Capsul  0            16.9              
+246         Phenytoin 100m  Tablets and Capsul  0            155.0             
+454         Pill bags larg  MEDICAL SUPPLIES    0            132.3             
+455         Pill bags medi  MEDICAL SUPPLIES    0            119.98            
+456         Pill bags smal  MEDICAL SUPPLIES    -2           93.6586666666667  
+457         Plain  Labels   MEDICAL SUPPLIES    -2           37.0              
+41          Plumpy nut 29.  SYRUPS, MIXTURE, S  0            4.5               
+303         Podophyllin pa  TOPICAL CREAM,LOTI  0            35.63             
+689         Potasium citra  SYRUPS, MIXTURE, S  0            6.0               
+42          Potasium citra  SYRUPS, MIXTURE, S  0            6.6               
+247         Potassium chlo  Tablets and Capsul  1                              
+305         Povidone iodin  TOPICAL CREAM,LOTI  1            31.7              
+304         Povidone iodin  TOPICAL CREAM,LOTI  1            78.6125           
+666         Povidone Iodin  TOPICAL CREAM,LOTI  0            75.35             
+248         Prednisone 5mg  Tablets and Capsul  0            101.4             
+249         Prenatal tabs   Tablets and Capsul  0            34.0              
+109         Prochlorperazi  INJECTIONS & IV IN  8                              
+250         Prochlorperazi  Tablets and Capsul  0            44.85             
+251         Prochlorperazi  Tablets and Capsul  0            65.56             
+252         Promethazine 2  Tablets and Capsul  2            113.48            
+110         Promethazine 2  INJECTIONS & IV IN  10                             
+43          Promethazine 5  SYRUPS, MIXTURE, S  20           4.417             
+254         Pyridoxine 25m  Tablets and Capsul  20                             
+785         Rifampicin 150  TB Medication       12                             
+786         Rifampicin 150  TB Medication       10                             
+787         Rifampicin 60g  TB Medication       13                             
+788         Rifampicin 60m  TB Medication       2                              
+112         Ringer Lactate  INJECTIONS & IV IN  3            10.3830769230769  
+44          Salbutamol 100  SYRUPS, MIXTURE, S  0            17.8878947368421  
+46          Salbutamol 2mg  SYRUPS, MIXTURE, S  0                              
+257         Salbutamol 4mg  Tablets and Capsul  0            31.5278947368421  
+458         Sanitary pads   MEDICAL SUPPLIES    0            12.325            
+307         Savlon solutio  TOPICAL CREAM,LOTI  0            197.907692307692  
+459         Sharp Containe  MEDICAL SUPPLIES    1            34.41             
+308         Silver sulphad  TOPICAL CREAM,LOTI  1            58.8              
+101         Sodium chlorid  INJECTIONS & IV IN  4            10.5781818181818  
+463         Solo Shot 1ml   MEDICAL SUPPLIES    0                              
+464         Solution Admin  MEDICAL SUPPLIES    13           2.12666666666667  
+465         Solution Admin  MEDICAL SUPPLIES    3            2.325             
+784         Spersallerg ey  EYE & EAR PREPARAT  5                              
+279         Spersallerge e  EYE & EAR PREPARAT  0            20.0686666666667  
+467         Sterile dressi  MEDICAL SUPPLIES    0            6.37777777777778  
+309         Sulphur ointme  TOPICAL CREAM,LOTI  2            32.4166666666667  
+480         Surgical Blade  MEDICAL SUPPLIES    1            22.79             
+483         Surgical Blade  MEDICAL SUPPLIES    0            25.6              
+485         Surgical Blade  MEDICAL SUPPLIES    0            26.14             
+682         Surgical glove  MEDICAL SUPPLIES    10           2.12              
+491         Surgical glove  MEDICAL SUPPLIES    0            2.27777777777778  
+488         Surgical Glove  MEDICAL SUPPLIES    10           2.15              
+494         Surgical mask   MEDICAL SUPPLIES    1            12.75             
+499         Syringe 10ml 1  MEDICAL SUPPLIES    2            41.882            
+497         Syringe 3ml 10  MEDICAL SUPPLIES    1            24.4341666666667  
+498         Syringe 5ml 10  MEDICAL SUPPLIES    2            26.3566666666667  
+569         TDF/3TC/EFV 30  ARV'S PREPARATIONS  168                            
+280         Tetracycline 1  EYE & EAR PREPARAT  330          3.42333333333333  
+648         Tetracycline 3  TOPICAL CREAM,LOTI  3            4.87              
+310         Tetracycline 3  TOPICAL CREAM,LOTI  0            6.13333333333333  
+509         Torniquoate     MEDICAL SUPPLIES    0            10.0              
+510         Tounge Depress  MEDICAL SUPPLIES    1            9.98              
+511         Trianguler Ban  MEDICAL SUPPLIES    1            20.96             
+729         Triprolidine/p  SYRUPS, MIXTURE, S  0            21.1              
+513         True Red Machi  MEDICAL SUPPLIES    0                              
+512         True Red test   MEDICAL SUPPLIES    2                              
+311         Ultra sound ge  TOPICAL CREAM,LOTI  2            120.6             
+314         Ultracide 5L    TOPICAL CREAM,LOTI  0            204.806666666667  
+641         Under Buttock   MEDICAL SUPPLIES    0            58.62             
+515         Urine bag 2 li  MEDICAL SUPPLIES    0            9.86789473684211  
+518         Vaginal Specul  MEDICAL SUPPLIES    10                             
+519         Vaginal specul  MEDICAL SUPPLIES    7                              
+520         Vaginal Specul  MEDICAL SUPPLIES    10                             
+521         Vaginal specul  MEDICAL SUPPLIES    9                              
+49          Vit. Bco syrup  SYRUPS, MIXTURE, S  0                              
+782         Vitamin A 200   Tablets and Capsul  1                              
+119         Vitamin B-comp  INJECTIONS & IV IN  4            7.97666666666667  
+120         Vitamin K 10mg  INJECTIONS & IV IN  0            19.0              
+121         Vitamin k 2mg/  INJECTIONS & IV IN  5            12.7914285714286  
+122         Water for inj.  INJECTIONS & IV IN  5            89.574            
+312         Whitefield's o  TOPICAL CREAM,LOTI  2            24.1909090909091  
+523         X- Ray casette  MEDICAL SUPPLIES    0                              
+525         X- Ray film 35  MEDICAL SUPPLIES    1            1076.0            
+527         X- Ray fixer 1  MEDICAL SUPPLIES    0            456.46            
+528         X-Ray Develope  MEDICAL SUPPLIES    0            734.46            
+529         X-Ray Envelop   MEDICAL SUPPLIES    15           1.755             
+526         x-Ray film 18*  MEDICAL SUPPLIES    0                              
+313         Zinc oxide cre  TOPICAL CREAM,LOTI  0            21.8588888888889  
+532         Zinc oxide Pla  MEDICAL SUPPLIES    2            11.7              
+533         Zinc Oxide Tap  MEDICAL SUPPLIES    5            9.64              
+530         Zinc oxide Tap  MEDICAL SUPPLIES    2            3.68              
+531         Zinc oxide tap  MEDICAL SUPPLIES    0            6.53              

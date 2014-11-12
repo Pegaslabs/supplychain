@@ -42,7 +42,7 @@
 								<tr ng-hide="loading_itemlots" ng-class="{negative : (itemlot.soh - itemlot.qty_to_ship) < 0}" ng-repeat="itemlot in editing_item.itemlots">
 									<td>{{itemlot.id}}</td>
 									<td>{{itemlot.lot_num}}</td>
-									<td>{{itemlot.expiration | date: 'MMMM d, yyyy'}}</td>
+									<td>{{itemlot.expiration | date: 'MM/yyyy'}}</td>
 									<td>{{itemlot.unit_price}}</td>
 									<td>{{itemlot.soh}}</td>
 									<td>

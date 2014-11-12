@@ -57,7 +57,7 @@
         <input tabindex="4" ng-show="editing_date" type="text" class="form-control input start_date_input" ng-blur="submit_date()" placeholder="dd/mm/yy" ng-model="start_date">
         <div ng-show="bad_date" id="bad_date" class="text-danger">Invalid, date must be valid and in the format dd/mm/yy</div>
         <p class="form-control-static" ng-hide="editing_date">
-          <span class="start_date_text">{{start_date |  date:'MMMM d, yyyy' }}</span>
+          <span class="start_date_text">{{start_date |  date:'MMM d, yyyy' }}</span>
           <a href ng-hide="editing_start_date" id="change_date" ng-click="edit_date()">(edit)</a>
         </p>
       </div>
@@ -91,9 +91,7 @@
       <tr>
         <th>Item</th>
         <th>Item Category</th>
-        <th>Total Transactions</th>
         <th>Quantity</th>
-        <th>Total Value</th>
         <th>Item Lot Avg Price</th>
       </tr>
     </thead>
@@ -102,9 +100,7 @@
         <td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
         <td class="small">{{row[2]}}</td>
         <td>{{row[3]}}</td>
-        <td>{{row[4]}}</td>
-        <td>{{row[5] | number:2}}</td>
-        <td>{{row[6] | number:2}}</td>
+        <td>{{row[4] | number:2}}</td>
       </tr>
     </tbody>
   </table>
@@ -117,7 +113,6 @@
         <th>ItemLot System ID</th>
         <th>Expiration</th>
         <th>ItemLot Number</th>
-        <th>Transactions</th>
         <th>Quantity</th>
         <th>Unit Price</th>
         <th>Total Value</th>
@@ -128,12 +123,11 @@
         <td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
         <td class="small">{{row[2]}}</td>
         <td><a href="#/item/{{row[0]}}?location={{location.id}}&itemlot={{row[3]}}">{{row[3]}}</a></td>
-        <td>{{row[4]}}</td>
+        <td>{{row[4] | date:'MM/yyyy'}}</td>
         <td>{{row[5]}}</td>
         <td>{{row[6]}}</td>
-        <td>{{row[7]}}</td>
-        <td>{{row[8] | number:2}}</td>
-        <td>{{row[7] * row[8] | number:2}}</td>
+        <td>{{row[7] | number:2}}</td>
+        <td>{{row[6] * row[7] | number:2}}</td>
       </tr>
     </tbody>
   </table>

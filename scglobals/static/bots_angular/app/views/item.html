@@ -11,7 +11,7 @@
       | {{item.category.name}}  | {{item.dispense_size}} pack size | <a href ng-click="edit_item()">(edit details)</a>
     </h5>
     <div ng-show="itemlot_filter"  class="alert alert-info">
-      Filtering on Item Lot ID {{itemlot_filter.id}}, expiration {{itemlot_filter.expiration | date:'MMMM d, yyyy' }}, lot num {{itemlot_filter.lot_num}}
+      Filtering on Item Lot ID {{itemlot_filter.id}}, expiration {{itemlot_filter.expiration | date:'MM/yyyy' }}, lot num {{itemlot_filter.lot_num}}
       <a href ng-click="remove_itemlot_filter()">(remove)</a>
     </div>
     <div></div>
@@ -56,7 +56,7 @@
             <td>{{stockchange.shipment.to_location}}</td>
             <td><a href ng-click="filter_itemlot(stockchange.itemlot.id)">{{stockchange.itemlot.id}}</a></td>
             <td>{{stockchange.itemlot.lot_num}}</td>
-            <td>{{stockchange.itemlot.expiration | date:'MMMM d, yyyy' }}</td>
+            <td>{{stockchange.itemlot.expiration | date:'MM/yyyy' }}</td>
             <td>{{stockchange.qty}}</td>
             <td>{{stockchange.soh}}</td>
             <td>{{stockchange.user.username}}</td>
@@ -176,7 +176,7 @@
         <tr ng-hide="loading_itemlots" ng-repeat="itemlot in itemlots | orderBy:'-soh'">
           <td><a href ng-click="filter_itemlot(itemlot.id)">{{itemlot.id}}</a></td>
           <td>{{itemlot.lot_num}}</td>
-          <td>{{itemlot.expiration | date: 'MMMM d, yyyy'}}</td>
+          <td>{{itemlot.expiration | date: 'MM/yyyy'}}</td>
           <td>{{itemlot.unit_price}}</td>
           <td>{{itemlot.soh}}</td>
         </tr>

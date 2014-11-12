@@ -88,7 +88,7 @@
                 </td>
                 <td>
                   <a href ng-click="edit_item(item)" ng-show="item.stockchanges.length > 1">Multiple</a>
-                  <span ng-show="item.stockchanges.length === 1">{{item.stockchanges[0]["itemlot"]["expiration"] | date:'MMMM d, yyyy'}}</span>
+                  <span ng-show="item.stockchanges.length === 1">{{item.stockchanges[0]["itemlot"]["expiration"] | date:'MM/yyyy'}}</span>
                 </td>
                 <td>{{item.qty}}</td>
                 <td ng-hide="dispense">{{item.price | number:2}} </td>

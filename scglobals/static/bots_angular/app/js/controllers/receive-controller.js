@@ -70,7 +70,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 	};
 	$scope.from_location_search_config = {
 		placeholder : "Supplier name, e.g. NDSO",
-		url : "/api/v1/location/?format=json&order_by=name&location_type=S",
+		url : "/api/v1/location/?format=json&order_by=name",
 		result_name : "location",
 		input_class : "from_location_input",
 		select_result: $scope.submit_from_location,
@@ -256,6 +256,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 		// validate required
 		itemlot.invalid_qty = !isNumeric(itemlot.qty) || itemlot.qty <= 0;
 		// validate not required
+		console.log('a');
 		itemlot.invalid_expiration = (itemlot.expiration) ? !UtilsService.validate_date(itemlot.expiration) : false;
 		if (itemlot.expiration && !itemlot.invalid_expiration){
 			itemlot.expiration = UtilsService.get_js_date(itemlot.expiration);
