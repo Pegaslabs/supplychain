@@ -19,7 +19,7 @@ def print_shipment(request,pk):
     shipment = Shipment.objects.get(id=pk)
     shipment_item_lists = []
     shipment_items = []
-    for i,item in enumerate(shipment.stockchange_set.filter(location=shipment.to_location)):
+    for i,item in enumerate(shipment.stockchange_set.filter(location=shipment.from_location)):
         if i % 10 == 0:
             if len(shipment_items) > 0:
                 shipment_item_lists.append(shipment_items)
@@ -28,6 +28,7 @@ def print_shipment(request,pk):
             item.item_mgmt_group = ItemAttribute.objects.filter(item=item.itemlot.item, attribute='mgmt_group')[0].value
         except:
             pass
+        item.qty = -1*item.qty
         shipment_items.append(item)
     shipment_item_lists.append(shipment_items)
     try:
