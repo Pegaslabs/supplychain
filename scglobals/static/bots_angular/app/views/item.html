@@ -6,9 +6,8 @@
   </div>
   <hr ng-hide="show_header"/>
   <div ng-show="show_header">
-    <h3>Stock Card: {{item.name}}</h3>
-    <h5 class="left_margin">at {{curr_location.name}} 
-      | {{item.category.name}}  | {{item.dispense_size}} pack size | <a href ng-click="edit_item()">(edit details)</a>
+    <h3>Stock Card: {{item.name}} -- {{curr_location.name}} <span class="small" ng-show="userpreferences.user.is_superuser"><span ng-show="location.id"><a ng-click="all_locations()" href>(all locations)</a> | </span> <a href ng-click="show_change_location()">(change)</a></span></h3>
+    <h5 class="left_margin"> {{item.category.name}}  | {{item.dispense_size}} pack size | <a href ng-click="edit_item()">(edit details)</a>
     </h5>
     <div ng-show="itemlot_filter"  class="alert alert-info">
       Filtering on Item Lot ID {{itemlot_filter.id}}, expiration {{itemlot_filter.expiration | date:'MM/yyyy' }}, lot num {{itemlot_filter.lot_num}}
@@ -190,4 +189,5 @@
 
 </div>
 <div edit-item-directive editingitem="item" callback="done_editing"></div>
+<div search-location-directive callback="select_location"></div>
 </div>

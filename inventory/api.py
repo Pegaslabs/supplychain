@@ -21,8 +21,8 @@ class UserResource(ModelResource):
         queryset = User.objects.all()
         always_return_data = True
         resource_name = 'user'
-        filtering = {'username' : ALL}
-        excludes = ['password', 'last_name', 'first_name', 'last_login','date_joined', 'is_active', 'is_staff', 'is_superuser']
+        filtering = {'username' : ALL,'id' : ALL}
+        excludes = ['password', 'last_name', 'first_name', 'last_login','date_joined', 'is_active', 'is_staff']
         authorization= Authorization()
         authentication = SessionAuthentication()
 
@@ -162,7 +162,7 @@ class LocationResource(ModelResource):
 class UserPreferencesResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user',full=True)
     default_location = fields.ForeignKey(LocationResource, 'default_location',full=True)
-    default_to_location = fields.ForeignKey(LocationResource, 'default_to_location',full=True)
+    default_dispensary = fields.ForeignKey(LocationResource, 'default_dispensary',full=True)
     class Meta:
         queryset = UserPreferences.objects.all()
         always_return_data = True
@@ -171,11 +171,14 @@ class UserPreferencesResource(ModelResource):
         authorization= Authorization()
         excludes = ['modified','created']
         authentication = SessionAuthentication()
-    def authorized_read_list(self, object_list, bundle):
-        try:
-            return object_list.filter(user=bundle.request.user)
-        except:
-            return object_list.filter(user=None)
+    def obj_create(self, bundle, **kwargs):
+        bundle.data['user'] = {"id" : bundle.request.user.id}
+        return super(UserPreferencesResource,self).obj_create(bundle, **kwargs)
+    # def authorized_write_list(self, object_list, bundle):
+    #     try:
+    #         return object_list.filter(user=bundle.request.user)
+    #     except:
+    #         return object_list.filter(user=None)
 
 class ShipmentResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user',full=True)
@@ -408,9 +411,6 @@ class SearchObject(object):
         self.name = name
 
 class SearchResource(Resource):
-    # id = fields.CharField(attribute='id')
-    # name = fields.CharField(attribute='name')
-
     class Meta:
         resource_name = 'search'
         allowed_methods = ['get']

@@ -1,0 +1,36 @@
+<div class="modal" id="edit_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit User <strong>{{editinguser.user.username}}</strong></h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" role="form">
+          <div class="form-group">
+            <label>Edit User: </label>
+            <input type="text" class="form-control input" ng-model="editinguser.user.username"/>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-sm" ng-class="{active: editinguser.user.is_superuser === true}" ng-click="switch_superuser(true)">Is admin</button>
+            <button class="btn btn-primary btn-sm" ng-class="{active: editinguser.user.is_superuser === false}"  ng-click="switch_superuser(false)">Is not admin</button>
+          </div>
+          <div class="form-group">
+            <label>Default Location: </label>
+            <span ng-hide="editinguser.default_location" ng-if="default_location_search_config"><ia-search-drop search-drop-config="default_location_search_config"></ia-search-drop></span>
+            <div ng-show="editinguser.default_location">{{editinguser.default_location.name}} <a href ng-click="change_default_location()">(change)</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Default Dispensary: </label>
+            <span ng-hide="editinguser.default_dispensary" ng-if="default_dispensary_search_config"><ia-search-drop search-drop-config="default_dispensary_search_config"></ia-search-drop></span>
+            <div ng-show="editinguser.default_dispensary">{{editinguser.default_dispensary.name}} <a href ng-click="change_default_dispensary()">(change)</a>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" ng-click="submit_edit()">Submit</button>
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

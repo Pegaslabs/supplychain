@@ -13,31 +13,46 @@ controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "Uti
         $scope.tastypiemeta = data["meta"];
       }
     };
-    ServerDataService.get("location",$routeParams["location"]).then(function(data){
-      $scope.location = data;
-    });
+    $scope.all_locations = function(){
+      $location.search('location',null);
+    };
+    $scope.select_location = function(location){
+      $("#search_location_modal").modal('hide');
+      $location.search("location",location.id);
+    };
+    $scope.show_change_location = function(){
+      $("#search_location_modal").modal();
+    };
+    var build_page = function(){
+      if ($routeParams["from_location__location_type"] === "S"){
+        $scope.title = "Received " + $scope.title + " -- " + $scope.location.name;
+      }
+      else if ($routeParams["from_location__location_type"] === "I"){
+        $scope.title = "Transferred " + $scope.title + " -- " + $scope.location.name;
+      }
+      else if ($routeParams["from_location__location_type"] === "D"){
+        $scope.title = "Dispensed " + $scope.title + " -- " + $scope.location.name;
+        $scope.dispense = true;
+      }
+      if ("location_name" in $routeParams){
+        $scope.title = $routeParams["location_name"] + " - " + $scope.title;
+      }
 
-    if ($routeParams["from_location__location_type"] === "S"){
-      $scope.title = "Received " + $scope.title;
+      if ($routeParams["active"] === "false"){
+        $scope.title = $scope.title + " | Pending";
+      }
+      $scope.download_filename = $scope.title;
+      $scope.show_results = true;
+    };
+    if ($routeParams["location"] && $routeParams["location"] !== 0){
+      ServerDataService.get("location",$routeParams["location"]).then(function(data){
+        $scope.location = data;
+        build_page();
+      });
+    }else{
+      $scope.location = {'name' : 'All Locations'};
+      build_page();
     }
-    else if ($routeParams["from_location__location_type"] === "I"){
-      $scope.title = "Transferred " + $scope.title;
-    }
-    else if ($routeParams["from_location__location_type"] === "D"){
-      $scope.title = "Dispensed " + $scope.title;
-      $scope.dispense = true;
-    }
-    if ("location_name" in $routeParams){
-      $scope.title = $routeParams["location_name"] + " - " + $scope.title;
-    }
-
-    if ($routeParams["active"] === "false"){
-      $scope.title = $scope.title + " | Pending";
-    }
-
-    $scope.download_filename = $scope.title;
-
-    $scope.show_results = true;
   }]);
 
 angular.module('SupplyChainApp.ShipmentCtrl', []).

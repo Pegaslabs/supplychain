@@ -1,0 +1,19 @@
+<div class="modal" id="search_location_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select Location</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" role="form">
+          <div class="form-group">
+            <label>Select Location: </label>
+            <span ng-if="search_location_config"><ia-search-drop search-drop-config="search_location_config"></ia-search-drop></span>
+          </div>
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

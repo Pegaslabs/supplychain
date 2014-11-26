@@ -5,6 +5,18 @@ controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location",
 	$scope.tabs = {1 : true, 2: false, 3: false,4: false};
 	$scope.years = [];
 	var stockchanges_url = "/api/v1/stockchange/?format=json&include_shipment=true&itemlot__item=" + $routeParams['itemId'] + "&order_by=-date&order_by=qty&order_by=-id&shipment__active=true";
+
+  $scope.all_locations = function(){
+    $location.search('location',null);
+  };
+  $scope.select_location = function(location){
+    $("#search_location_modal").modal('hide');
+    $location.search("location",location.id);
+  };
+  $scope.show_change_location = function(){
+    $("#search_location_modal").modal();
+  };
+
 	Date.prototype.addDays = function(days)
 	{
 		var dat = new Date(this.valueOf());

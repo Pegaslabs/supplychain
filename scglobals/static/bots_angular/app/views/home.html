@@ -1,6 +1,6 @@
 <div ng-include src="'static/bots_angular/app/views/header.html'" ></div>
 <div class="container ">
-	<h3>Dashboard -- Central Warehouse</h3>
+	<h3>Dashboard -- {{location.name}} <span class="small" ng-show="userpreferences.user.is_superuser"><span ng-show="location.id"><a ng-click="all_locations()" href>(all locations)</a> | </span> <a href ng-click="show_change_location()">(change)</a></span></h3>
 	<br>
 	<ul class="nav nav-tabs">
 		<li ng-class="{active: tabs[1]}"><a href ng-click="tab_switch(1)">Expiring -- next six months</a></li>
@@ -23,10 +23,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="row in report_rows">
-					<td><a href="#/item/{{row[0]}}?location=1">{{row[1]}}</a></td>
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
 					<td class="small">{{row[2]}}</td>
-					<td><a href="#/item/{{row[0]}}?location=1&itemlot={{row[3]}}">{{row[3]}}</a></td>
-					<td>{{row[4]}}</td>
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}&itemlot={{row[3]}}">{{row[3]}}</a></td>
+					<td>{{row[4] | date:'MM/yyyy'}}</td>
 					<td>{{row[5]}}</td>
 					<td>{{row[6]}}</td>
 					<td>{{row[7] | number:2}}</td>
@@ -54,10 +54,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="row in dquality_report_rows">
-					<td><a href="#/item/{{row[0]}}?location=1">{{row[1]}}</a></td>
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
 					<td class="small">{{row[2]}}</td>
-					<td><a href="#/item/{{row[0]}}?location=1&itemlot={{row[3]}}">{{row[3]}}</a></td>
-					<td>{{row[4]}}</td>
+					<td><a href="#/item/{{row[0]}}?location={{location.id}}&itemlot={{row[3]}}">{{row[3]}}</a></td>
+					<td>{{row[4] | date:'MM/yyyy'}}</td>
 					<td>{{row[5]}}</td>
 					<td>{{row[6]}}</td>
 				</tr>
@@ -68,4 +68,5 @@
 			</div>
 		</div>
 	</div>
+	<div search-location-directive callback="select_location"></div>
 </div>

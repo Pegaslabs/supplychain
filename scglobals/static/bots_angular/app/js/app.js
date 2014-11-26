@@ -14,7 +14,10 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.TransactionsCtrl',
   'SupplyChainApp.ReportsCtrl',
   'SupplyChainApp.ItemCtrl',
-  'SupplyChainApp.IlpCtrl',
+  'SupplyChainApp.ItemsCtrl',
+  'SupplyChainApp.LocationsCtrl',
+  'SupplyChainApp.PatientsCtrl',
+  'SupplyChainApp.UsersCtrl',
   'SupplyChainApp.LoginCtrl',
   'SupplyChainApp.ReceiveCtrl',
   'SupplyChainApp.TransferCtrl',
@@ -24,9 +27,11 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
   'SupplyChainApp.ServerDataService',
   'SupplyChainApp.directives',
   'SupplyChainApp.editItemDirective',
+  'SupplyChainApp.searchLocationDirective',
   'SupplyChainApp.editLocationDirective',
   'SupplyChainApp.iaDownloadDirective',
   'SupplyChainApp.editPatientDirective',
+  'SupplyChainApp.editUserDirective',
   'SupplyChainApp.viewPatientDirective',
 ]);
 
@@ -36,14 +41,8 @@ SupplyChainApp.run(function ($http, $cookies,$rootScope,$location) {
       $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
       if (!$rootScope["logged_in"] ) {
         // check if we can hit the api, and therefore are logged in with django
-        var cookies = document.cookie.split(";");
-        for (var i in cookies){
-          if (cookies[i].split("=")[0] === " username"){
-            var username = cookies[i].split("=")[1];
-            break;
-          }
-        }
-        $http.get("/api/v1/userpreferences/?format=json&limit=1&username=" + username).success(function(data) {
+        var username = $cookies['username'];
+        $http.get("/api/v1/userpreferences/?format=json&limit=1&user__username=" + username).success(function(data) {
           $rootScope.logged_in = true;
           $rootScope.userpreferences = data["objects"][0];
         }).error(function(data){
@@ -91,9 +90,21 @@ SupplyChainApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'static/bots_angular/app/views/transactions.html', 
     controller: 'TransactionsCtrl'
   });
-  $routeProvider.when('/ilp', {
-    templateUrl: 'static/bots_angular/app/views/ilp.html', 
-    controller: 'IlpCtrl'
+  $routeProvider.when('/items', {
+    templateUrl: 'static/bots_angular/app/views/items.html', 
+    controller: 'ItemsCtrl'
+  });
+  $routeProvider.when('/locations', {
+    templateUrl: 'static/bots_angular/app/views/locations.html', 
+    controller: 'LocationsCtrl'
+  });
+  $routeProvider.when('/patients', {
+    templateUrl: 'static/bots_angular/app/views/patients.html', 
+    controller: 'PatientsCtrl'
+  });
+  $routeProvider.when('/users', {
+    templateUrl: 'static/bots_angular/app/views/users.html', 
+    controller: 'UsersCtrl'
   });
   $routeProvider.when('/shipment/:shipmentId', {
     templateUrl: 'static/bots_angular/app/views/shipment.html', 

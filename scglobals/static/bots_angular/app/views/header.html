@@ -13,8 +13,8 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Receive<span class="caret"></span></a>
           <ul class="dropdown-menu" aria-labelledby="themes">
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=true&to_location={{userpreferences.default_location.id}}">All</a></li>
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=false">Pending</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=true&location={{userpreferences.default_location.id}}">All</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=false&location={{userpreferences.default_location.id}}">Pending</a></li>
             <li class="divider"></li>
             <li><a tabindex="-1" href="#/shipment/edit_receive/">Create</a></li>
           </ul>
@@ -22,8 +22,8 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Transfer<span class="caret"></span></a>
           <ul class="dropdown-menu" aria-labelledby="download">
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=true">All</a></li>
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=false">Pending</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=true&location={{userpreferences.default_location.id}}">All</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=I&active=false&location={{userpreferences.default_location.id}}">Pending</a></li>
             <li class="divider"></li>
             <li><a tabindex="-1" href="#/shipment/edit_transfer/">Create</a></li>
           </ul>
@@ -31,8 +31,8 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Dispense<span class="caret"></span></a>
           <ul class="dropdown-menu" aria-labelledby="themes">
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=true">All Dispense Reports</a></li>
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=false">Pending Dispense Reports</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=true&location={{userpreferences.default_dispensary.id}}">All Dispense Reports</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=D&active=false&location={{userpreferences.default_dispensary.id}}">Pending Dispense Reports</a></li>
             <li class="divider"></li>
             <li><a tabindex="-1" href="#/shipment/edit_transfer/?dispense=true">Create Dispense Report</a></li>
           </ul>
@@ -42,8 +42,16 @@
           <ul class="dropdown-menu" aria-labelledby="themes">
             <li><a tabindex="-1" href="#/reports/">Standard Reports</a></li>
             <li><a tabindex="-1" href="#/transactions">All Transactions</a></li>
-            <li><a tabindex="-1" href="#/ilp">Items, Locations, Patients</a></li>
             <li><a tabindex="-1" href="#/physical">Physical Stock Count</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" ng-show="userpreferences.user.is_superuser">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Admin<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li><a tabindex="-1" href="#/items/">Items</a></li>
+            <li><a tabindex="-1" href="#/locations">Locations</a></li>
+            <li><a tabindex="-1" href="#/patients">Patients</a></li>
+            <li><a tabindex="-1" href="#/users">Users</a></li>
           </ul>
         </li>
       </ul>

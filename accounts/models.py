@@ -7,4 +7,4 @@ class UserPreferences(models.Model):
     	return self.user.username + " preferences: default location " + self.default_location.name
     user = models.ForeignKey(User)
     default_location = models.ForeignKey(Location)
-    default_to_location = models.ForeignKey(Location,related_name='default_to_location_set')
+    default_dispensary = models.ForeignKey(Location,related_name='default_dispensary_set')
