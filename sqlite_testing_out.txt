@@ -135,7 +135,7 @@ id          date                 id          name               name            
 111         2013-08-21 22:00:00  147         Calcium Gluconate  Tablets and Capsules              2014-10-31 22:00:00  1         
 111         2013-08-21 22:00:00  149         Captopril 25mg 60  Tablets and Capsules              2014-11-30 22:00:00  20        
 111         2013-08-21 22:00:00  160         Ciprofloxacin 500  Tablets and Capsules              2015-10-31 22:00:00  10        
-111         2013-08-21 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2015-12-01 13:13:20  15        
+111         2013-08-21 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2015-12-01 13:13:20  15        
 111         2013-08-21 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-01-01 11:13:10  3         
 111         2013-08-21 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2014-12-31 22:00:00  1         
 111         2013-08-21 22:00:00  178         Doxycycline 100mg  Tablets and Capsules              2016-03-31 22:00:00  3         
@@ -534,7 +534,7 @@ id          date                 id          name               name            
 279         2013-11-18 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-02-29 22:00:00  2         
 279         2013-11-18 22:00:00  158         Cimetidine 200mg   Tablets and Capsules              2015-10-31 22:00:00  2         
 279         2013-11-18 22:00:00  677         Ciprofloxacin 500  Tablets and Capsules              2015-02-28 22:00:00  1         
-279         2013-11-18 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-03-01 22:00:00  11        
+279         2013-11-18 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-03-01 22:00:00  11        
 279         2013-11-18 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-01-31 22:00:00  7         
 279         2013-11-18 22:00:00  168         Co-Trimoxazole 96  Tablets and Capsules              2014-11-30 22:00:00  40        
 279         2013-11-18 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2015-03-31 22:00:00  1         
@@ -754,7 +754,7 @@ id          date                 id          name               name            
 438         2014-02-19 22:00:00  151         Carbamazipine 200  Tablets and Capsules              2014-12-31 22:00:00  2         
 438         2014-02-19 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-02-29 22:00:00  3         
 438         2014-02-19 22:00:00  677         Ciprofloxacin 500  Tablets and Capsules              2015-02-28 22:00:00  2         
-438         2014-02-19 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-02-29 22:00:00  5         
+438         2014-02-19 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-02-29 22:00:00  5         
 438         2014-02-19 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-01-31 22:00:00  5         
 438         2014-02-19 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2015-03-31 22:00:00  2         
 438         2014-02-19 22:00:00  173         Diclofenac 25mg 5  Tablets and Capsules              2014-12-31 22:00:00  5         
@@ -861,7 +861,7 @@ id          date                 id          name               name            
 589         2014-03-24 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-02-29 22:00:00  4         
 589         2014-03-24 22:00:00  156         Chlorpromazine 25  Tablets and Capsules              2014-10-31 22:00:00  2         
 589         2014-03-24 22:00:00  158         Cimetidine 200mg   Tablets and Capsules              2016-07-31 22:00:00  3         
-589         2014-03-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-02-29 22:00:00  9         
+589         2014-03-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-02-29 22:00:00  9         
 589         2014-03-24 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2015-03-31 22:00:00  2         
 589         2014-03-24 22:00:00  174         Diclofenac 50mg 5  Tablets and Capsules              2015-02-28 22:00:00  2         
 589         2014-03-24 22:00:00  178         Doxycycline 100mg  Tablets and Capsules              2016-01-31 22:00:00  3         
@@ -1168,7 +1168,7 @@ id          date                 id          name               name            
 1554        2014-06-23 22:00:00  149         Captopril 25mg 60  Tablets and Capsules              2016-09-30 22:00:00  20        
 1554        2014-06-23 22:00:00  151         Carbamazipine 200  Tablets and Capsules              2016-07-31 22:00:00  1         
 1554        2014-06-23 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2015-08-31 22:00:00  1         
-1554        2014-06-23 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  10        
+1554        2014-06-23 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  10        
 1554        2014-06-23 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2016-11-30 22:00:00  1         
 1554        2014-06-23 22:00:00  185         Folic acid 5mg 10  Tablets and Capsules              2016-01-31 22:00:00  1         
 1554        2014-06-23 22:00:00  188         Glibenclamide 5mg  Tablets and Capsules              2015-01-31 22:00:00  1         
@@ -1279,7 +1279,7 @@ id          date                 id          name               name            
 1866        2014-07-23 22:00:00  133         Amoxicillin 250mg  Tablets and Capsules              2015-08-31 22:00:00  3         
 1866        2014-07-23 22:00:00  139         Artane 2mg 100     Tablets and Capsules              2018-12-31 22:00:00  1         
 1866        2014-07-23 22:00:00  152         Child Growth Vita  Tablets and Capsules              2015-03-01 12:37:58  10        
-1866        2014-07-23 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  5         
+1866        2014-07-23 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  5         
 1866        2014-07-23 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2016-11-30 22:00:00  2         
 1866        2014-07-23 22:00:00  175         Diclofenac 50 mg   Tablets and Capsules              2015-08-31 22:00:00  1         
 1866        2014-07-23 22:00:00  177         Diphenoxylate- At  Tablets and Capsules              2015-08-31 22:00:00  10        
@@ -1396,7 +1396,7 @@ id          date                 id          name               name            
 2162        2014-08-19 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-06-30 22:00:00  2         
 2162        2014-08-19 22:00:00  158         Cimetidine 200mg   Tablets and Capsules              2016-01-31 22:00:00  1         
 2162        2014-08-19 22:00:00  160         Ciprofloxacin 500  Tablets and Capsules              2016-11-30 22:00:00  5         
-2162        2014-08-19 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  10        
+2162        2014-08-19 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  10        
 2162        2014-08-19 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-12-31 22:00:00  2         
 2162        2014-08-19 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2015-10-31 22:00:00  1         
 2162        2014-08-19 22:00:00  171         Diazepam 5mg 1000  Tablets and Capsules              2018-03-31 22:00:00  1         
@@ -1538,7 +1538,7 @@ id          date                 id          name               name            
 2427        2014-09-21 22:00:00  152         Child Growth Vita  Tablets and Capsules              2015-03-01 12:37:58  20        
 2427        2014-09-21 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-06-30 22:00:00  3         
 2427        2014-09-21 22:00:00  160         Ciprofloxacin 500  Tablets and Capsules              2016-11-30 22:00:00  10        
-2427        2014-09-21 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  5         
+2427        2014-09-21 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  5         
 2427        2014-09-21 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-12-31 22:00:00  1         
 2427        2014-09-21 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2016-11-30 22:00:00  1         
 2427        2014-09-21 22:00:00  169         Dapsone 100mg  10  Tablets and Capsules              2015-10-31 22:00:00  1         
@@ -1783,8 +1783,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  456         Pill bags small 1  MEDICAL SUPPLIES                                       -6        
 2840        2014-10-24 22:00:00  456         Pill bags small 1  MEDICAL SUPPLIES                                       -2        
 2840        2014-10-24 22:00:00  456         Pill bags small 1  MEDICAL SUPPLIES                                       -3        
-2840        2014-10-24 22:00:00  456         Pill bags small 1  MEDICAL SUPPLIES                                       -2        
-2840        2014-10-24 22:00:00  457         Plain  Labels  ro  MEDICAL SUPPLIES                                       -3        
 2840        2014-10-24 22:00:00  458         Sanitary pads 12   MEDICAL SUPPLIES                                       -5        
 2840        2014-10-24 22:00:00  458         Sanitary pads 12   MEDICAL SUPPLIES                                       -2        
 2840        2014-10-24 22:00:00  458         Sanitary pads 12   MEDICAL SUPPLIES                                       -3        
@@ -2121,11 +2119,11 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-02-29 22:00:00  -1        
 2840        2014-10-24 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-02-29 22:00:00  -7        
 2840        2014-10-24 22:00:00  155         Chlorpheniramine   Tablets and Capsules              2016-06-30 22:00:00  -4        
-2840        2014-10-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2015-12-01 13:13:20  -15       
-2840        2014-10-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-02-29 22:00:00  -14       
-2840        2014-10-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-03-01 22:00:00  -11       
-2840        2014-10-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  -15       
-2840        2014-10-24 22:00:00  163         Clotrimazole 100m  Tablets and Capsules              2016-11-30 22:00:00  -10       
+2840        2014-10-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2015-12-01 13:13:20  -15       
+2840        2014-10-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-02-29 22:00:00  -14       
+2840        2014-10-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-03-01 22:00:00  -11       
+2840        2014-10-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  -15       
+2840        2014-10-24 22:00:00  163         Clotrimazole Vagi  Tablets and Capsules              2016-11-30 22:00:00  -10       
 2840        2014-10-24 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2014-12-31 22:00:00  -7        
 2840        2014-10-24 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-01-01 11:13:10  -3        
 2840        2014-10-24 22:00:00  164         Cloxacillin 250mg  Tablets and Capsules              2015-01-01 13:28:10  -3        
@@ -2186,7 +2184,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  357         Crepe bandage  75  MEDICAL SUPPLIES                                       -2        
 2840        2014-10-24 22:00:00  357         Crepe bandage  75  MEDICAL SUPPLIES                                       -1        
 2840        2014-10-24 22:00:00  357         Crepe bandage  75  MEDICAL SUPPLIES                                       -2        
-2840        2014-10-24 22:00:00  358         Crepe bandage 100  MEDICAL SUPPLIES                                       -2        
 2840        2014-10-24 22:00:00  358         Crepe bandage 100  MEDICAL SUPPLIES                                       -1        
 2840        2014-10-24 22:00:00  358         Crepe bandage 100  MEDICAL SUPPLIES                                       -1        
 2840        2014-10-24 22:00:00  358         Crepe bandage 100  MEDICAL SUPPLIES                                       -5        
@@ -2253,8 +2250,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  88          Hydrocortisone 10  INJECTIONS & IV INFUSIONS         2017-05-31 22:00:00  -2        
 2840        2014-10-24 22:00:00  600         Hydrocortisone 10  NTP consignment                   2017-05-31 22:00:00  -4        
 2840        2014-10-24 22:00:00  89          Hyoscine 20mg/ml   INJECTIONS & IV INFUSIONS         2015-03-31 22:00:00  -1        
-2840        2014-10-24 22:00:00  8           Hyoscine 5mg/5ml   SYRUPS, MIXTURE, SUSPENSIONS ETC  2015-01-01 13:50:23  -4        
-2840        2014-10-24 22:00:00  8           Hyoscine 5mg/5ml   SYRUPS, MIXTURE, SUSPENSIONS ETC  2015-08-31 22:00:00  -2        
 2840        2014-10-24 22:00:00  8           Hyoscine 5mg/5ml   SYRUPS, MIXTURE, SUSPENSIONS ETC  2015-01-01 13:50:23  -4        
 2840        2014-10-24 22:00:00  8           Hyoscine 5mg/5ml   SYRUPS, MIXTURE, SUSPENSIONS ETC  2015-08-31 22:00:00  -2        
 2840        2014-10-24 22:00:00  399         I.v cannulae 20G   MEDICAL SUPPLIES                  2018-01-09 22:00:00  -30       
@@ -2339,7 +2334,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  420         Needle 21G 100     MEDICAL SUPPLIES                  2019-03-31 22:00:00  -3        
 2840        2014-10-24 22:00:00  421         Needle 23G 100     MEDICAL SUPPLIES                  2016-08-01 12:38:22  -2        
 2840        2014-10-24 22:00:00  421         Needle 23G 100     MEDICAL SUPPLIES                  2018-04-30 22:00:00  -4        
-2840        2014-10-24 22:00:00  230         Nifedipine 10mg 1  Tablets and Capsules              2015-12-31 22:00:00  -1        
 2840        2014-10-24 22:00:00  580         Noristerate 200mg  FAMILY PLANING PREPARATIONS       2014-12-01 12:38:39  -13       
 2840        2014-10-24 22:00:00  580         Noristerate 200mg  FAMILY PLANING PREPARATIONS       2016-02-29 22:00:00  -15       
 2840        2014-10-24 22:00:00  580         Noristerate 200mg  FAMILY PLANING PREPARATIONS       2016-03-31 22:00:00  0         
@@ -2360,7 +2354,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-03-01 13:37:43  -5        
 2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-04-30 22:00:00  -17       
 2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-04-30 22:00:00  -16       
-2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-09-30 22:00:00  -25       
 2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-11-30 22:00:00  -10       
 2840        2014-10-24 22:00:00  322         Oxytocin 10IU/ml   FRIDGE-LINE PREPARATIONS          2015-08-31 22:00:00  -3        
 2840        2014-10-24 22:00:00  322         Oxytocin 10IU/ml   FRIDGE-LINE PREPARATIONS          2015-09-30 22:00:00  -10       
@@ -2379,7 +2372,6 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  242         Phenobarbital 30m  Tablets and Capsules              2015-01-01 12:38:05  -6        
 2840        2014-10-24 22:00:00  305         Povidone iodine 1  TOPICAL CREAM,LOTION,OINTMENT &   2016-05-31 22:00:00  -1        
 2840        2014-10-24 22:00:00  305         Povidone iodine 1  TOPICAL CREAM,LOTION,OINTMENT &   2016-06-30 22:00:00  -2        
-2840        2014-10-24 22:00:00  304         Povidone iodine 1  TOPICAL CREAM,LOTION,OINTMENT &   2015-09-30 22:00:00  -1        
 2840        2014-10-24 22:00:00  304         Povidone iodine 1  TOPICAL CREAM,LOTION,OINTMENT &   2015-09-30 22:00:00  -1        
 2840        2014-10-24 22:00:00  304         Povidone iodine 1  TOPICAL CREAM,LOTION,OINTMENT &   2016-04-30 22:00:00  -3        
 2840        2014-10-24 22:00:00  43          Promethazine 5mg/  SYRUPS, MIXTURE, SUSPENSIONS ETC  2015-08-31 22:00:00  -20       
@@ -2439,6 +2431,24 @@ id          date                 id          name               name            
 2840        2014-10-24 22:00:00  529         X-Ray Envelop lar  MEDICAL SUPPLIES                                       -45       
 2840        2014-10-24 22:00:00  529         X-Ray Envelop lar  MEDICAL SUPPLIES                                       -30       
 2840        2014-10-24 22:00:00  532         Zinc oxide Plaste  MEDICAL SUPPLIES                                       -1        
-2840        2014-10-24 22:00:00  531         Zinc oxide tape 5  MEDICAL SUPPLIES                                       -3        
 2840        2014-10-24 22:00:00  737         Acetyl-salicylic   Tablets and Capsules              2016-08-31 22:00:00  -1        
 2841        2014-10-25 22:00:00  737         Acetyl-salicylic   Tablets and Capsules              2016-09-30 22:00:00  2         
+2840        2014-10-24 22:00:00  149         Captopril 25mg 60  Tablets and Capsules              2016-09-30 22:00:00  -15       
+2840        2014-10-24 22:00:00  650         Copper T           FAMILY PLANING PREPARATIONS       2019-12-01 12:08:37  -2        
+2840        2014-10-24 22:00:00  356         Crepe bandage  50  MEDICAL SUPPLIES                  2017-11-30 22:00:00  -1        
+2840        2014-10-24 22:00:00  358         Crepe bandage 100  MEDICAL SUPPLIES                  2017-11-30 22:00:00  -2        
+2840        2014-10-24 22:00:00  222         Metronidazole 200  Tablets and Capsules              2015-04-30 22:00:00  -2        
+2840        2014-10-24 22:00:00  230         Nifedipine 10mg 1  Tablets and Capsules              2016-04-30 22:00:00  -1        
+2840        2014-10-24 22:00:00  540         Nylon reverse cut  SUTURES                           2016-06-01 12:38:34  -1        
+2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-09-30 22:00:00  -20       
+2840        2014-10-24 22:00:00  277         Oxymetazoline 0.0  EYE & EAR PREPARATIONS            2016-11-30 22:00:00  -5        
+2840        2014-10-24 22:00:00  457         Plain  Labels  ro  MEDICAL SUPPLIES                                       -1        
+2840        2014-10-24 22:00:00  252         Promethazine 25mg  Tablets and Capsules              2015-02-28 22:00:00  -1        
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2015-01-31 22:00:00  -10       
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2015-02-01 22:00:00  -20       
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2015-02-02 22:00:00  -85       
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2016-01-31 22:00:00  -35       
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2016-02-29 22:00:00  -90       
+2840        2014-10-24 22:00:00  280         Tetracycline 1% e  EYE & EAR PREPARATIONS            2016-02-29 22:00:00  -60       
+2840        2014-10-24 22:00:00  530         Zinc oxide Tape 2  MEDICAL SUPPLIES                                       -1        
+2840        2014-10-24 22:00:00  531         Zinc oxide tape 5  MEDICAL SUPPLIES                                       -2        

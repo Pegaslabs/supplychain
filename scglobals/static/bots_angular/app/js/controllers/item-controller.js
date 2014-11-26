@@ -1,5 +1,5 @@
 angular.module('SupplyChainApp.ItemCtrl', []).
-controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location", "$routeParams", "ServerDataService", "UserPrefsService", "UtilsService", function($scope,$rootScope,$http,$filter,$location,$routeParams,ServerDataService,UserPrefsService,UtilsService) {
+controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location", "$routeParams", "ServerDataService", "UtilsService", function($scope,$rootScope,$http,$filter,$location,$routeParams,ServerDataService,UtilsService) {
 
 	$scope.limit = 10;
 	$scope.tabs = {1 : true, 2: false, 3: false,4: false};
@@ -16,28 +16,22 @@ controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location",
 	var today = d.getFullYear() + "-" + (Number(d.getMonth()) + 1) + "-" + d.getDate();
 
 	var url = '/api/v1/item/' + $routeParams['itemId'] + "?format=json";
-	UserPrefsService.getUserPrefs().then(function(userpreferences){
-		$scope.userpreferences = userpreferences;
-		$http({method: 'GET', url: url }).success(function (data) {
-			$scope.item = data;
-			if ("location" in $location.search()){
-				ServerDataService.get("location",$location.search()['location']).then(function(data){
-					$scope.curr_location = data;
-					$scope.show_header = true;
-					load_stockchanges();
-				});
-			}
-			else if ($scope.userpreferences){
-				$scope.curr_location = $scope.userpreferences.default_location;
-				$location.search({"location" : $scope.curr_location.id});
-			}
-			else{
-				$location.search({"location" : 2});
-			}
-		}).error(function(data){
-			$("#server_error .error_text").text("Something went wrong, please contact the server administrator. Technical details:" + data["error_message"]);
-      $("#server_error").removeClass('hide');
-		});
+	$http({method: 'GET', url: url }).success(function (data) {
+		$scope.item = data;
+		if ("location" in $location.search()){
+			ServerDataService.get("location",$location.search()['location']).then(function(data){
+				$scope.curr_location = data;
+				$scope.show_header = true;
+				load_stockchanges();
+			});
+		}
+		else {
+			$scope.curr_location = $rootScope.userpreferences.default_location;
+			$location.search({"location" : $scope.curr_location.id});
+		}
+	}).error(function(data){
+		$("#server_error .error_text").text("Something went wrong, please contact the server administrator. Technical details:" + data["error_message"]);
+    $("#server_error").removeClass('hide');
 	});
 	var items_url = '/api/v1/item/' + $routeParams['itemId'] + "?format=json&soh_by_location=" + today + "&" + $location.url().split("?")[1] + "&location_type_inventory=true";
 	$http({method: 'GET', url: items_url }).success(function (data) {

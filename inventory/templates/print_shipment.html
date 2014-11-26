@@ -41,8 +41,10 @@
 					<th>Lot Num</th>
 					<th>Qty Issued</th>
 					<th>Qty Received</th>
-					<th>Unit Price</th>
-					<th>Total Price</th>
+					{% if shipment.to_location.location_type != 'P' %}
+						<th>Unit Price</th>
+						<th>Total Price</th>
+					{% endif%}
 				</tr>
 			</thead>
 			<tbody>
@@ -56,8 +58,10 @@
 					<td>{{item.itemlot.lot_num}}</td>
 					<td>{{item.qty}}</td>
 					<td></td>
-					<td>{{item.itemlot.unit_price|floatformat:"2"}}</td>
-					<td>{{item.price|floatformat:"2"}}</td>
+					{% if shipment.to_location.location_type != 'P' %}
+						<td>{{item.itemlot.unit_price|floatformat:"2"}}</td>
+						<td>{{item.price|floatformat:"2"}}</td>
+					{% endif%}
 				</tr>
 				{% endfor %}
 			</tbody>

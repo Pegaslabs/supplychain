@@ -1,5 +1,5 @@
 angular.module('SupplyChainApp.ReportsCtrl', []).
-controller('ReportsCtrl', ['$scope', '$http', "$location", 'UserPrefsService', 'UtilsService',"$filter", function($scope, $http,$location,UserPrefsService,UtilsService,$filter) {
+controller('ReportsCtrl', ['$scope',"$rootScope",'$http', "$location", 'UtilsService',"$filter", function($scope,$rootScope, $http,$location,UtilsService,$filter) {
     // globals
     $scope.report_type = {"inventory" : true, "consumption" : false, "expirations" : false};
     $scope.all_category = {"id" : 0, "name" : "All Categories"};
@@ -103,10 +103,7 @@ $scope.location_search_config = {
     input_class : "location_input",
     select_result: $scope.submit_location
 };
-UserPrefsService.getUserPrefs().then(function(userpreferences){
-    $scope.userpreferences = userpreferences;
-    $scope.submit_location($scope.userpreferences.default_location);
-});
+$scope.submit_location($rootScope.userpreferences.default_location);
 $scope.run_inventory = function(){
     var bad = false;
     if ($scope.location){

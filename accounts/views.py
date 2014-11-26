@@ -42,4 +42,4 @@ def user_config(request):
 
 def signout(request):
     logout(request)
-    return redirect('/')
+    return redirect('/#/login')

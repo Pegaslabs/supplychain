@@ -1,6 +1,6 @@
 angular.module('SupplyChainApp.TransferCtrl', []).
-controller('TransferCtrl', ['$scope','$http','$location','$filter','ServerDataService','UtilsService','UserPrefsService', 
-    function($scope,$http,$location,$filter,ServerDataService,UtilsService,UserPrefsService) {
+controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter','ServerDataService','UtilsService', 
+    function($scope,$rootScope,$http,$location,$filter,ServerDataService,UtilsService) {
     $(".input_date").focus();
     $scope.total_price = 0;
     $scope.page_price = 0;
@@ -84,16 +84,7 @@ controller('TransferCtrl', ['$scope','$http','$location','$filter','ServerDataSe
             $scope.dispense = true;
             $scope.shipment = {};
             $scope.shipment.date = "t";
-            UserPrefsService.getUserPrefs().then(function(userpreferences){
-                if($scope.userpreferences){
-                    $scope.userpreferences = userpreferences;
-                    $scope.submit_from_location($scope.userpreferences.default_location);
-                }
-                else{
-                    $scope.editing_from_location = true;
-                }
-                $scope.show_results = true;
-            });
+            $scope.submit_from_location($rootScope.userpreferences.default_location);
         }
         else{
             $scope.shipment = {};

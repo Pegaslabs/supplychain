@@ -75,14 +75,15 @@ factory('UtilsService', function () {
                 var ds = d.split("/");
                 // allowing 5/2015 instead of 1/5/2015
                 if(ds.length == 2){
-                    var year = (ds[1].length !== 4) ? ("-20" + ds[1]) : "-" + ds[1];
-                    var d = new Date(ds[0] + "-01" + year);
+                    var year = (ds[1].length !== 4) ? ("20" + ds[1]) : ds[1];
+                    var d = new Date(ds[0] + "-01-" + year);
                 }
                 else{
-                    var year = (ds[2].length !== 4) ? ("-20" + ds[2]) : "-" + ds[2];
-                    var d = new Date(ds[1] + "-" + ds[0] + year);
+                    var year = (ds[2].length !== 4) ? ("20" + ds[2]) : ds[2];
+                    var d = new Date(ds[1] + "-" + ds[0] + "-" + year);
+                    console.log(isNaN(d));
                 }
-                if (isNaN(d) || year.length !== 5){
+                if (isNaN(d) || year >= 2200 || year <= 1900){
                     throw "exception";
                 }
                 return true;

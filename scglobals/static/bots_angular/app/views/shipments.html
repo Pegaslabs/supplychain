@@ -20,7 +20,7 @@
           <th>From</th>
           <th>To</th>
           <th>Date</th>
-          <th>Total Value</th>
+          <th ng-hide="dispense">Total Value</th>
           <th>Items</th>
         </tr>
       </thead>
@@ -30,7 +30,7 @@
           <td><a href ng-click="filter_from_location(shipment.from_location.id)">{{shipment.from_location.name}}</a></td>
           <td><a href ng-click="filter_to_location(shipment.to_location.id)">{{shipment.to_location.name}}</a></td>
           <td>{{shipment.date | date:'MMMM d, yyyy'}}</td>
-          <td>{{shipment.price}}</td>
+          <td ng-hide="dispense">{{shipment.price}}</td>
           <td>{{shipment.item_count}}</td>
         </tr>
       </tbody>

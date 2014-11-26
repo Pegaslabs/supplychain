@@ -98,8 +98,8 @@ directive('iaPagination', ['$http', function($http) {
 					scope.loading = false;
 				}).error(function(data){
 					var detail_text = data["error_message"] ? data["error_message"] : data["error"];
-					$("#server_error .error_text").text("Something went wrong, please contact the server administrator. Technical details: " + detail_text);
-          $("#server_error").removeClass('hide');
+					// $("#server_error .error_text").text("Something went wrong, please contact the server administrator. Technical details: " + detail_text);
+          // $("#server_error").removeClass('hide');
 				});
 			};
 			scope.$watch('paginationConfig', function(val){

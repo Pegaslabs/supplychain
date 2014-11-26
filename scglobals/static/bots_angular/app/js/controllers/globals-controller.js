@@ -32,7 +32,8 @@ controller('GlobalCtrl', [
             else{
     			$location.path("/shipments/").search({"location" : item.id, "location_name" : item.name,"active" : "true"});
     		}
-    	}
+    	};
+    	$scope.userpreferences = $rootScope.userpreferences;
     	$scope.item_search_config = {
     		placeholder : "Search items, locations, shipments, patients. e.g. 100, or shipment 100",
     		add_new : false,
@@ -84,10 +85,10 @@ controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 }]);
 
 angular.module('SupplyChainApp.LoginCtrl', []).
-controller('LoginCtrl', ['$scope', '$http','$location', '$rootScope', function($scope, $http, $location, $rootScope) {
+controller('LoginCtrl', ['$scope','$routeParams','$http','$location', '$rootScope', function($scope,$routeParams,$http, $location, $rootScope) {
 	$("#username").focus();
 	$scope.login = function(user){
-		$location.search({});
+		// $location.search({});
 		$scope.user_pass_missing = false;
 		$scope.user_pass_wrong = false;
 		if (user !== undefined && "username" in user && "password" in user){
@@ -102,9 +103,17 @@ controller('LoginCtrl', ['$scope', '$http','$location', '$rootScope', function($
 					$rootScope.logged_in = true;
 					$http.get("/api/v1/userpreferences/?format=json&limit=1&username=" + user.username).success(function(data) {
 						$rootScope.userpreferences = data["objects"][0];
+						if ($routeParams["redirect"]){
+							var redirect = $routeParams["redirect"];
+							var search = $location.search();
+							delete search["redirect"];
+							$location.path(redirect).search(search).update();
+						}
+						else{
+							$location.path('/dash');
+						}
 					});
 					document.cookie = "username=" + user.username;
-					$location.path('/dash');
 				}
 			});
 		}

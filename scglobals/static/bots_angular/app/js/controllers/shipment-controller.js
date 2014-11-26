@@ -25,6 +25,7 @@ controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "Uti
     }
     else if ($routeParams["from_location__location_type"] === "D"){
       $scope.title = "Dispensed " + $scope.title;
+      $scope.dispense = true;
     }
     if ("location_name" in $routeParams){
       $scope.title = $routeParams["location_name"] + " - " + $scope.title;

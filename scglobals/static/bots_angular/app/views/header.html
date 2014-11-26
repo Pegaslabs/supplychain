@@ -13,7 +13,7 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Receive<span class="caret"></span></a>
           <ul class="dropdown-menu" aria-labelledby="themes">
-            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=true">All</a></li>
+            <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=true&to_location={{userpreferences.default_location.id}}">All</a></li>
             <li><a tabindex="-1" href="#/shipments?from_location__location_type=S&active=false">Pending</a></li>
             <li class="divider"></li>
             <li><a tabindex="-1" href="#/shipment/edit_receive/">Create</a></li>
