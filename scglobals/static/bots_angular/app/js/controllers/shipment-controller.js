@@ -1,6 +1,6 @@
 angular.module('SupplyChainApp.ShipmentsCtrl', []).
-controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "UtilsService", "ServerDataService",
-  function($scope, $http,$location,$routeParams,UtilsService,ServerDataService) {
+controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams","$rootScope","UtilsService", "ServerDataService",
+  function($scope, $http,$location,$routeParams,$rootScope,UtilsService,ServerDataService) {
 
     $scope.title = "Shipments";
     $scope.url = "/api/v1/shipment/?format=json&order_by=-date&order_by=-id&" + $location.url().split("?")[1];
@@ -49,7 +49,19 @@ controller('ShipmentsCtrl', ['$scope', '$http', "$location","$routeParams", "Uti
         $scope.location = data;
         build_page();
       });
-    }else{
+    }else if ($routeParams["location"] === ""){
+      console.log("why");
+        $rootScope.$watch('userpreferences', function(val){
+          if($rootScope.userpreferences){
+            ServerDataService.get("location",$rootScope.userpreferences.default_location.id).then(function(data){
+              $location.search("location",data.id);
+              // $scope.location = data;
+              // build_page();
+            });
+          }
+        });
+    }
+    else{
       $scope.location = {'name' : 'All Locations'};
       build_page();
     }

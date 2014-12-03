@@ -36,25 +36,29 @@ var SupplyChainApp = angular.module('SupplyChainApp', [
 ]);
 
 SupplyChainApp.run(function ($http, $cookies,$rootScope,$location) {
+    var login = function(){
+      if ($location.path() !== "/login" ) {
+          // not going to #login, we should redirect now
+          // var redirect = $location.url();
+          $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
+          var search = $location.search();
+          search["redirect"] = $location.path();
+          $location.path( "/login").search(search);
+        }
+    };
     $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
       $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
       if (!$rootScope["logged_in"] ) {
         // check if we can hit the api, and therefore are logged in with django
         var username = $cookies['username'];
+        if (!username) login();
         $http.get("/api/v1/userpreferences/?format=json&limit=1&user__username=" + username).success(function(data) {
           $rootScope.logged_in = true;
           $rootScope.userpreferences = data["objects"][0];
         }).error(function(data){
           // no logged user, we should be going to #login
-          if ($location.path() !== "/login" ) {
-            // not going to #login, we should redirect now
-            // var redirect = $location.url();
-            $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
-            var search = $location.search();
-            search["redirect"] = $location.path();
-            $location.path( "/login").search(search);
-          }
+          login();
         });
       }    
     });

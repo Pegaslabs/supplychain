@@ -29,7 +29,8 @@ def print_shipment(request,pk):
         except:
             pass
         item.qty = -1*item.qty
-        shipment_items.append(item)
+        if item.qty > 0:
+            shipment_items.append(item)
     shipment_item_lists.append(shipment_items)
     try:
         internal = request.GET["internal_billing"]

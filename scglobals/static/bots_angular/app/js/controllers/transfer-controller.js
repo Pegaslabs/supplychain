@@ -7,6 +7,7 @@ controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter',
     $scope.limit = 100;
     $scope.quick_transfer = false;
     $scope.edit_item_id = undefined;
+    $scope.creating_in_progress = false;
     $scope.editing_to_location = true;
     Object.size = function(obj) {
         var size = 0, key;
@@ -84,7 +85,13 @@ controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter',
             $scope.dispense = true;
             $scope.shipment = {};
             $scope.shipment.date = "t";
-            $scope.submit_from_location($rootScope.userpreferences.default_location);
+            $scope.show_results = true;
+            $rootScope.$watch('userpreferences', function(val){
+                if($rootScope.userpreferences){
+                    $scope.submit_from_location($rootScope.userpreferences.default_dispensary);
+                }
+            });
+
         }
         else{
             $scope.shipment = {};
@@ -250,22 +257,19 @@ controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter',
     };
 
     $scope.try_create_new_shipment = function(){
-        if (!$scope.shipment.id){
-            if ($scope.shipment.date && $scope.shipment.to_location && $scope.shipment.from_location){
-                var serialized_shipment = {
-                    "date" : $scope.shipment.date,
-                    "to_location" : "/api/v1/location/" + $scope.shipment.to_location.id + "/",
-                    "from_location" : "/api/v1/location/" + $scope.shipment.from_location.id + "/",
-                    "shipment_type" : "T"
-                };
-                if ($scope.dispense){
-                    serialized_shipment['shipment_type'] = "T";
-                }
-                ServerDataService.save('shipment',serialized_shipment).then(function(data){
-                    $scope.shipment = data;
-                    $location.search("shipment", data.id);
-                });
-            }
+        if (!$scope.shipment.id && $scope.shipment.date && $scope.shipment.to_location 
+            && $scope.shipment.from_location && !$scope.creating_in_progress){
+            $scope.creating_in_progress = true;
+            var serialized_shipment = {
+                "date" : $scope.shipment.date,
+                "to_location" : "/api/v1/location/" + $scope.shipment.to_location.id + "/",
+                "from_location" : "/api/v1/location/" + $scope.shipment.from_location.id + "/",
+                "shipment_type" : "T"
+            };
+            ServerDataService.save('shipment',serialized_shipment).then(function(data){
+                $scope.shipment = data;
+                $location.search("shipment", data.id);
+            });
         }
     };
 

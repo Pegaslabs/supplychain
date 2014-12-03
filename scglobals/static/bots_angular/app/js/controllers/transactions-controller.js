@@ -13,7 +13,7 @@ controller('TransactionsCtrl',[
         $http.get(big_url).success(function(data) {
             $scope.transactions = data;
             $scope.view_transactions = _.first(data,100);
-            $scope.transactions.unshift(["Date","Shipment System ID","Location","From Location","From Location Type","To Location","To Location Type","Item","Item Category","Item Expiration","Item Lot Num","Unit Price","Quantity","User","Total Value"]);
+            $scope.transactions.unshift(["Date","Shipment System ID","Location","From Location","From Location Type","To Location","To Location Type","Item","Item Category","Item Expiration","Item Lot Num","Unit Price","Quantity","User","Last Edited","Total Value"]);
             $scope.loading_transactions = false;
         });
     //     $scope.filter_column = function(location_q){

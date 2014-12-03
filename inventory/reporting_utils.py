@@ -151,7 +151,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
               having sum(active_scs.qty) < 0
             order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),date)
     all_stockchanges = """select 
-        s.date,s.id,sc_location.name,from_location.name,from_location.location_type,to_location.name,to_location.location_type,i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,(il.unit_price*sc.qty)
+        s.date,s.id,sc_location.name,from_location.name,from_location.location_type,to_location.name,to_location.location_type,i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,sc.modified,(il.unit_price*sc.qty)
         from inventory_stockchange sc
         join inventory_shipment s on sc.shipment_id=s.id
         join inventory_location sc_location on sc_location.id=sc.location_id

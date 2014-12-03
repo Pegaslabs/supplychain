@@ -128,7 +128,7 @@ controller('LoginCtrl', ['$scope','$routeParams','$http','$location', '$rootScop
               var redirect = $routeParams["redirect"];
               var search = $location.search();
               delete search["redirect"];
-              $location.path(redirect).search(search).update();
+              $location.path(redirect).search(search);
             }
             else{
               $location.path('/dash');

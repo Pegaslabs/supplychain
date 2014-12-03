@@ -1,6 +1,7 @@
 list of things that will be forgetten if not written down, not big tasks (those are remembered).
 
 bugs (in priority)
+- https://lesothotest.pih-emr.org:8998/#/item/712?location=1, https://lesothotest.pih-emr.org:8998/#/item/242?location=1
 -download button missing on transactions
 -dates wrong on dispensing
 	-transfer something to the dispensary, then despense it same day, then checkout the stock page balance...

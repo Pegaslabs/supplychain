@@ -1,6 +1,6 @@
 <div ng-include src="'static/bots_angular/app/views/header.html'" ></div>
 <div class="container ">
-	<h3>Dashboard -- {{location.name}} <span class="small" ng-show="userpreferences.user.is_superuser"><span ng-show="location.id"><a ng-click="all_locations()" href>(all locations)</a> | </span> <a href ng-click="show_change_location()">(change)</a></span></h3>
+	<h3>Dashboard -- {{location.name}} <span class="small" ng-show="userpreferences.user.is_superuser"><a href ng-click="show_change_location()">(change)</a></span></h3>
 	<br>
 	<ul class="nav nav-tabs">
 		<li ng-class="{active: tabs[1]}"><a href ng-click="tab_switch(1)">Expiring -- next six months</a></li>

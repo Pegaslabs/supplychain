@@ -71,6 +71,8 @@ directive('editPatientDirective',
                 };
                 // passing location because it might be new and therefore not yet in $scope.patientLocation
                 var save_patient = function(location){
+                    $scope.no_name = (!$scope.patient.name);
+                    if ($scope.no_name) return;
                     $scope.patient.location = "/api/v1/location/" + location.id + "/";
                     if ($scope.district) $scope.patient.district = "/api/v1/district/" + $scope.district.id + "/";
                     ServerDataService.save('patient',$scope.patient).then(function(data){
@@ -79,6 +81,8 @@ directive('editPatientDirective',
                     });
                 };
                 $scope.update_patient = function(){
+                    $scope.no_name = (!$scope.patient.name);
+                    if ($scope.no_name) return;
                     // editing existing patient
                     if ($scope.patientLocation){
                         // name is stored on the location, not patient

@@ -11,7 +11,7 @@ class Command(BaseCommand):
     today = timezone.localtime(timezone.now())
     expired_location = Location.objects.get(name="Expired")
     u = User.objects.all()[0]
-    for il in ItemLot.objects.filter(active=True,expired=False):
+    for il in ItemLot.objects.filter(expired=False):
         if il.expiration:
             e = timezone.localtime(il.expiration)
             if e < today:
@@ -27,9 +27,9 @@ class Command(BaseCommand):
                           shipment = Shipment(name=e_shipment_name,to_location=expired_location,from_location=location,date=il.expiration,shipment_type="T",active=True,user=u)
                           shipment.save()
                           # print "CREATED new shipment",shipment
-                        s = StockChange(active=True,qty=(-curr_qty),location=location,date=il.expiration,itemlot=il,shipment=shipment,change_type="T",user=u)
+                        s = StockChange(active=True,qty=(-curr_qty),location=location,itemlot=il,shipment=shipment,change_type="T",user=u)
                         s.save()
-                        s = StockChange(active=True,qty=curr_qty,location=expired_location,date=il.expiration,shipment=shipment,itemlot=il,change_type="T",user=u)
+                        s = StockChange(active=True,qty=curr_qty,location=expired_location,shipment=shipment,itemlot=il,change_type="T",user=u)
                         s.save()
                         # print "created stock change ",s
                 il.expired = True

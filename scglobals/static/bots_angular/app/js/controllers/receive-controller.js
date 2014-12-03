@@ -256,7 +256,6 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 		// validate required
 		itemlot.invalid_qty = !isNumeric(itemlot.qty) || itemlot.qty <= 0;
 		// validate not required
-		console.log('a');
 		itemlot.invalid_expiration = (itemlot.expiration) ? !UtilsService.validate_date(itemlot.expiration) : false;
 		if (itemlot.expiration && !itemlot.invalid_expiration){
 			itemlot.expiration = UtilsService.get_js_date(itemlot.expiration);
@@ -286,7 +285,7 @@ controller('ReceiveCtrl', ['$scope', '$http', "$location", "$filter", "ServerDat
 			};
 			ServerDataService.save('itemlot',serialized_itemlot).then(function(data){
 				itemlot = data;
-				ServerDataService.list('stockchange',{'itemlot' : itemlot.id}).then(function(data){
+				ServerDataService.list('stockchange',{'itemlot' : itemlot.id, 'shipment' : $scope.shipment.id}).then(function(data){
 					if (data.objects.length > 0){
 						_.forEach(data.objects,function(sc){
 							if (sc.qty > 0){
