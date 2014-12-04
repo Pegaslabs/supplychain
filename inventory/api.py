@@ -310,7 +310,7 @@ class StockChangeResource(ModelResource):
         max_limit = None
         always_return_data = True
         filtering = {'shipment' : ALL_WITH_RELATIONS, 'qty' : ALL, 'itemlot' : ALL_WITH_RELATIONS, "location" : ALL_WITH_RELATIONS,'active' : 'exact', 'date' : ALL}
-        ordering = {'date' : ALL, 'change_type' : ALL, "id" : ALL, "itemlot" : ALL_WITH_RELATIONS, "qty" : ALL}
+        ordering = {'date' : ALL, 'change_type' : ALL, "id" : ALL, "itemlot" : ALL_WITH_RELATIONS, "qty" : ALL, "shipment" : ALL_WITH_RELATIONS}
         resource_name = 'stockchange'
         excludes = ['modified','created']
         authorization= Authorization()

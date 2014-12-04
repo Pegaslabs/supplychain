@@ -4,7 +4,7 @@ controller('ItemCtrl', ['$scope', '$rootScope', '$http', '$filter', "$location",
 	$scope.limit = 10;
 	$scope.tabs = {1 : true, 2: false, 3: false,4: false};
 	$scope.years = [];
-	var stockchanges_url = "/api/v1/stockchange/?format=json&include_shipment=true&itemlot__item=" + $routeParams['itemId'] + "&order_by=-date&order_by=qty&order_by=-id&shipment__active=true";
+	var stockchanges_url = "/api/v1/stockchange/?format=json&include_shipment=true&itemlot__item=" + $routeParams['itemId'] + "&order_by=-shipment__date&order_by=qty&order_by=-id&shipment__active=true";
 
   $scope.all_locations = function(){
     $location.search('location',null);
