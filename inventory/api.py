@@ -325,6 +325,7 @@ class StockChangeResource(ModelResource):
             bundle.data["shipment"] = {
                 "id" : bundle.obj.shipment.id,
                 "name" : bundle.obj.shipment.name,
+                "date" : bundle.obj.shipment.date,
                 "to_location" : bundle.obj.shipment.to_location.name,
                 "from_location" : bundle.obj.shipment.from_location.name
             }

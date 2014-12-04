@@ -8,7 +8,7 @@ class ItemCategoryAdmin(admin.ModelAdmin):
 class ItemAttributeAdmin(admin.ModelAdmin):
 	fields = ['item', 'attribute', 'value', 'modified', 'user']
 class ItemLotAdmin(admin.ModelAdmin):
-	fields = ['item', 'expiration', 'active', 'lot_num', 'qty', 'unit_price', 'shipment',  'modified', 'user']
+	fields = ['item', 'expiration', 'expired', 'active', 'lot_num', 'qty', 'unit_price', 'shipment',  'modified', 'user']
 class ItemLotAttributeAdmin(admin.ModelAdmin):
 	fields = ['itemlot', 'attribute', 'value', 'modified', 'user']
 class StockChangeAdmin(admin.ModelAdmin):

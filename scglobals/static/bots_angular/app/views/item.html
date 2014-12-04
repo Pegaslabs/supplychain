@@ -49,7 +49,7 @@
         <tbody>
 
           <tr ng-hide="loading_items" ng-repeat="stockchange in stockchanges" class="stock_table">
-            <td>{{stockchange.date | date:'MMMM d, yyyy'}}</td>
+            <td>{{stockchange.shipment.date | date:'MMMM d, yyyy'}}</td>
             <td><a href="/#/shipment/{{stockchange.shipment.id}}">{{stockchange.shipment.name}}</a></td>
             <td>{{stockchange.shipment.from_location}}</td>
             <td>{{stockchange.shipment.to_location}}</td>

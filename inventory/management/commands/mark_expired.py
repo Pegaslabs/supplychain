@@ -11,7 +11,7 @@ class Command(BaseCommand):
     today = timezone.localtime(timezone.now())
     expired_location = Location.objects.get(name="Expired")
     u = User.objects.all()[0]
-    for il in ItemLot.objects.filter(expired=False):
+    for il in ItemLot.objects.filter():
         if il.expiration:
             e = timezone.localtime(il.expiration)
             if e < today:
