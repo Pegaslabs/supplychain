@@ -429,8 +429,8 @@ controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter',
         var del_serialized_stockchanges = [];
         for (var i in $scope.editing_item.itemlots){
             var item_id = $scope.editing_item.itemlots[i]["item"]["id"];
-                    // if existing but now no qty, delete
-            if (!$scope.editing_item.itemlots[i]["qty_to_ship"] && $scope.editing_item.itemlots[i].stockchange_id){
+            // if existing but now no qty, delete
+            if (!Number($scope.editing_item.itemlots[i]["qty_to_ship"]) && $scope.editing_item.itemlots[i].stockchange_id){
                 del_serialized_stockchanges.push("/api/v1/stockchange/" + $scope.editing_item.itemlots[i].stockchange_id + "/");
             }
             // if qty

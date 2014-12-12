@@ -5,6 +5,5 @@ from inventory.models import Item, ItemLot, StockChange, Shipment, Location, Ite
 from django.db.models import Sum
 
 class Command(BaseCommand):
-    for ship in Shipment.objects.filter(from_location__location_type="D",active=False):
-    	if ship.item_count() == 0:
-    		ship.delete()
+    for location in Location.objects.filter(name=""):
+    	print location.id
