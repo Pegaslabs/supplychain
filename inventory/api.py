@@ -437,7 +437,8 @@ class SearchResource(Resource):
         query = bundle.request.GET.get('name__contains', None)
         if not query:
             query = ""
-
+        if bundle.request.GET.get('patient_only'):
+            query = "patient " + query
         query = query.lower()
         if "item" in query:
             query = query.strip("item ")

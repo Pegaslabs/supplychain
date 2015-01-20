@@ -177,7 +177,7 @@ controller('TransferCtrl', ['$scope','$rootScope','$http','$location','$filter',
     };
     $scope.patient_search_config = {
         placeholder : "Patient identifier or name, e.g. GLC2345",
-        url : "/api/v1/location/?format=json&order_by=name&search_patients=true&location_type=P",
+        url : "/api/v1/search/?format=json&order_by=name&patient_only=true",
         result_name : "patient",
         input_class : "patient_input",
         select_result: $scope.submit_to_location,

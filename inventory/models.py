@@ -386,7 +386,10 @@ class Patient(models.Model):
         ('F', 'Female')
     )
     def __unicode__(self):
-        return self.location.name
+        name = self.location.name
+        if self.identifier:
+            name += " | " + self.identifier
+        return name
     gender = models.CharField(max_length=2, choices=GENDER_TYPES,null=True)
     # if needed we'll do this later with many to many table like openmrs
     identifier = models.CharField(max_length=100,blank=True,null=True)
