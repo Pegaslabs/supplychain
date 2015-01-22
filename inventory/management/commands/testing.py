@@ -5,5 +5,5 @@ from inventory.models import Item, ItemLot, StockChange, Shipment, Location, Ite
 from django.db.models import Sum
 
 class Command(BaseCommand):
-    for location in Location.objects.filter(name=""):
-    	print location.id
+    for l in Location.objects.filter(name=""):
+    	print l.id

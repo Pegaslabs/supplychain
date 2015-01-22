@@ -437,15 +437,13 @@ class SearchResource(Resource):
         query = bundle.request.GET.get('name__contains', None)
         if not query:
             query = ""
-        if bundle.request.GET.get('patient_only'):
-            query = "patient " + query
         query = query.lower()
         if "item" in query:
             query = query.strip("item ")
             return Item.objects.filter(name__icontains=query).order_by('name')
         elif "location" in query:
             query = query.strip("location ")
-            return Location.objects.filter(name__icontains=query,location_type__in="I,D,S,V").order_by('name')
+            return Location.objects.filter(name__icontains=query).order_by('name')
         elif "shipment" in query:
             query = query.strip("shipment ")
             return Shipment.objects.filter(Q(id__startswith=query) | Q(name__startswith=query)).order_by('id','name')
@@ -454,9 +452,12 @@ class SearchResource(Resource):
             return Patient.objects.filter(Q(identifier__icontains=query) | Q(location__name__startswith=query)).order_by('location__name').order_by('identifier')
 
         items = Item.objects.filter(name__icontains=query).order_by('name')
-        locations = Location.objects.filter(name__icontains=query).exclude(location_type="P").order_by('name')
-        shipments = Shipment.objects.filter(Q(id__startswith=query) | Q(name__startswith=query)).order_by('name')
+        locations = Location.objects.filter(name__icontains=query).order_by('name')
+        shipments = Shipment.objects.filter(Q(id__startswith=query) | Q(name__startswith=query)).order_by('id','name')
         patients = Patient.objects.filter(Q(identifier__icontains=query) | Q(location__name__startswith=query)).order_by('location__name').order_by('identifier')
+
+        if bundle.request.GET.get('patient_only'):
+            return list(chain(locations,patients))
 
         return list(chain(items, locations, shipments, patients))
 
