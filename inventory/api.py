@@ -296,6 +296,8 @@ class ItemLotAttributeResource(ModelResource):
         authentication = SessionAuthentication()
     def obj_create(self, bundle, **kwargs):
         bundle.data['user'] = {"id" : bundle.request.user.id}
+        if not bundle.request.user.is_staff:
+            return
         bundle = super(ItemLotAttributeResource,self).obj_create(bundle, **kwargs)
         return bundle
 
