@@ -1,18 +1,20 @@
 .headers ON
-.output C:/supplychain/sqlite_testing_out.txt
+.output /home/james/softwares/sqlite_testing_out.txt
 -- .output /Users/kevin/software/testing/sqlite_testing_out.txt
 .mode column 
 
-          select ship.id,ship.date,i.id, i.name,c.name,il.expiration,sc.qty
-          from inventory_shipment ship
-            join inventory_stockchange sc on sc.shipment_id=ship.id and sc.location_id=5
-            join inventory_itemlot il on sc.itemlot_id=il.id
-            join inventory_item i on i.id=il.item_id
-            join inventory_itemcategory c on c.id=i.category_id
-            where (ship.from_location_id=5 or ship.to_location_id=5 ) and ship.active=1 and ship.date <="2014-10-26"
-            -- group by il.id
-                -- order by i.name_lower ASC
 
+select 
+        s.date,s.id,sc_location.name,from_location.name,from_location.location_type,to_location.name,to_location.location_type,i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,sc.modified,(il.unit_price*sc.qty)
+        from inventory_stockchange sc
+        join inventory_shipment s on sc.shipment_id=s.id
+        join inventory_location sc_location on sc_location.id=sc.location_id
+        join inventory_location from_location on s.from_location_id=from_location.id
+        join inventory_location to_location on s.to_location_id=to_location.id
+        join inventory_itemlot il on il.id=sc.itemlot_id
+        join inventory_item i on i.id=il.item_id
+        join inventory_itemcategory c on c.id=i.category_id
+        join auth_user u on u.id=sc.user_id where s.active=1;
 
 
 

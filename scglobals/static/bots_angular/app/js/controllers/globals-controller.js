@@ -103,7 +103,7 @@ controller('HomeCtrl', ['$scope', '$location', '$rootScope', '$http', '$routePar
     }
   });
 
-  $scope.dismiss_il = function(locationid,ilid,hide){
+  $scope.dismiss_il = function(locationid,ilid){
     var ila = {
       "value" : locationid,
       "attribute" : "dismisseddqualityloc",
@@ -111,7 +111,7 @@ controller('HomeCtrl', ['$scope', '$location', '$rootScope', '$http', '$routePar
     };
     ServerDataService.save('itemlotattribute',ila).then(function(data){
       // console.log(data);
-      row.hide = true;
+      window.location.reload();
     });
   };
 
