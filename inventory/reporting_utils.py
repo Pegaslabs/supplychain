@@ -140,16 +140,17 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
                 or ABS(sum(expired_scs.qty)) > 0
             order by il.expiration,c.name ASC, i.name ASC;""" % (date,end_date,issafenumber(location_id),category_text)
     q_dquality ="""
-        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(active_scs.qty)
+        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(active_scs.qty),ila.value
             from inventory_item i
             join inventory_itemcategory c on c.id=i.category_id
             join inventory_itemlot il on il.item_id=i.id
+            left join inventory_itemlotattribute ila on ila.itemlot_id=il.id and ila.attribute="dismisseddqualityloc" and ila.value="%s"
             left join inventory_stockchange scs on scs.itemlot_id=il.id and scs.location_id=%s and scs.date<="%s"
             left join inventory_shipment active_shipment on active_shipment.id=scs.shipment_id and active_shipment.active=1
             left join inventory_stockchange active_scs on active_scs.id=scs.id and active_scs.shipment_id=active_shipment.id
             group by il.id
               having sum(active_scs.qty) < 0
-            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),date)
+            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),location_id,date)
     all_stockchanges = """select 
         s.date,s.id,sc_location.name,from_location.name,from_location.location_type,to_location.name,to_location.location_type,i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,sc.modified,(il.unit_price*sc.qty)
         from inventory_stockchange sc

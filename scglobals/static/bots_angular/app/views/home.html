@@ -50,16 +50,18 @@
 					<th>Expiration</th>
 					<th>ItemLot Number</th>
 					<th>Qty</th>
+					<th>Dismiss</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="row in dquality_report_rows">
+				<tr ng-repeat="row in dquality_report_rows" ng-hide="row[7]">
 					<td><a href="#/item/{{row[0]}}?location={{location.id}}">{{row[1]}}</a></td>
 					<td class="small">{{row[2]}}</td>
 					<td><a href="#/item/{{row[0]}}?location={{location.id}}&itemlot={{row[3]}}">{{row[3]}}</a></td>
 					<td>{{row[4] | date:'MM/yyyy'}}</td>
 					<td>{{row[5]}}</td>
 					<td>{{row[6]}}</td>
+					<td><button class="btn btn-xs btn-default" ng-click="dismiss_il(location.id,row[3])">dismiss</button></td>
 				</tr>
 			</tbody>
 		</table>

@@ -103,6 +103,18 @@ controller('HomeCtrl', ['$scope', '$location', '$rootScope', '$http', '$routePar
     }
   });
 
+  $scope.dismiss_il = function(locationid,ilid,hide){
+    var ila = {
+      "value" : locationid,
+      "attribute" : "dismisseddqualityloc",
+      "itemlot" : "/api/v1/itemlot/" + ilid + "/"
+    };
+    ServerDataService.save('itemlotattribute',ila).then(function(data){
+      // console.log(data);
+      row.hide = true;
+    });
+  };
+
 }]);
 
 angular.module('SupplyChainApp.LoginCtrl', []).
