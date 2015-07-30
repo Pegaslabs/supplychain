@@ -76,7 +76,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
             group by i.id
                 order by i.name_lower ASC;""" % (issafenumber(location_id),location_id,location_id,date,category_text)
     q_consumption_itemlot = """
-        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(active_sc_start.qty),sum(active_sc_received.qty),sum(active_sc_end.qty),-1*sum(active_sc_consumed.qty),-1*sum(active_sc_expired.qty),-1*sum(active_sc_lost_damaged.qty),-1*sum(active_sc_adjustments.qty),avg(il.unit_price)
+        select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,sum(active_sc_start.qty),sum(active_sc_total_received.qty),sum(active_sc_received.qty),sum(active_sc_end.qty),-1*sum(active_sc_consumed.qty),-1*sum(active_sc_expired.qty),-1*sum(active_sc_lost_damaged.qty),-1*sum(active_sc_adjustments.qty),avg(il.unit_price)
             from inventory_item i
             join inventory_itemcategory c on c.id=i.category_id
             left join inventory_itemlot il on il.item_id=i.id 
@@ -87,6 +87,8 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
             left join inventory_stockchange active_sc_end on active_sc_end.id=sc_end.id and active_sc_end.shipment_id=active_shipment.id
             left join inventory_stockchange active_sc_between on active_sc_end.id=active_sc_between.id and sc_end.date>="%s"
             left join inventory_stockchange active_sc_start on active_sc_end.id=active_sc_start.id and active_sc_start.date<"%s"
+            -- total received
+            left join inventory_stockchange active_sc_total_received on active_sc_total_received.id=active_sc_between.id and to_location.id=%s
             -- received from external suppliers
             left join inventory_stockchange active_sc_received on active_sc_received.id=active_sc_between.id and from_location.location_type="S"
             -- consumed qty
@@ -99,9 +101,9 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
             %s
             group by il.id
                 having sum(active_sc_start.qty) > 0 or sum(active_sc_start.qty) < 0 or sum(active_sc_received.qty) > 0 or sum(active_sc_received.qty) < 0 or sum(active_sc_end.qty) > 0 or sum(active_sc_end.qty) < 0 or sum(active_sc_consumed.qty) > 0 or sum(active_sc_consumed.qty) < 0 or sum(active_sc_expired.qty) > 0 or sum(active_sc_expired.qty) < 0 or sum(active_sc_lost_damaged.qty) > 0 or sum(active_sc_lost_damaged.qty) < 0 or sum(active_sc_adjustments.qty) > 0 or sum(active_sc_adjustments.qty) < 0
-            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),end_date,date,date,issafenumber(location_id),issafenumber(location_id),category_text)
+            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),end_date,date,date,issafenumber(location_id),issafenumber(location_id),issafenumber(location_id),category_text)
     q_consumption_item = """
-        select i.id, i.name,c.name,sum(active_sc_start.qty),sum(active_sc_received.qty),sum(active_sc_end.qty),-1*sum(active_sc_consumed.qty),-1*sum(active_sc_expired.qty),-1*sum(active_sc_lost_damaged.qty),-1*sum(active_sc_adjustments.qty),avg(il.unit_price)
+        select i.id, i.name,c.name,sum(active_sc_start.qty),sum(active_sc_total_received.qty),sum(active_sc_received.qty),sum(active_sc_end.qty),-1*sum(active_sc_consumed.qty),-1*sum(active_sc_expired.qty),-1*sum(active_sc_lost_damaged.qty),-1*sum(active_sc_adjustments.qty),avg(il.unit_price)
             from inventory_item i
             join inventory_itemcategory c on c.id=i.category_id
             left join inventory_itemlot il on il.item_id=i.id 
@@ -112,6 +114,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
             left join inventory_stockchange active_sc_end on active_sc_end.id=sc_end.id and active_sc_end.shipment_id=active_shipment.id
             left join inventory_stockchange active_sc_between on active_sc_end.id=active_sc_between.id and sc_end.date>="%s"
             left join inventory_stockchange active_sc_start on active_sc_end.id=active_sc_start.id and active_sc_start.date<"%s"
+            left join inventory_stockchange active_sc_total_received on active_sc_total_received.id=active_sc_between.id and to_location.id=%s
             -- received from external suppliers
             left join inventory_stockchange active_sc_received on active_sc_received.id=active_sc_between.id and from_location.location_type="S"
             -- consumed qty
@@ -124,7 +127,7 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
             %s
             group by i.id
                 having sum(active_sc_start.qty) > 0 or sum(active_sc_start.qty) < 0 or sum(active_sc_received.qty) > 0 or sum(active_sc_received.qty) < 0 or sum(active_sc_end.qty) > 0 or sum(active_sc_end.qty) < 0 or sum(active_sc_consumed.qty) > 0 or sum(active_sc_consumed.qty) < 0 or sum(active_sc_expired.qty) > 0 or sum(active_sc_expired.qty) < 0 or sum(active_sc_lost_damaged.qty) > 0 or sum(active_sc_lost_damaged.qty) < 0 or sum(active_sc_adjustments.qty) > 0 or sum(active_sc_adjustments.qty) < 0
-            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),end_date,date,date,issafenumber(location_id),issafenumber(location_id),category_text)
+            order by c.name ASC, i.name ASC;""" % (issafenumber(location_id),end_date,date,date,issafenumber(location_id),issafenumber(location_id),issafenumber(location_id),category_text)
     q_expirations = """select i.id, i.name,c.name,il.id,il.expiration,il.lot_num,COALESCE(abs(sum(expired_scs.qty)),0) + COALESCE(abs(sum(active_scs.qty)),0),il.unit_price,COALESCE(sum(active_scs.qty)*il.unit_price,0) + COALESCE(abs(sum(expired_scs.qty)*il.unit_price),0)
             from inventory_item i
             join inventory_itemcategory c on c.id=i.category_id

@@ -1,5 +1,13 @@
 ## dev
 
+## 2015-07-27
+
+#### bugs
+
+#### improvements
+* Added a new column in consumption report "Total received", which includes received from internal locations. (this allows the dispensary to have reports on what it received from the warehouse)
+
+
 ## 2.1.2 -- 2014 Oct 10
 
 #### improvements
