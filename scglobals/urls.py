@@ -26,7 +26,9 @@ urlpatterns = patterns('',
 
     # html
     url(r'^$', 'inventory.views.home'),
+    url(r'^reportingdash', 'inventory.views.reportingdash'),
     url(r'report.json', 'inventory.views.report'),
+    url(r'stockchanges.json', 'inventory.views.stockchanges'),
 
     url(r'^print/shipment/(?P<pk>\d+)/$', 'inventory.views.print_shipment'),
 

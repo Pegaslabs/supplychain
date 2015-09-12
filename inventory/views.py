@@ -1,4 +1,5 @@
 from inventory import reporting_utils
+from inventory import raw_stockchanges
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render_to_response, redirect
 import simplejson as json
@@ -12,6 +13,11 @@ from inventory.models import Item, ItemLot, StockChange, Shipment, Location, Ite
 @ensure_csrf_cookie
 def home(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
+
+# read, html views
+@ensure_csrf_cookie
+def reportingdash(request):
+    return render_to_response('reportingdash.html', {}, context_instance=RequestContext(request))
 
 def print_shipment(request,pk):
     if not request.user.is_authenticated():
@@ -65,3 +71,6 @@ def report(request):
     data = reporting_utils.raw_inventory_report(itemlot_level=itemlot_level,report_type=request.GET["report_type"],location_id=location_id,category_id=category_id,date=date,end_date=end_date)
     return HttpResponse(json.dumps(data), mimetype='application/json')
 
+def stockchanges(request):
+    data = raw_stockchanges.get_stockchanges()
+    return HttpResponse(json.dumps(data), mimetype='application/json')

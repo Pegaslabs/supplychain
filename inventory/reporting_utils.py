@@ -190,8 +190,10 @@ def raw_inventory_report(location_id,report_type,itemlot_level=False,category_id
         rows = cursor.fetchall()
         return get_native_dates(rows,4)
     elif report_type == "all_stockchanges":
+        print timezone.now()
         cursor.execute(all_stockchanges)
         rows = cursor.fetchall()
+        print timezone.now()
         rows = get_native_dates(rows,0)
         rows = get_native_dates(rows,9)
         return get_native_dates(rows,14)
