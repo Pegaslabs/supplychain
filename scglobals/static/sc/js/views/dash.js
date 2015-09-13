@@ -20,6 +20,5 @@ define([
       });
     }
   });
-  // Returning instantiated views can be quite useful for having "state"
   return DashView;
 });
