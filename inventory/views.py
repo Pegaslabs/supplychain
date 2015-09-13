@@ -16,8 +16,8 @@ def home(request):
 
 # read, html views
 @ensure_csrf_cookie
-def reportingdash(request):
-    return render_to_response('reportingdash.html', {}, context_instance=RequestContext(request))
+def sc(request):
+    return render_to_response('sc.html', {}, context_instance=RequestContext(request))
 
 def print_shipment(request,pk):
     if not request.user.is_authenticated():
