@@ -72,5 +72,5 @@ def report(request):
     return HttpResponse(json.dumps(data), mimetype='application/json')
 
 def stockchanges(request):
-    data = raw_stockchanges.get_stockchanges()
+    data = raw_stockchanges.get_stockchanges(request.GET)
     return HttpResponse(json.dumps(data), mimetype='application/json')

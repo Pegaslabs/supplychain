@@ -6,13 +6,13 @@ define(['handlebars'], function(Handlebars){
         return " ";
       }
       else{
-        return date.getMonth() + '/' + date.getFullYear();      
+        return date.getMonth() + '/' + date.getFullYear();
       }
     });
     Handlebars.registerHelper('showDate', function(val) {
       var date = new Date(val);
       if (!_.isDate(date)) return null;
-      return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+      return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
     });
   }
   return {

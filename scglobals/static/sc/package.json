@@ -1,0 +1,18 @@
+{
+  "name": "sc",
+  "version": "1.0.0",
+  "description": "supply chain management dashboard",
+  "main": "index.js",
+  "repository": "https://github.com/tablesdata/supplychain",
+  "dependencies": {
+    "backbone-bootstrap-widgets": "^0.1.0",
+    "bootstrap": "^3.3.5",
+    "pouchdb": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

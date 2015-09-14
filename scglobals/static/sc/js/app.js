@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'router',
-  'hb-helpers'
+  'services/hb-helpers'
 ], function($, _, Backbone, Router,HBHelpers){
   var initialize = function(){
     HBHelpers.initialize();

@@ -8,16 +8,7 @@ define([
   var DashView = Backbone.View.extend({
     el: $("#dash"),
     initialize: function(){
-      var self = this;
-      $.get('/stockchanges.json').success(function(data){
-        data = _.map(data,function(row){
-          return _.map(row,function(field){
-            return (field) ? field : " ";
-          });
-        });
-        var template = Handlebars.compile(scTemplate);
-        self.$el.html(template({transactions: data}));
-      });
+      console.log('oh yeha!');
     }
   });
   return DashView;
