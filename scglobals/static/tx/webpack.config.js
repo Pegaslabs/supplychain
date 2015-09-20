@@ -17,7 +17,7 @@ module.exports.development = {
     module : {
         loaders : [
             { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
-            { test: /\.handlebars$/, loader: "handlebars-loader" }
+            { test: /\.hbs$/, loader: "handlebars-loader" }
         ]
     }
 };
@@ -32,7 +32,7 @@ module.exports.production = {
     module : {
         loaders : [
             { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
-            { test: /\.handlebars$/, loader: "handlebars-loader" }
+            { test: /\.hbs$/, loader: "handlebars-loader" }
         ]
     }
 };

@@ -12,11 +12,22 @@ def isSafeDate(d):
     return d
 
 def get_stockchanges(requestGet):
-    limit = 30
-    startdate = isSafeDate(requestGet["startdate"])
-    enddate = isSafeDate(requestGet["enddate"])
+    if "ascordesc" in requestGet: 
+        ascordesc = requestGet["ascordesc"] 
+    else:
+        ascordesc = "ASC"
+    if "startdate" in requestGet:
+        startdate = ('and s.date >= "%s"') % isSafeDate(requestGet["startdate"])
+    else:
+        startdate = ""
+    if "enddate" in requestGet:
+        enddate = ('and s.date < "%s"') % isSafeDate(requestGet["enddate"])
+    else:
+        enddate = ""
     if "limit" in requestGet:
-        limit = float(issafenumber(requestGet["limit"]))
+        limit = "limit " + issafenumber(requestGet["limit"])
+    else:
+        limit = ""
     conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
     c = conn.cursor()
     q = """select 
@@ -30,10 +41,11 @@ def get_stockchanges(requestGet):
     join inventory_item i on i.id=il.item_id
     join inventory_itemcategory c on c.id=i.category_id
     join auth_user u on u.id=sc.user_id where s.active=1 
-    and s.date >= "%s" and s.date <= "%s"
-    order by s.date limit %d;""" % (startdate, enddate, limit)
+    %s %s
+    order by s.date %s %s;""" % (startdate, enddate, ascordesc, limit)
     c.execute(q)
     data = c.fetchall()
     conn.commit()
     conn.close()
+    print len(data)
     return data

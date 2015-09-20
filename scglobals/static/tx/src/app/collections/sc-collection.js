@@ -4,8 +4,12 @@ import Backbone from 'backbone';
 
 export default Backbone.Collection.extend({
   url: function () {
-    return 'http://localhost:8000/stockchanges.json?startdate=' 
-      + this.startdate + '&enddate=' + this.enddate + '&limit=' + this.limit
+    var url = 'http://localhost:8000/stockchanges.json?';
+    if (this.startdate) url += "&startdate=" + this.startdate;
+    if (this.enddate) url += "&enddate=" + this.enddate;
+    if (this.limit) url += "&limit=" + this.limit;
+    if (this.ascordesc) url += "&ascordesc=" + this.ascordesc;
+    return url;
   },
   parse: function(resp, xhr) {
    return _.map(resp,function(row){
@@ -16,5 +20,6 @@ export default Backbone.Collection.extend({
   },
   startdate: '2015-09-10',
   enddate: '2015-09-11',
-  limit:100
+  limit:1000,
+  ascordesc: "ASC"
 });

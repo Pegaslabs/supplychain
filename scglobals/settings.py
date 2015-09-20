@@ -28,7 +28,10 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+'localhost:8080',
+'localhost:8000'
+]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -105,6 +108,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 ROOT_URLCONF = 'scglobals.urls'
@@ -134,6 +138,12 @@ INSTALLED_APPS = (
     'inventory',
     # 'south',
     'tastypie',
+    'corsheaders',
+)
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost:8080'
 )
 
 # A sample logging configuration. The only tangible logging

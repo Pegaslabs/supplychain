@@ -61,7 +61,7 @@ gulp.task('serve', function() {
 gulp.task('static', function(cb) {
   return gulp.src(src + 'static/**/*')
     .pipe($.size({ title : 'static' }))
-    .pipe(gulp.dest(dist + 'static/'));
+    .pipe(gulp.dest(dist + '/'));
 });
 
 gulp.task('watch', function() {
