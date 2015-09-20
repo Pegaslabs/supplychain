@@ -23,8 +23,6 @@ var autoprefixerBrowsers = [
   'bb >= 10'
 ];
 
-
-
 gulp.task('scripts', function() {
   return gulp.src(webpackConfig.entry)
     .pipe($.webpack(webpackConfig))
@@ -41,17 +39,13 @@ gulp.task('html', function() {
     .pipe($.connect.reload());
 });
 
-gulp.task('styles',function(cb) {
-  return gulp.src(src + 'stylus/main.styl')
-    .pipe($.stylus({
-      compress: isProduction,
-      'include css' : true
-    }))
-    .pipe($.autoprefixer({browsers: autoprefixerBrowsers}))
-    .pipe(gulp.dest(dist + 'css/'))
-    .pipe($.size({ title : 'css' }))
+gulp.task('styles', function () {
+  return gulp.src(src + 'less/**/*.less')
+    .pipe($.less())
+    .pipe($.concat('main.css'))
+    .pipe(gulp.dest(dist + 'css'))
+    .pipe($.size({ title : 'styles' }))
     .pipe($.connect.reload());
-
 });
 
 gulp.task('serve', function() {
@@ -71,16 +65,15 @@ gulp.task('static', function(cb) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(src + 'stylus/*.styl', ['styles']);
+  gulp.watch(src + 'less/*.less', ['styles']);
   gulp.watch(src + 'index.html', ['html']);
   gulp.watch(src + 'app/**/*.js', ['scripts']);
+  gulp.watch(src + 'app/**/*.handlebars', ['scripts']);
 });
 
 gulp.task('clean', function(cb) {
   del([dist], cb);
 });
-
-
 
 // by default build project and then watch files in order to trigger livereload
 gulp.task('default', ['build', 'serve', 'watch']);

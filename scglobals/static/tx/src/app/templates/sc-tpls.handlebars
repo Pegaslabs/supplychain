@@ -18,11 +18,11 @@
     <tbody>
       {{#each transactions}}
       <tr>
-        <td>{{this.[0]}}</td>
+        <td class="datenowrap">{{$showDate this.[0]}}</td>
         <td>{{this.[1]}}</td>
         <td>{{this.[2]}}</td>
-        <td>{{this.[3]}} ({{this.[4]}})</td>
-        <td>{{this.[5]}} ({{this.[6]}})</td>
+        <td class="nowrap">{{this.[3]}} ({{this.[4]}})</td>
+        <td class="nowrap">{{this.[5]}} ({{this.[6]}})</td>
         <td>{{this.[7]}} -- {{this.[8]}}</td>
         <td>{{$expiration this.[9]}}</td>
         <td>{{this.[10]}}</td>

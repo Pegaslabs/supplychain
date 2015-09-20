@@ -18,8 +18,6 @@ module.exports.development = {
         loaders : [
             { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
             { test: /\.handlebars$/, loader: "handlebars-loader" }
-
-            // { test: /\.handlebars$/, loader: "handlebars-loader?helperDirs[]=" + "./src/app/helpers" }
         ]
     }
 };
