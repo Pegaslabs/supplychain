@@ -32,6 +32,6 @@ export default class TransactionsService {
       transaction.unshift("transaction");
       return _.object(this.transactionHeaders,transaction);
     });
-    return this.db.bulkDocs(mappedTransactions);
+    return {response: this.db.bulkDocs(mappedTransactions), transactions: transactions};
   }
 }

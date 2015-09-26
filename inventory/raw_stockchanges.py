@@ -16,7 +16,6 @@ def get_stockchanges(requestGet):
     if "ascordesc" in requestGet: 
         ascordesc = requestGet["ascordesc"]
         if ((ascordesc != "asc") and (ascordesc != "desc")):
-            print ascordesc
             raise SuspiciousOperation('non valid text sent to reports query.')
     else:
         ascordesc = "ASC"
@@ -38,10 +37,20 @@ def get_stockchanges(requestGet):
         limit = "limit " + issafenumber(requestGet["limit"])
     else:
         limit = ""
+    if "offset" in requestGet:
+        offset = "offset " + issafenumber(requestGet["offset"])
+    else:
+        offset = ""
+    if "count" in requestGet:
+        selectOrCount = "select count(sc.id)"
+    else:
+        selectOrCount = "select s.date,sc_location.name,from_location.name,\
+        from_location.location_type,to_location.name,to_location.location_type, \
+        i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,\
+        sc.modified,(il.unit_price*sc.qty), sc.id, s.id, il.id, i.id"
     conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
     c = conn.cursor()
-    q = """select 
-    s.date,sc_location.name,from_location.name,from_location.location_type,to_location.name,to_location.location_type,i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,sc.modified,(il.unit_price*sc.qty), sc.id, s.id, il.id, i.id
+    q = selectOrCount + """
     from inventory_stockchange sc
     join inventory_shipment s on sc.shipment_id=s.id
     join inventory_location sc_location on sc_location.id=sc.location_id
@@ -52,7 +61,7 @@ def get_stockchanges(requestGet):
     join inventory_itemcategory c on c.id=i.category_id
     join auth_user u on u.id=sc.user_id where s.active=1 
     %s %s %s
-    %s %s %s;""" % (startdate, enddate, modified, orderBy, ascordesc, limit)
+    %s %s %s %s;""" % (startdate, enddate, modified, orderBy, ascordesc, limit, offset)
     c.execute(q)
     data = c.fetchall()
     conn.commit()

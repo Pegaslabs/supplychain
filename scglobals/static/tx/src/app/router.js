@@ -1,20 +1,20 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import DashView from './views/dash';
-import LoadingView from './views/loading';
+import StatusView from './views/status';
 
 export default Backbone.Router.extend({
 
   routes: {
     '': 'dashboard',
-    'loading': 'loading'
+    'status': 'status'
   },
   dashboard: () => {
-    var dashView = new DashView();
+    let dashView = new DashView();
     dashView.render();
   },
-  loading: () => {
-    new LoadingView().render();
+  status: () => {
+    new StatusView().render();
   }
 
 });

@@ -6,7 +6,7 @@ export default class InitialQueries {
   }
   saveDefaultQueries(){
     let querytypes = [
-      {queryName: 'scbymodified', doc_type: 'transaction', queryEmit: '[doc.modified]'}];
+      {queryName: 'scbymodified', doc_type: 'transaction', queryEmit: 'doc.stockchange_id,doc'}];
     // to add default queries, add to this list:
     // {queryName: 'item', queryEmit: '[doc.name,doc.itemCategory.name,doc.created,doc.updated]'}];
     var addQueries = [];

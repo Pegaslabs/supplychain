@@ -2,7 +2,7 @@ import PouchDB from 'pouchdb';
 import InitialQueries from './initialqueries'
 import TransactionsService from './transactions'
 
-// interface for working with pouchdb & offline data
+// interface for CRUD to our offline data via pouchdb
 
 export default class LocalDB {
   constructor(dbname) {
@@ -20,7 +20,6 @@ export default class LocalDB {
   }
   query(q){
     return this.db.query(q).then((result)=> {
-      console.log(result);
       return _.pluck(result.rows, 'doc');
     })
   }
