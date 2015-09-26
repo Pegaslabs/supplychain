@@ -15,15 +15,15 @@ export default Backbone.View.extend({
   },
   doSearch: function(yearStr){
     this.$el.empty().append(this.template({"title":yearStr,  buttons: this.buttons}));
-    $('.fa-spinner').fadeIn();
     $('.dashmain').hide();
     $('.dateSelect').hide();
     let scv = new StockChangesView();
-    scv.collection.startdate = yearStr + "-01-01";
-    scv.collection.enddate = (Number(yearStr) + 1) + "-01-01";
-    scv.collection.limit = 0;
-    scv.render().then(function(renderedTpl){
-      $('.fa-spinner').fadeOut(200);
+    scv.render({data: $.param(
+      {
+        startdate: yearStr + "-01-01",
+        enddate: (Number(yearStr) + 1) + "-01-01"
+      }
+    )}).then(function(renderedTpl){
       $('.dashmain').empty().append(renderedTpl);
       $('.dashmain').fadeIn(800);
     });
@@ -41,11 +41,7 @@ export default Backbone.View.extend({
   render: function() {
     // get earliest stock change to make buttons
     let scs = new StockChangeCollection();
-    scs.startdate = null;
-    scs.enddate = null;
-    scs.limit = 1;
-    scs.ascordesc = 'asc';
-    scs.fetch().then((data) =>{
+    scs.fetch({data: $.param({limit: 1, ascordesc: "asc"})}).then((data) =>{
       let floorYear = data[0][0].split("-")[0];
       let counter = floorYear;
       let ceilingYear = new Date().getFullYear();

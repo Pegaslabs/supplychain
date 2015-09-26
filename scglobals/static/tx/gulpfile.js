@@ -68,8 +68,21 @@ gulp.task('watch', function() {
   gulp.watch(src + 'less/*.less', ['styles']);
   gulp.watch(src + 'index.html', ['html']);
   gulp.watch(src + 'app/**/*.js', ['scripts']);
+  gulp.watch(src + 'app/**/*.hbs', ['scripts']);
   gulp.watch(src + 'app/**/*.handlebars', ['scripts']);
 });
+
+// var exec = require('child_process').exec;
+ 
+// gulp.task('rundjango', function () {
+//   console.log(exec('ping localhost'));
+//   exec('cd ../../../ && python manage.py runserver', function (err, stdout, stderr) {
+//     console.log(stdout);
+//     console.log(stderr);
+//     cb(err);
+//   });
+// })
+
 
 gulp.task('clean', function(cb) {
   del([dist], cb);

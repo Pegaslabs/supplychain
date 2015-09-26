@@ -12,8 +12,8 @@ export default Backbone.View.extend({
     this.loading = false;
     this.collection = new StockChangeCollection();
   },
-  render: function() {
-    return this.collection.fetch().then((data)=>{
+  render: function(options) {
+    return this.collection.fetch(options).then((data)=>{
       return this.template({transactions: _.slice(data,0,50)});
     });
   },
