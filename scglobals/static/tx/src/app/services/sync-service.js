@@ -47,18 +47,19 @@ export default class SyncService {
     })
   }
   start(){
-    this.localDB.initdb().then(()=>{
-      this.localDB.query('scbymodified').then((result)=>{
-        if (!result.length){
-          this._checkLatest(this.latestCachedChange).then((delta)=>{
-            Backbone.trigger('foundNewTransactions',delta);
-            this._loadAndSaveLoop(1000);
-          });
-        }
-        else{
-          console.log("found local",result);
-        }
-      });
+    return this.localDB.initdb()
+    .then(()=>{return this.localDB.query('scbymodified',{reduce: true})})
+    .then((result)=>{
+      if (!result.length){
+        return this._checkLatest(this.latestCachedChange).then((delta)=>{
+          Backbone.trigger('foundNewTransactions',delta);
+          this._loadAndSaveLoop(1000);
+          return false;
+        });
+      }
+      else{
+        return result[0];
+      }
     });
   }
 }

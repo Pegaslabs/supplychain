@@ -18,9 +18,9 @@ export default class LocalDB {
       return this.initialQueries.saveDefaultQueries(this.db);
     });
   }
-  query(q){
-    return this.db.query(q,{reduce:false}).then((result)=> {
-      console.log(result);
+  query(q,ops){
+    let ops = ops || {reduce:false};
+    return this.db.query(q,ops).then((result)=> {
       return _.pluck(result.rows, 'value');
     })
   }

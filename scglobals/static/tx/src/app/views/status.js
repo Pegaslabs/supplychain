@@ -9,13 +9,11 @@ import TransactionsView from './transactions-view'
 export default Backbone.View.extend({
 
   template: StatusTemplate,
-  el: '#content',
   pctLoaded: 0,
   initialize: function(){
     Backbone.on('foundNewTransactions',this.renderNewTransactions,this);
     Backbone.on('savedTransactions',this.renderNewTransactions,this);
-    let syncService = new SyncService();
-    syncService.start();
+    this.syncService = new SyncService();
   },
   renderNewTransactions: function(newTransactionsCount,offset,latestTransactions){
     if (offset) this.pctLoaded = ((offset / newTransactionsCount) * 100);
@@ -26,6 +24,10 @@ export default Backbone.View.extend({
     })).append(new TransactionsView().render(latestTransactions));
   },
   render: function() {
-    this.$el.empty().append(this.template());
+    return this.syncService.start().then((result)=>{
+      if (result) {
+        return this.template({totalTransactions: result,checkedDate: new Date()});
+      }
+    });
   },
 });

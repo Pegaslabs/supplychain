@@ -14,7 +14,7 @@ export default Backbone.Router.extend({
     dashView.render();
   },
   status: () => {
-    new StatusView().render();
+    // $("#content").empty().append(new StatusView().render());
   }
 
 });

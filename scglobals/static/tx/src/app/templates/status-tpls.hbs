@@ -1,8 +1,14 @@
-<h2>Offline Data</h2>
-
-Found {{newTransactions}} new transactions on server. Loaded {{offset}} of {{newTransactions}}.
-<div class="progress progress-striped active">
-  <div class="progress-bar progress-bar-success" style="width: {{pct}}%"></div>
+<div class="panel panel-default" id="status">
+  <div class="panel-body">
+    {{#unless newTransactions}}
+    <h4> <span class="label label-success"><i class="fa fa-check"></i></span> Everything is up to date.</h4>
+    <div class="left-margin">server checked at {{$showDate checkedDate true}}, 100% of {{$num totalTransactions}} transactions are loaded locally.</div>
+    {{else}}
+    <h4>Loading data <i class="fa fa-spinner fa-pulse"></i></h4>
+    Found {{newTransactions}} new transactions on server. Loaded {{offset}} of {{newTransactions}}.
+    <div class="progress progress-striped active">
+      <div class="progress-bar progress-bar-success" style="width: {{pct}}%"></div>
+    </div>
+    {{/unless}}
+  </div>
 </div>
-
-{{$json latestTransactions}}
