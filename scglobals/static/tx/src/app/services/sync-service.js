@@ -3,7 +3,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import StockChangeCollection from './../collections/sc-collection';
+import ServerStockChangeCollection from './../collections/server-sc-collection';
 import LocalDB from './../services/localdb'
 
 // service for syncing local with server.
@@ -11,7 +11,7 @@ import LocalDB from './../services/localdb'
 export default class SyncService {
   constructor() {
     this.localDB = new LocalDB("txdb");
-    this.scs = new StockChangeCollection();
+    this.scs = new ServerStockChangeCollection();
     // I do not like this
     this.latestCachedChange = "1901-01-01";
   }

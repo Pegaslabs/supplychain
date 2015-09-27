@@ -19,8 +19,9 @@ export default class LocalDB {
     });
   }
   query(q){
-    return this.db.query(q).then((result)=> {
-      return _.pluck(result.rows, 'doc');
+    return this.db.query(q,{reduce:false}).then((result)=> {
+      console.log(result);
+      return _.pluck(result.rows, 'value');
     })
   }
   saveTransactions(transactions){

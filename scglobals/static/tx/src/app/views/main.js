@@ -10,7 +10,7 @@ export default Backbone.View.extend({
   el: '#main',
   initialize: function(){
     this.localDB = new LocalDB("txdb");
-    this.on('showLoad', this.showLoad);
+    Backbone.on('showLoad', this.showLoad,this);
   },
   events:{
     'click #admin': "showAdmin",
@@ -41,7 +41,7 @@ export default Backbone.View.extend({
   destroyDB: function(e){
     e.preventDefault();
     $('#destroyDB').toggleClass('hide');
-    this.trigger('showLoad',
+    Backbone.trigger('showLoad',
       "Clearing local data...",
       "Local data cleared.",
       this.localDB.destroy_db());
