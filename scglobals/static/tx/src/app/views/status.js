@@ -21,7 +21,8 @@ export default Backbone.View.extend({
       newTransactions: newTransactionsCount,
       offset: offset, 
       pct: this.pctLoaded
-    })).append(new TransactionsView().render(latestTransactions));
+    }));
+    // })).append(new TransactionsView().render(latestTransactions));
   },
   render: function() {
     return this.syncService.start().then((result)=>{

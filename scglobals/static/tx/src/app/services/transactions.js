@@ -1,3 +1,5 @@
+// transforms & saves new transactions from server to local pouchdb 
+
 export default class TransactionsService {
   constructor(db) {
     this.db = db;

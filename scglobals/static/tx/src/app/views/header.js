@@ -37,7 +37,7 @@ export default Backbone.View.extend({
   },
   showAdmin: function(e){
     e.preventDefault();
-    $('#destroyDB').toggleClass('hide');
+    $('#adminDropDown').toggle();
   },
   showServerStatus: function(e){
     e.preventDefault();
@@ -54,5 +54,7 @@ export default Backbone.View.extend({
       "Clearing local data...",
       "Local data cleared.",
       this.localDB.destroy_db());
+    // hack to reload page with no data
+    window.location.reload()
   }
 });

@@ -46,6 +46,7 @@ export default class SyncService {
       }
     })
   }
+  // returns the number of transactions on the server we don't have locally
   start(){
     return this.localDB.initdb()
     .then(()=>{return this.localDB.query('scbymodified',{reduce: true})})

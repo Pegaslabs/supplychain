@@ -16,9 +16,14 @@
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a id='destroyDB' class='hide' href="#">clear local data</a></li>
         <li><a id='server-status' href="#/status"><span class="status">Sync Status</span> <span class="label label-success"><i class="fa fa-check"></i></span></a></li>
-        <li><a id='admin' href="#">admin</a></li>
+        <li class="dropdown">
+          <a id="admin" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">admin <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="adminDropDown" role="menu">
+            <li><a href="#" id="destroyDB">clear local data</a></li>
+            <li><a href="/admin/">admin site</a></li>
+          </ul>
+        </li>
         <li><a href="/#/">main</a></li>
       </ul>
     </div>
