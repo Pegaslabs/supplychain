@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import DashView from './views/dash';
-import StatusView from './views/status';
+import StatusPageView from './views/status-page';
+import HeaderView from './views/header';
 
 export default Backbone.Router.extend({
 
@@ -9,12 +10,16 @@ export default Backbone.Router.extend({
     '': 'dashboard',
     'status': 'status'
   },
+  initialize: () => {
+    let headerView = new HeaderView();
+    headerView.render();
+  },
   dashboard: () => {
     let dashView = new DashView();
     dashView.render();
   },
   status: () => {
-    // $("#content").empty().append(new StatusView().render());
+    new StatusPageView().render();
   }
 
 });

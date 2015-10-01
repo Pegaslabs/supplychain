@@ -3,20 +3,23 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import LocalDB from './../services/localdb'
-import MainTemplate from './../templates/main-tpls.hbs';
+import MainTemplate from './../templates/header-tpls.hbs';
 import StatusView from './status';
+import LoadingView from './loading';
 
 export default Backbone.View.extend({
   template: MainTemplate,
-  el: '#main',
+  el: '#app',
   initialize: function(){
     this.localDB = new LocalDB("txdb");
-    Backbone.on('showLoad', this.showLoad,this);
     this.statusView = new StatusView();
+    this.loadingView = new LoadingView();
+    Backbone.on('showLoad', this.loadingView.showLoad,this.loadingView);
   },
   render: function() {
     this.$el.empty()
-      .append(this.template());
+      .append(this.template())
+      .append(this.loadingView.render());
     this.statusView.render().then((renderedContent)=>{
       this.$el.append(renderedContent);
     });
@@ -25,20 +28,8 @@ export default Backbone.View.extend({
     'click #admin': 'showAdmin',
     'click #destroyDB': 'destroyDB',
     'click #toggleNav': 'toggleNav',
-    'click #server-status': 'toggleServerStatus'
-  },
-  showLoad: function(loadingText,finishedText,onceFinishedPromise){
-    $('#loading-text').text(loadingText);
-    $('#loading').fadeToggle();
-    if (onceFinishedPromise){
-      onceFinishedPromise.then(()=>{
-        $('#completed-text').text(finishedText);
-        $('#loading').hide();
-        $("#loading-complete").fadeIn( "slow", function() {
-          $("#loading-complete").fadeOut("slow");
-        });
-      });
-    }
+    'mouseenter #server-status': 'showServerStatus',
+    'mouseleave #server-status': 'hideServerStatus'
   },
   toggleNav: function(){
     e.preventDefault();
@@ -48,9 +39,13 @@ export default Backbone.View.extend({
     e.preventDefault();
     $('#destroyDB').toggleClass('hide');
   },
-  toggleServerStatus: function(e){
+  showServerStatus: function(e){
     e.preventDefault();
-    $('#status').fadeToggle('fast');
+    $('.status').fadeIn('fast');
+  },
+  hideServerStatus: function(e){
+    e.preventDefault();
+    $('.status').fadeOut('fast');
   },
   destroyDB: function(e){
     e.preventDefault();
