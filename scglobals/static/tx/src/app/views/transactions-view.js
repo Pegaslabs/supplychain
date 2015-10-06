@@ -8,6 +8,12 @@ export default Backbone.View.extend({
 
   template: StockChangesTemplate,
   shipments: [],
+  events:{
+    'click .dropdown-toggle': 'toggleTransactions',
+  },
+  toggleTransactions: function(e){
+    console.log(e);
+  },
   render: function(transactions) {
     this.shipments = _.reduce(transactions,function(result,transaction){
       if (!result[transaction.shipment_id]) result[transaction.shipment_id] = {

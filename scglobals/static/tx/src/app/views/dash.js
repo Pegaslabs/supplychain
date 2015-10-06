@@ -17,7 +17,8 @@ export default Backbone.View.extend({
     Backbone.trigger('showLoad',
       "Initializing dash...",
       "Complete!",
-      this.localDB.query('scbymodified').then((result)=>{
+      this.localDB.query('scbydate').then((result)=>{
+        // this.$el.append(new TransactionsView().render(_.take(result,100))); 
         this.$el.append(new TransactionsView().render(result)); 
       }));
     this.$el.empty().append(this.template());

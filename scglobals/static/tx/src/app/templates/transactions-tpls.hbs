@@ -1,15 +1,21 @@
 {{#each shipments}}
 <hr>
-<div class="row same-shipment">
-  <div class="row">
-    <h4 class="col-lg-4"> {{$dateFormat this.transactions.[0].shipment_date}}</h4>
-    <div class="col-lg-8 text-right">
-      <h4>{{this.transactions.[0].from_location_name}} to {{this.transactions.[0].to_location_name}}</h4>
-      <small>{{this.transaction_count}} transactions | total value {{$currency this.total_value}}</small>
+<div class="same-shipment ">
+  <div>&nbsp;
+    <div class="left"> 
+      <div class="btn-group">
+        <a href="#" class="btn btn-default dropdown-toggle">
+          {{$dateFormat this.transactions.[0].shipment_date}}
+        </a>
+      </div>
+      <span class="location">{{this.transactions.[0].from_location_name}} to {{this.transactions.[0].to_location_name}}</span>
+    </div>
+    <div class="right">
+      <strong>{{this.transaction_count}}</strong> transactions | total value <strong>{{$currency this.total_value}}</strong>
     </div>
   </div>
 
-  <table class="table table-striped table-hover ">
+  <table class="table table-striped table-hover hide">
     <thead>
       <tr>
         <th>Item</th>

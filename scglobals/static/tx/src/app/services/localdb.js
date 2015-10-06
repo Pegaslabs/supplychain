@@ -22,7 +22,7 @@ export default class LocalDB {
     let ops = ops || {reduce:false};
     return this.db.query(q,ops).then((result)=> {
       return _.pluck(result.rows, 'value');
-    })
+    });
   }
   saveTransactions(transactions){
     return this.transactionsService.saveTransactions(transactions)
