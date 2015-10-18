@@ -1,17 +1,8 @@
-<div class="panel panel-default status overlay-box" id="status">
+<div class="panel panel-default status overlay-box centered-panel" id="status">
   <div class="panel-body">
-    {{#unless newTransactions}}
-    <h4> <span class="label label-success success-box"><i class="fa fa-check"></i></span> Everything is up to date.</h4>
-    <div class="left-margin">
-      <div>Server checked <strong>{{$dateFormat checkedDate calendar=true}}</strong></div>
-      <div><strong>100%</strong> of {{$num totalTransactions}} transactions are synced locally.</div>
+    <div id="status-starting">
+    <h4>Checking server... <i class="fa fa-spinner fa-pulse"></i></h4>
     </div>
-    {{else}}
-    <h4>Loading data <i class="fa fa-spinner fa-pulse"></i></h4>
-    Found {{newTransactions}} new transactions on server. Loaded {{offset}} of {{newTransactions}}.
-    <div class="progress progress-striped active">
-      <div class="progress-bar progress-bar-success" style="width: {{pct}}%"></div>
-    </div>
-    {{/unless}}
+    <div id="load-status"></div>
   </div>
 </div>

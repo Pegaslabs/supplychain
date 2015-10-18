@@ -28,6 +28,6 @@ export default Backbone.View.extend({
       }
       return result;
     },{});
-    return this.template({shipments: this.shipments});
+    return this.$el.html(this.template({shipments: this.shipments}));
   },
 });

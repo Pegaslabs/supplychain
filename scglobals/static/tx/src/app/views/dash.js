@@ -14,12 +14,9 @@ export default Backbone.View.extend({
     this.localDB = new LocalDB("txdb");
   },
   render: function() {
-    Backbone.trigger('showLoad',
-      "Initializing dash...",
-      "Complete!",
-      this.localDB.query('scbydate').then((result)=>{
-        this.$el.append(new ShipmentsView().render(result));
-      }));
-    this.$el.empty().append(this.template());
+    this.$el.html(this.template());
+    this.localDB.query('scbydate').then((result)=>{
+      $('#transactionsdiv').html(new ShipmentsView().render(result));
+    });
   },
 });

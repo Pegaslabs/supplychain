@@ -59,6 +59,7 @@ export default class SyncService {
         });
       }
       else{
+        Backbone.trigger('upToDate',result[0]);
         return result[0];
       }
     });

@@ -14,21 +14,18 @@ export default Backbone.View.extend({
     this.localDB = new LocalDB("txdb");
     this.statusView = new StatusView();
     this.loadingView = new LoadingView();
-    Backbone.on('showLoad', this.loadingView.showLoad,this.loadingView);
     Backbone.on('syncingStarted', this.syncActivity);
     Backbone.on('syncingComplete', this.syncActivity);
   },
   render: function() {
     this.$el.empty()
-      .append(this.template())
-      .append(this.loadingView.render());
-    this.statusView.render().then((renderedContent)=>{
-      this.$el.append(renderedContent);
-    });
+    .append(this.template())
+    .append(this.loadingView.render())
+    .append(this.statusView.render());
     $("#sync-syncing").hide();
   },
   events:{
-    'click #admin': 'showAdmin',
+    'click #admin': 'toggleAdmin',
     'click #destroyDB': 'destroyDB',
     'click #toggleNav': 'toggleNav',
     'mouseenter #server-status': 'showServerStatus',
@@ -42,7 +39,7 @@ export default Backbone.View.extend({
     e.preventDefault();
     $('#collapsedNav').toggle();
   },
-  showAdmin: function(e){
+  toggleAdmin: function(e){
     e.preventDefault();
     $('#adminDropDown').toggle();
   },
@@ -56,11 +53,14 @@ export default Backbone.View.extend({
   },
   destroyDB: function(e){
     e.preventDefault();
+    $('#adminDropDown').hide();
     $('#destroyDB').toggleClass('hide');
-    Backbone.trigger('showLoad',
-      "Clearing local data...",
-      "Local data cleared.",
-      this.localDB.destroy_db());
+    this.loadingView.showOverlay("Clearing local data.");
+    this.localDB.destroy_db().then((response) => {
+      this.loadingView.hide("Clearing complete!");
+    }).catch(function (err) {
+      console.log(err);
+    });      
     // hack to reload page with no data
     // window.location.reload()
   }

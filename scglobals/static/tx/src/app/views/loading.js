@@ -5,21 +5,26 @@ import LoadingTemplate from './../templates/loading.hbs';
 
 export default Backbone.View.extend({
   template: LoadingTemplate,
-  render: function() {
-    return this.template();
+  render: function() { 
+    var rendered = this.$el.html(this.template());
+    rendered.find("#loading").hide();
+    return rendered;
   },
-  showLoad: function(loadingText,finishedText,onceFinishedPromise){
-    $('#loading-text').text(loadingText);
+  showOverlay: function(){
+    $("#loading").addClass('overlay-box');
+    this.show();
+  },
+  show: function(loadingText){
+    $('#loading-text').text(loadingText || "");
     $('#loading').show();
     $("#loading-spinner").show();
     $('#loading-check').hide();
-    if (onceFinishedPromise){
-      onceFinishedPromise.then(()=>{
-        $('#loading-text').text(finishedText);
-        $("#loading-spinner").hide();
-        $('#loading-check').show();
-        $("#loading").delay(200).fadeOut();
-      });
-    }
+  },
+  hide: function(finishedText){
+    $('#loading-text').text(finishedText || "");
+    $("#loading-spinner").hide();
+    $('#loading-check').show();
+    if (finishedText) $("#loading").delay(200).fadeOut();
+    else $("#loading").fadeOut();
   }
 });
