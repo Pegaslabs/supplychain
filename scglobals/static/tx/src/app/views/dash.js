@@ -2,8 +2,8 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import DashTemplate from './../templates/dash-tpls.hbs';
-import TransactionsView from './transactions-view'
+import DashTemplate from './../templates/dash.hbs';
+import ShipmentsView from './shipments-view'
 import LocalDB from './../services/localdb'
 
 export default Backbone.View.extend({
@@ -18,8 +18,7 @@ export default Backbone.View.extend({
       "Initializing dash...",
       "Complete!",
       this.localDB.query('scbydate').then((result)=>{
-        // this.$el.append(new TransactionsView().render(_.take(result,100))); 
-        this.$el.append(new TransactionsView().render(result)); 
+        this.$el.append(new ShipmentsView().render(result));
       }));
     this.$el.empty().append(this.template());
   },

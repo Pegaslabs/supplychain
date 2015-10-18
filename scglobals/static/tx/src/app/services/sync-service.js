@@ -42,7 +42,7 @@ export default class SyncService {
         this._loadAndSaveLoop(delta,offset);
       }
       else{
-        console.log("completed loading");
+        Backbone.trigger('syncingComplete',delta,offset,response.transactions);
       }
     })
   }
@@ -53,7 +53,7 @@ export default class SyncService {
     .then((result)=>{
       if (!result.length){
         return this._checkLatest(this.latestCachedChange).then((delta)=>{
-          Backbone.trigger('foundNewTransactions',delta);
+          Backbone.trigger('syncingStarted',delta);
           this._loadAndSaveLoop(1000);
           return false;
         });

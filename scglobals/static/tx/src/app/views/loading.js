@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 
-import LoadingTemplate from './../templates/loading-tpls.hbs';
+import LoadingTemplate from './../templates/loading.hbs';
 
 export default Backbone.View.extend({
   template: LoadingTemplate,

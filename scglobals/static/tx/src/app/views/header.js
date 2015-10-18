@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import LocalDB from './../services/localdb'
-import MainTemplate from './../templates/header-tpls.hbs';
+import MainTemplate from './../templates/header.hbs';
 import StatusView from './status';
 import LoadingView from './loading';
 
@@ -15,6 +15,8 @@ export default Backbone.View.extend({
     this.statusView = new StatusView();
     this.loadingView = new LoadingView();
     Backbone.on('showLoad', this.loadingView.showLoad,this.loadingView);
+    Backbone.on('syncingStarted', this.syncActivity);
+    Backbone.on('syncingComplete', this.syncActivity);
   },
   render: function() {
     this.$el.empty()
@@ -23,6 +25,7 @@ export default Backbone.View.extend({
     this.statusView.render().then((renderedContent)=>{
       this.$el.append(renderedContent);
     });
+    $("#sync-syncing").hide();
   },
   events:{
     'click #admin': 'showAdmin',
@@ -31,7 +34,11 @@ export default Backbone.View.extend({
     'mouseenter #server-status': 'showServerStatus',
     'mouseleave #server-status': 'hideServerStatus'
   },
-  toggleNav: function(){
+  syncActivity: function(){
+    $("#sync-syncing").toggle();
+    $("#sync-complete").toggle();
+  },
+  toggleNav: function(e){
     e.preventDefault();
     $('#collapsedNav').toggle();
   },
@@ -55,6 +62,6 @@ export default Backbone.View.extend({
       "Local data cleared.",
       this.localDB.destroy_db());
     // hack to reload page with no data
-    window.location.reload()
+    // window.location.reload()
   }
 });

@@ -2,7 +2,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import StatusTemplate from './../templates/status-tpls.hbs';
+import StatusTemplate from './../templates/status.hbs';
 import SyncService from './../services/sync-service'
 import TransactionsView from './transactions-view'
 

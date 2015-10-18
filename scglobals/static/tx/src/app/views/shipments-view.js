@@ -2,11 +2,11 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import StockChangesTemplate from './../templates/transactions.hbs';
+import ShipmentsTemplate from './../templates/shipments.hbs';
 
 export default Backbone.View.extend({
 
-  template: StockChangesTemplate,
+  template: ShipmentsTemplate,
   shipments: [],
   events:{
     'click .dropdown-toggle': 'toggleTransactions',
