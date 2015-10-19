@@ -7,6 +7,7 @@ import TransactionsService from './transactions'
 export default class LocalDB {
   constructor(dbname) {
     this.db = new PouchDB(dbname);
+    this.db.on('error', function (err) { console.log(err) });
     this.initialQueries = new InitialQueries(this.db);
     this.transactionsService = new TransactionsService(this.db);
   }
@@ -22,6 +23,9 @@ export default class LocalDB {
     let ops = ops || {reduce:false};
     return this.db.query(q,ops).then((result)=> {
       return _.pluck(result.rows, 'value');
+    }).catch(function (err) {
+      console.log(err);
+      return err;
     });
   }
   saveTransactions(transactions){

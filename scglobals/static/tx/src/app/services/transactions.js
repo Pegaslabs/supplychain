@@ -32,7 +32,9 @@ export default class TransactionsService {
   saveTransactions(transactions){
     let mappedTransactions = _.map(transactions,(transaction)=>{
       transaction.unshift("transaction");
-      return _.object(this.transactionHeaders,transaction);
+      transaction = _.object(this.transactionHeaders,transaction);
+      transaction['total_value'] = Number(transaction['total_value']) || 0;
+      return transaction;
     });
     return {response: this.db.bulkDocs(mappedTransactions), transactions: transactions};
   }
