@@ -11,7 +11,7 @@ export default Backbone.View.extend({
   template: MainTemplate,
   el: '#app',
   initialize: function(){
-    this.localDB = new LocalDB("txdb");
+    this.localDB = new LocalDB();
     this.statusView = new StatusView();
     this.loadingView = new LoadingView();
     Backbone.on('syncingStarted', this.syncActivity);

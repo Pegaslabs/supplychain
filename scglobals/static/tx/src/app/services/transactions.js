@@ -36,6 +36,8 @@ export default class TransactionsService {
       transaction['total_value'] = Number(transaction['total_value']) || 0;
       return transaction;
     });
-    return {response: this.db.bulkDocs(mappedTransactions), transactions: transactions};
+    return this.db.bulkDocs(mappedTransactions).then(function(response){
+      return {response: response, transactions: transactions};
+    });
   }
 }

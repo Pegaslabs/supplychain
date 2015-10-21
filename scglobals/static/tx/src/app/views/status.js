@@ -20,7 +20,7 @@ export default Backbone.View.extend({
     Backbone.on('syncingComplete',this.upToDate,this);
     Backbone.on('savedTransactions',this.loading,this);
     this.syncService = new SyncService();
-    this.syncService.start();
+    // this.syncService.start();
   },
   loading: function(newTransactionsCount,offset,latestTransactions){
     $("#status-starting").hide();
@@ -31,7 +31,7 @@ export default Backbone.View.extend({
       pct: this.pctLoaded
     }));
   },
-  upToDate: function(totalTransactions,offset,latestTransactions){
+  upToDate: function(totalTransactions){
     $("#status-starting").hide();
     $("#load-status").html(this.completeTemplate({
       totalTransactions: totalTransactions,

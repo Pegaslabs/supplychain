@@ -10,27 +10,26 @@ import LocalDB from './../services/localdb'
 
 export default class SyncService {
   constructor() {
-    this.localDB = new LocalDB("txdb");
+    this.localDB = new LocalDB();
     this.scs = new ServerStockChangeCollection();
-    // I do not like this
-    this.latestCachedChange = "1901-01-01";
+    // will be either a date or an id
+    this.latestCached = "0";
   }
-  _checkLatest(startDate){
+  _checkLatest(checkIDs){
+    var options = {"count":true, ascordesc: "asc"};
+    options[this.idOrModifiedDate] = this.latestCached;
     return this.scs.fetch({
-      data: $.param({"count":true, ascordesc: "asc", modified:startDate})
+      data: $.param(options)
     }).then((data)=>{
       return data[0][0];
     });
   }
   _loadAndSaveLoop(delta,offset){
     offset = offset || 0;
+    var options = {limit:1000,ascordesc: "asc",offset: offset};
+    options[this.idOrModifiedDate] = this.latestCached;
     return this.scs.fetch({
-      data: $.param({
-        limit:100, 
-        ascordesc: "asc", 
-        modified:this.latestCachedChange,
-        offset: offset
-      })
+      data: $.param(options)
     })
     .then((data)=>{
       offset += data.length;
@@ -39,29 +38,40 @@ export default class SyncService {
     .then((response)=>{
       Backbone.trigger('savedTransactions',delta,offset,response.transactions);
       if (offset < delta){
-        this._loadAndSaveLoop(delta,offset);
+        return this._loadAndSaveLoop(delta,offset);
       }
       else{
         Backbone.trigger('syncingComplete',delta,offset,response.transactions);
+        return true;
       }
     })
   }
   // returns the number of transactions on the server we don't have locally
-  start(){
+  // starts by making sure we have the latest IDs, 
+  // then makes sure nothing has been modified that's already existing
+  _checkAndStart(checkIDs){
+    this.query = checkIDs ? 'scbyid' : 'scbymodified';
+    this.idOrModifiedDate = checkIDs ? 'id' : 'modified';
     return this.localDB.initdb()
-    .then(()=>{return this.localDB.query('scbymodified',{reduce: true})})
+    .then(()=>{return this.localDB.query(this.query)})
     .then((result)=>{
-      if (!result.length){
-        return this._checkLatest(this.latestCachedChange).then((delta)=>{
-          Backbone.trigger('syncingStarted',delta);
-          this._loadAndSaveLoop(1000);
-          return false;
-        });
-      }
-      else{
-        Backbone.trigger('upToDate',result[0]);
-        return result[0];
-      }
+      if (result.length && checkIDs) this.latestCached = result[0].stockchange_id;
+      else if (result.length && !checkIDs) this.latestCached = result[0].modified;
+      return this._checkLatest().then((delta)=>{
+        if (delta){
+          Backbone.trigger('syncingStarted',10000);
+          return this._loadAndSaveLoop(10000);
+        }
+        else{
+          Backbone.trigger('upToDate');
+          return true;
+        }
+      });
+    });
+  }
+  start(){
+    this._checkAndStart(true).then(()=>{
+      this._checkAndStart(false);
     });
   }
 }

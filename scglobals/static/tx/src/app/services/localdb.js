@@ -1,12 +1,14 @@
 import PouchDB from 'pouchdb';
 import InitialQueries from './initialqueries'
 import TransactionsService from './transactions'
+import Config from './../services/config';
 
 // interface for CRUD to our offline data via pouchdb
 
 export default class LocalDB {
-  constructor(dbname) {
-    this.db = new PouchDB(dbname);
+  constructor() {
+    this.config = new Config();
+    this.db = new PouchDB(this.config.dbname);
     this.db.on('error', function (err) { console.log(err) });
     this.initialQueries = new InitialQueries(this.db);
     this.transactionsService = new TransactionsService(this.db);
@@ -20,9 +22,10 @@ export default class LocalDB {
     });
   }
   query(q,ops){
-    let ops = ops || {reduce:false};
+    ops = _.extend(
+      {reduce:false,limit:1000,include_docs:true},ops);
     return this.db.query(q,ops).then((result)=> {
-      return _.pluck(result.rows, 'value');
+      return _.pluck(result.rows, 'doc');
     }).catch(function (err) {
       console.log(err);
       return err;

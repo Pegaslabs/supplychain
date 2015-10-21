@@ -29,7 +29,13 @@ def get_stockchanges(requestGet):
         enddate = ""
     if "modified" in requestGet:
         orderBy = "order by sc.modified"
-        modified = ('and sc.modified >= "%s"') % isSafeDate(requestGet["modified"])
+        modified = ('and sc.modified > "%s"') % isSafeDate(requestGet["modified"])
+    else:
+        orderBy = "order by s.date"
+        modified = ""
+    if "id" in requestGet:
+        orderBy = "order by sc.id"
+        modified = ('and sc.id > "%s"') % issafenumber(requestGet["id"])
     else:
         orderBy = "order by s.date"
         modified = ""
