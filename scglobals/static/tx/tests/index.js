@@ -8,15 +8,17 @@ import Router from '../src/app/router';
 
 
 describe('Integration tests', function() {
+  debugger;
   const router = new Router();
   Backbone.history.start();
-
   let $app = $('#js-app');
 
 
   describe('Dashboard page sample testing', function() {
     it('should render hello ignacio on first render', function() {
-      expect($app.text()).to.equal('Hello ignacio !');
+      router.dashboard();
+      debugger;
+      expect($app.text()).to.equal('is this a thing? !');
     });
   });
 

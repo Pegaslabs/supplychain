@@ -20,7 +20,7 @@ export default Backbone.View.extend({
     Backbone.on('syncingComplete',this.upToDate,this);
     Backbone.on('savedTransactions',this.loading,this);
     this.syncService = new SyncService();
-    // this.syncService.start();
+    this.syncService.start();
   },
   loading: function(newTransactionsCount,offset,latestTransactions){
     $("#status-starting").hide();

@@ -3,22 +3,22 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import ServerStockChangeCollection from './../collections/server-sc-collection';
-import LocalDB from './../services/localdb'
+import ServerStockChanges from './../collections/server-stockchanges';
+import LocalDB from './../services/localdb';
 
 // service for syncing local with server.
 
 export default class SyncService {
   constructor() {
     this.localDB = new LocalDB();
-    this.scs = new ServerStockChangeCollection();
+    this.serverStockChanges = new ServerStockChanges();
     // will be either a date or an id
     this.latestCached = "0";
   }
   _checkLatest(checkIDs){
     var options = {"count":true, ascordesc: "asc"};
     options[this.idOrModifiedDate] = this.latestCached;
-    return this.scs.fetch({
+    return this.serverStockChanges.fetch({
       data: $.param(options)
     }).then((data)=>{
       return data[0][0];
@@ -26,14 +26,19 @@ export default class SyncService {
   }
   _loadAndSaveLoop(delta,offset){
     offset = offset || 0;
-    var options = {limit:1000,ascordesc: "asc",offset: offset};
+    var options = {limit:3,ascordesc: "asc",offset: offset};
     options[this.idOrModifiedDate] = this.latestCached;
-    return this.scs.fetch({
+    if (this.idOrModifiedDate === "shipment_id"){
+      options[this.idOrModifiedDate] = (Number(this.latestCached) + Number(offset));
+      delete options.offset;
+    }
+    return this.serverStockChanges.fetch({
       data: $.param(options)
     })
     .then((data)=>{
       offset += data.length;
-      return this.localDB.saveTransactions(data)
+      // return this.localDB.saveTransactions(data)
+      return data;
     })
     .then((response)=>{
       Backbone.trigger('savedTransactions',delta,offset,response.transactions);
@@ -47,11 +52,11 @@ export default class SyncService {
     })
   }
   // returns the number of transactions on the server we don't have locally
-  // starts by making sure we have the latest IDs, 
-  // then makes sure nothing has been modified that's already existing
+  // starts by making sure we have the latest shipments by IDs, 
+  // then looks for stock changes modified later than our latest stockchange
   _checkAndStart(checkIDs){
-    this.query = checkIDs ? 'scbyid' : 'scbymodified';
-    this.idOrModifiedDate = checkIDs ? 'id' : 'modified';
+    this.query = checkIDs ? 'sbyid' : 'scbymodified';
+    this.idOrModifiedDate = checkIDs ? 'shipment_id' : 'modified';
     return this.localDB.initdb()
     .then(()=>{return this.localDB.query(this.query)})
     .then((result)=>{
@@ -59,8 +64,8 @@ export default class SyncService {
       else if (result.length && !checkIDs) this.latestCached = result[0].modified;
       return this._checkLatest().then((delta)=>{
         if (delta){
-          Backbone.trigger('syncingStarted',10000);
-          return this._loadAndSaveLoop(10000);
+          Backbone.trigger('syncingStarted',1000);
+          return this._loadAndSaveLoop(1000);
         }
         else{
           Backbone.trigger('upToDate');

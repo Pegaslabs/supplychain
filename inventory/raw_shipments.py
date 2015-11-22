@@ -2,8 +2,7 @@ import sqlite3
 from scglobals import settings
 import simplejson as json
 from django.core.exceptions import SuspiciousOperation
-from reporting_utils import issafenumber,get_native_dates
-from django.db import connection
+from reporting_utils import issafenumber
 
 def isSafeDate(d):
     date_nums = d.split("-")
@@ -13,7 +12,26 @@ def isSafeDate(d):
         issafenumber(val)
     return d
 
-def get_stockchanges(requestGet):
+def get_shipment_stockchanges(shipStartId,shipEndId):
+    conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
+    c = conn.cursor()
+    q = """
+    select sc.id,sc.qty,(il.unit_price*sc.qty),sc.created,sc.modified,sc.shipment_id,
+    i.name,i.id,c.name,c.id,il.expiration,il.lot_num,il.unit_price,il.id,u.username
+    from inventory_stockchange sc
+    join inventory_shipment s on sc.shipment_id=s.id
+    join inventory_itemlot il on il.id=sc.itemlot_id
+    join inventory_item i on i.id=il.item_id
+    join inventory_itemcategory c on c.id=i.category_id
+    join auth_user u on u.id=sc.user_id where s.active=1 
+    and s.id >= %d and s.id =<%d;""" % (shipStartId, shipEndId)
+    c.execute(q)
+    data = c.fetchall()
+    conn.commit()
+    conn.close()
+    return data
+
+def get_shipments(requestGet):
     if "ascordesc" in requestGet: 
         ascordesc = requestGet["ascordesc"]
         if ((ascordesc != "asc") and (ascordesc != "desc")):
@@ -48,43 +66,20 @@ def get_stockchanges(requestGet):
         offset = "offset " + issafenumber(requestGet["offset"])
     else:
         offset = ""
-    if "count" in requestGet:
-        selectOrCount = "select count(sc.id)"
-    else:
-        selectOrCount = "select s.date,sc_location.name,from_location.name,\
-        from_location.location_type,to_location.name,to_location.location_type, \
-        i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,\
-        sc.modified,(il.unit_price*sc.qty), sc.id, s.id, il.id, i.id"
-    # hijacking limit to now be our range of shipment id
-    # in the case that we're looking for stockchanges on a shipment id
-    if "shipment_id" in requestGet:
-        greaterThanId = str(issafenumber(requestGet["shipment_id"]))
-        lessThanId = str(int(requestGet["shipment_id"]) + int(requestGet["limit"]))
-        shipmentId = 'and s.id >="' + greaterThanId + '" and s.id <"'+ lessThanId + '"'
-        limit = ""
-    else:
-        shipmentId = ""
-    c = connection.cursor()
-    q = selectOrCount + """
-    from inventory_stockchange sc
-    join inventory_shipment s on sc.shipment_id=s.id
-    join inventory_location sc_location on sc_location.id=sc.location_id
+    conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
+    c = conn.cursor()
+    q = """
+    select s.id,s.date,s.name,from_location.name,from_location.location_type,
+        from_location.id,to_location.name,to_location.location_type,to_location.id,u.username
+    from inventory_shipment s
     join inventory_location from_location on s.from_location_id=from_location.id
     join inventory_location to_location on s.to_location_id=to_location.id
-    join inventory_itemlot il on il.id=sc.itemlot_id
-    join inventory_item i on i.id=il.item_id
-    join inventory_itemcategory c on c.id=i.category_id
-    join auth_user u on u.id=sc.user_id where s.active=1 
+    join auth_user u on u.id=s.user_id where s.active=1 
     %s %s %s
-    %s %s %s %s %s;""" % (startdate, enddate, modified, shipmentId, orderBy, ascordesc, limit, offset)
+    %s %s %s %s;""" % (startdate, enddate, modified, orderBy, ascordesc, limit, offset)
     c.execute(q)
     data = c.fetchall()
-    connection.commit()
-    connection.close()
-    if "count" in requestGet:
-        return data
-    else:
-        data = get_native_dates(data,0)
-        data = get_native_dates(data,8)
-        return get_native_dates(data,13)
-    # return data
+    conn.commit()
+    conn.close()
+    # map(data)
+    return data

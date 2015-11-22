@@ -138,15 +138,15 @@ class LocationResource(ModelResource):
         if filters is None:
             filters = {}
         orm_filters = super(LocationResource, self).build_filters(filters)
-        # if('name__contains' in filters):
-        #     query = filters['name__contains']
+        # if('name__icontains' in filters):
+        #     query = filters['name__icontains']
         #     qset = (Q(name__icontains=query) | Q(patient__identifier__icontains=query))
         #     orm_filters.update({'custom': qset})
         return orm_filters
     def apply_filters(self, request, applicable_filters):
         if 'custom' in applicable_filters:
             custom = applicable_filters.pop('custom')
-            applicable_filters.pop('name__contains')
+            applicable_filters.pop('name__icontains')
         else:
             custom = None
         semi_filtered = super(LocationResource, self).apply_filters(request, applicable_filters)
@@ -436,7 +436,7 @@ class SearchResource(Resource):
         return bundle
 
     def get_object_list(self, bundle, **kwargs):
-        query = bundle.request.GET.get('name__contains', None)
+        query = bundle.request.GET.get('name__icontains', None)
         if not query:
             query = ""
         query = query.lower()

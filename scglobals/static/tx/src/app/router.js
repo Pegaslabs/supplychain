@@ -1,8 +1,10 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import Backbone from 'backbone';
 import DashView from './views/dash';
 import StatusPageView from './views/status-page';
 import HeaderView from './views/header';
+import Config from './services/config';
 
 export default Backbone.Router.extend({
 
@@ -10,7 +12,9 @@ export default Backbone.Router.extend({
     '': 'dashboard',
     'status': 'status'
   },
-  initialize: () => {
+  initialize: function() {
+    this.config = new Config();
+    $('body').append('<div id="js-app"></div>');
     let headerView = new HeaderView();
     headerView.render();
   },
@@ -20,6 +24,6 @@ export default Backbone.Router.extend({
   },
   status: () => {
     new StatusPageView().render();
-  }
+  },
 
 });

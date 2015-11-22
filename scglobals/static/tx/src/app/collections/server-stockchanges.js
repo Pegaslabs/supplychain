@@ -4,7 +4,7 @@ import Backbone from 'backbone';
 
 export default Backbone.Collection.extend({
   url: function () {
-    return 'http://localhost:8000/stockchanges.json';
+    return 'http://localhost:8000/stockchanges.json?limit=10';
   },
   parse: function(resp, xhr) {
     return _.map(resp,function(row){

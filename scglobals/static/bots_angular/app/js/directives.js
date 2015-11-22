@@ -44,7 +44,7 @@ directive('iaSearchDrop',
 				scope.loading_search = true;
 				scope.searchDropConfig.selected_result = undefined;
 				scope.no_results = false;
-				var url = "&name__contains=" + q + "&limit=10";
+				var url = "&name__icontains=" + q + "&limit=10";
 				// scope.canceler = $q.defer();
 				$http.get(scope.searchDropConfig.url + url).success(function(data){
 					scope.search_results = data.objects;

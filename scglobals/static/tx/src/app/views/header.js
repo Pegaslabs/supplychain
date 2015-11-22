@@ -9,7 +9,7 @@ import LoadingView from './loading';
 
 export default Backbone.View.extend({
   template: MainTemplate,
-  el: '#app',
+  el: '#header',
   initialize: function(){
     this.localDB = new LocalDB();
     this.statusView = new StatusView();

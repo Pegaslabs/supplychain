@@ -17,7 +17,7 @@ export default class LocalDB {
     return this.db.destroy();
   }
   initdb(){
-    return this.db.get('_design/scbymodified').catch((err) => {
+    return this.db.get('_design/shipmentsbydate').catch((err) => {
       return this.initialQueries.saveDefaultQueries(this.db);
     });
   }
@@ -30,8 +30,5 @@ export default class LocalDB {
       console.log(err);
       return err;
     });
-  }
-  saveTransactions(transactions){
-    return this.transactionsService.saveTransactions(transactions)
   }
 }

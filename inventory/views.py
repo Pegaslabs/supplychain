@@ -1,5 +1,5 @@
 from inventory import reporting_utils
-from inventory import raw_stockchanges
+from inventory import raw_stockchanges,raw_shipments
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render_to_response, redirect
 import simplejson as json
@@ -73,4 +73,8 @@ def report(request):
 
 def stockchanges(request):
     data = raw_stockchanges.get_stockchanges(request.GET)
+    return HttpResponse(json.dumps(data), mimetype='application/json')
+
+def shipments(request):
+    data = raw_shipments.get_shipments(request.GET)
     return HttpResponse(json.dumps(data), mimetype='application/json')

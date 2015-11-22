@@ -7,12 +7,12 @@ export default class InitialQueries {
   saveDefaultQueries(){
     let querytypes = [
       // for actual transactions
-      {queryName: 'scbydate', doc_type: 'transaction', queryEmit: 'doc.shipment_date'},
+      {queryName: 'shipmentsbydate', doc_type: 'shipment', queryEmit: 'doc.date'}];
       // for sum of total value (when working, use sum & skip "count" of transactions)
-      {queryName: 'scbyvalue', doc_type: 'transaction', queryEmit: 'doc.id,doc.total_value', reduce: '_sum'},
+      // {queryName: 'scbyvalue', doc_type: 'transaction', queryEmit: 'doc.id,doc.total_value', reduce: '_sum'},
       // for server syncing
-      {queryName: 'scbyid', doc_type: 'transaction', queryEmit: 'doc.stockchange_id'},
-      {queryName: 'scbymodified', doc_type: 'transaction', queryEmit: 'doc.modified'}];
+      // {queryName: 'scbyid', doc_type: 'transaction', queryEmit: 'doc.stockchange_id'},
+      // {queryName: 'scbymodified', doc_type: 'transaction', queryEmit: 'doc.modified'}];
     var addQueries = [];
     var addQuery;
     var functionString;

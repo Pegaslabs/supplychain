@@ -27,7 +27,7 @@ module.exports.production = {
     entry: entry,
     output: output,
     resolve: {
-        fallback: path.join(__dirname, "helpers")
+        fallback: path.join(__dirname, "./src/app/helpers")
     },
     module : {
         loaders : [
