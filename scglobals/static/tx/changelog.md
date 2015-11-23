@@ -6,5 +6,5 @@
 couldn't use webpack + handlebars + chrome devtools, some error with 4.0. https://github.com/altano/handlebars-loader/issues/67
 
 #### improvements
-Everything in tx is still broken.
-
+* Everything in tx is still broken.
+* karma+mocha tests now work :)

@@ -9,7 +9,7 @@ import LoadingView from './loading';
 
 export default Backbone.View.extend({
   template: MainTemplate,
-  el: '#header',
+  // el: '#header',
   initialize: function(){
     this.localDB = new LocalDB();
     this.statusView = new StatusView();
@@ -18,7 +18,8 @@ export default Backbone.View.extend({
     Backbone.on('syncingComplete', this.syncActivity);
   },
   render: function() {
-    this.$el.empty()
+    debugger;
+    return this.$el.empty()
     .append(this.template())
     .append(this.loadingView.render())
     .append(this.statusView.render());

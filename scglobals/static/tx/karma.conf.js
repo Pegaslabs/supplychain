@@ -19,7 +19,6 @@ module.exports = function(config) {
     module: {
       loaders : [
           { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
-          { test: /\.html$/, loader: "html-loader" },
           { test: /\.hbs$/, loader: "handlebars-loader" }
       ]
     }

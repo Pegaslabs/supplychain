@@ -14,9 +14,9 @@ export default Backbone.Router.extend({
   },
   initialize: function() {
     this.config = new Config();
-    $('body').append('<div id="js-app"></div>');
     let headerView = new HeaderView();
-    headerView.render();
+    $('#supplychain').append(headerView.render());
+    $('#supplychain').append("<div id='container'></div>");
   },
   dashboard: () => {
     let dashView = new DashView();

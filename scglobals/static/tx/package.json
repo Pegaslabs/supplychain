@@ -35,7 +35,6 @@
     "gulp-watch": "^4.1.1",
     "gulp-webpack": "^1.2.0",
     "handlebars-loader": "=1.1.1",
-    "html-loader": "^0.3.0",
     "karma": "0.13.11",
     "karma-chrome-launcher": "^0.1.7",
     "karma-mocha": "^0.1.10",
