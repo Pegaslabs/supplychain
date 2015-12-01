@@ -1,16 +1,13 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
+import TableServerCollection from './table-server-collection';
 
-export default Backbone.Collection.extend({
+export default TableServerCollection.extend({
   url: function () {
-    return 'http://localhost:8000/stockchanges.json?limit=10';
-  },
-  parse: function(resp, xhr) {
-    return _.map(resp,function(row){
-      return _.map(row,function(field){
-        return (field) ? field : " ";
-      });
-    });
+    return this.url + 'stockchanges.json/'
+  }
+  urlOptions: {
+    "limit": 100
   }
 });
