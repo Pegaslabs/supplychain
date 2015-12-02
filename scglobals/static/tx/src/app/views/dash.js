@@ -5,23 +5,23 @@ import Backbone from 'backbone';
 import DashTemplate from './../templates/dash.hbs';
 import tsTemplate from './../templates/transactions-summary.hbs';
 import ShipmentsView from './shipments-view';
-import LocalDB from './../services/localdb';
+import DB from './../services/db';
 
 export default Backbone.View.extend({
 
   template: DashTemplate,
   el: '#container',
   initialize: function(){
-    this.localDB = new LocalDB();
+    this.db = new DB();
   },
   render: function() {
     this.$el.html(this.template());
-    this.localDB.query('scbydate').then((result)=>{
+    this.db.query('scbydate').then((result)=>{
       $('#transactionsdiv').html(new ShipmentsView().render(result));
     });
     Promise.all([
-      this.localDB.query('scbydate',{reduce: true}),
-      this.localDB.query('scbyvalue',{reduce: true})
+      this.db.query('scbydate',{reduce: true}),
+      this.db.query('scbyvalue',{reduce: true})
       ]).then((result)=>{
         $("#transactions-summary").html(
           tsTemplate({total_transactions: result[0][0], total_value: result[1][0]})

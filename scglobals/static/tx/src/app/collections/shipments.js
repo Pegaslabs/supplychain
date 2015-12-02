@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
-import LocalDB from './../services/localdb';
+import DB from './../services/db';
 
 export default Backbone.Collection.extend({
   initialize: function(){
-    this.localDB = new LocalDB();
+    this.db = new DB();
   },
   save: function(){
     return this.db.bulkDocs(this.toJSON());

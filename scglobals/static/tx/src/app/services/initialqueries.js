@@ -4,15 +4,14 @@ export default class InitialQueries {
   constructor(db){
     this.db = db;
   }
+
+  // usage: override reduce property if you need a _sum, default (see below) is count
+
   saveDefaultQueries(){
     let querytypes = [
-      // for actual transactions
-      {queryName: 'shipmentsbydate', doc_type: 'shipment', queryEmit: 'doc.date'}];
-      // for sum of total value (when working, use sum & skip "count" of transactions)
-      // {queryName: 'scbyvalue', doc_type: 'transaction', queryEmit: 'doc.id,doc.total_value', reduce: '_sum'},
-      // for server syncing
-      // {queryName: 'scbyid', doc_type: 'transaction', queryEmit: 'doc.stockchange_id'},
-      // {queryName: 'scbymodified', doc_type: 'transaction', queryEmit: 'doc.modified'}];
+      {queryName: 'shipments-by-date', doc_type: 'shipment', queryEmit: 'doc.date'},
+      // for sum of total value (when working, use sum & skip "count" of shipments)
+      {queryName: 'shipments-by-value', doc_type: 'shipment', queryEmit: 'doc.id, doc.total_value', reduce: '_sum'}];
     var addQueries = [];
     var addQuery;
     var functionString;

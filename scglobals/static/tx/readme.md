@@ -6,4 +6,5 @@ In process of converting to Cloudand/Couchdb/PouchDB, app's intended use case ar
 ## Setup
   npm i -g gulp karma-cli 
   npm i
+  add-cors-to-couchdb
   bower i

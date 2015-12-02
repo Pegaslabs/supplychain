@@ -2,32 +2,25 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import LocalDB from './../services/localdb'
+import db from './../services/db'
 import MainTemplate from './../templates/header.hbs';
-import StatusView from './status';
 import LoadingView from './loading';
 
 export default Backbone.View.extend({
   template: MainTemplate,
   // el: '#header',
   initialize: function(){
-    this.localDB = new LocalDB();
-    this.statusView = new StatusView();
+    this.db = new db();
     this.loadingView = new LoadingView();
-    Backbone.on('syncingStarted', this.syncActivity);
-    Backbone.on('syncingComplete', this.syncActivity);
   },
   render: function() {
-    debugger;
     return this.$el.empty()
     .append(this.template())
     .append(this.loadingView.render())
-    .append(this.statusView.render());
     $("#sync-syncing").hide();
   },
   events:{
     'click #admin': 'toggleAdmin',
-    'click #destroyDB': 'destroyDB',
     'click #toggleNav': 'toggleNav',
     'mouseenter #server-status': 'showServerStatus',
     'mouseleave #server-status': 'hideServerStatus'
@@ -57,7 +50,7 @@ export default Backbone.View.extend({
     $('#adminDropDown').hide();
     $('#destroyDB').toggleClass('hide');
     this.loadingView.showOverlay("Clearing local data.");
-    this.localDB.destroy_db().then((response) => {
+    this.db.destroy_db().then((response) => {
       this.loadingView.hide("Clearing complete!");
     }).catch(function (err) {
       console.log(err);

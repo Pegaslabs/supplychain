@@ -3,12 +3,12 @@ import InitialQueries from './initialqueries'
 import TransactionsService from './transactions'
 import Config from './../services/config';
 
-// interface for CRUD to our offline data via pouchdb
+// interface for CRUD to our couchdb data via pouchdb
 
-export default class LocalDB {
+export default class DB {
   constructor() {
     this.config = new Config();
-    this.db = new PouchDB(this.config.dbname);
+    this.db = new PouchDB(this.config.dbUrl + this.config.dbName);
     this.db.on('error', function (err) { console.log(err) });
     this.initialQueries = new InitialQueries(this.db);
     this.transactionsService = new TransactionsService(this.db);
@@ -17,7 +17,7 @@ export default class LocalDB {
     return this.db.destroy();
   }
   initdb(){
-    return this.db.get('_design/shipmentsbydate').catch((err) => {
+    return this.db.get('_design/shipments-by-date').catch((err) => {
       return this.initialQueries.saveDefaultQueries(this.db);
     });
   }

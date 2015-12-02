@@ -4,13 +4,13 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import ServerStockChanges from './../collections/server-stockchanges';
-import LocalDB from './../services/localdb';
+import DB from './../services/db';
 
 // service for syncing local with server.
 
 export default class SyncService {
   constructor() {
-    this.localDB = new LocalDB();
+    this.db = new DB();
     this.serverStockChanges = new ServerStockChanges();
     // will be either a date or an id
     this.latestCached = "0";
@@ -37,7 +37,7 @@ export default class SyncService {
     })
     .then((data)=>{
       offset += data.length;
-      // return this.localDB.saveTransactions(data)
+      // return this.db.saveTransactions(data)
       return data;
     })
     .then((response)=>{
@@ -57,8 +57,8 @@ export default class SyncService {
   _checkAndStart(checkIDs){
     this.query = checkIDs ? 'sbyid' : 'scbymodified';
     this.idOrModifiedDate = checkIDs ? 'shipment_id' : 'modified';
-    return this.localDB.initdb()
-    .then(()=>{return this.localDB.query(this.query)})
+    return this.db.initdb()
+    .then(()=>{return this.db.query(this.query)})
     .then((result)=>{
       if (result.length && checkIDs) this.latestCached = result[0].stockchange_id;
       else if (result.length && !checkIDs) this.latestCached = result[0].modified;
