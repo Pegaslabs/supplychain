@@ -11,6 +11,7 @@ export default Backbone.View.extend({
   el: "#migration-progress",
   totalShipments: 0,
   shipmentIds: [],
+  limit: 25,
   initialize: function(){
     this.shipmentsCollection = new ShipmentsCollection();
     this.serverShipmentsCollection = new ServerShipmentsCollection();
@@ -22,8 +23,8 @@ export default Backbone.View.extend({
   _loadAndSave: function(){
     return this.serverShipmentsCollection.fetch()
     .then((data)=>{
-      this.offset += data.length;
-      this.serverShipmentsCollection.idsBetween = this.shipmentIds.slice(this.offset,this.offset+4);
+      this.offset += this.limit;
+      this.serverShipmentsCollection.urlParams.idsBetween = this.shipmentIds.slice(this.offset,this.offset+this.limit);
       return this.shipmentsCollection.convertFromTransactions(data);
     })
     .then((response)=>{
@@ -37,7 +38,7 @@ export default Backbone.View.extend({
     this.shipmentIds = shipmentIds;
     this.offset = 0;
     this.render();
-    this.serverShipmentsCollection.urlParams = {ascordesc: "asc",idsBetween: this.shipmentIds.slice(this.offset,this.offset+4)};
+    this.serverShipmentsCollection.urlParams = {ascordesc: "asc",idsBetween: this.shipmentIds.slice(this.offset,this.offset+this.limit)};
     return this._loadAndSave();
   }
 });
