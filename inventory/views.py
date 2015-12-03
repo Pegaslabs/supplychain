@@ -78,3 +78,7 @@ def stockchanges(request):
 def shipments(request):
     data = raw_shipments.get_shipments(request.GET)
     return HttpResponse(json.dumps(data), mimetype='application/json')
+
+def all_shipment_ids(request):
+    data = raw_shipments.get_all_shipment_ids()
+    return HttpResponse(json.dumps(data), mimetype='application/json')

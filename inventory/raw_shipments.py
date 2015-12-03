@@ -12,6 +12,16 @@ def isSafeDate(d):
         issafenumber(val)
     return d
 
+def get_all_shipment_ids():
+    conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
+    c = conn.cursor()
+    q = "select s.id from inventory_shipment s where s.active=1"
+    c.execute(q)
+    data = c.fetchall()
+    conn.commit()
+    conn.close()
+    return data
+
 def get_shipment_stockchanges(shipStartId,shipEndId):
     conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
     c = conn.cursor()

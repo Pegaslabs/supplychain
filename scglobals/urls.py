@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r'report.json', 'inventory.views.report'),
     url(r'stockchanges.json', 'inventory.views.stockchanges'),
     url(r'shipments.json', 'inventory.views.shipments'),
+    url(r'all_shipment_ids.json', 'inventory.views.all_shipment_ids'),
 
     url(r'^print/shipment/(?P<pk>\d+)/$', 'inventory.views.print_shipment'),
 
