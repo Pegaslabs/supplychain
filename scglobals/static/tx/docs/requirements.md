@@ -1,5 +1,6 @@
-# Tests
+# Requirements
 
+# Tests
 ## Sync
 	## One-time in session
 		* Sync API allows getting transactions by shipment
@@ -25,9 +26,16 @@
 ## User permissions
 ## User preferences
 
-## Launch plan -- can we do this in 2015?
+## Launch plan 1 -- can we do this in 2015?
 * Sync: first views shipments & stock cards 
 * Sync 2: doesn't have to refresh 
 * Sync 3: All views including reports
 * Sync 4: Edits
 # Migration: full user permissions, roll out to all clinics & dispensaries
+
+## New launch plan 2 2015: sync is too ambitious
+* Migration button: Seyfu can migrate to a couch read-only instance for the time being
+* We build out views on it
+* We build out update
+* Permissions, couch workflow, deploy strategies
+* Launch full migration

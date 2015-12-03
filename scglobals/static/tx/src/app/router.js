@@ -2,15 +2,15 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 import DashView from './views/dash';
-import StatusPageView from './views/status-page';
 import HeaderView from './views/header';
+import AdminView from './views/admin';
 import Config from './services/config';
 
 export default Backbone.Router.extend({
 
   routes: {
     '': 'dashboard',
-    'status': 'status'
+    'admin': 'admin'
   },
   initialize: function() {
     this.config = new Config();
@@ -22,8 +22,8 @@ export default Backbone.Router.extend({
     let dashView = new DashView();
     dashView.render();
   },
-  status: () => {
-    new StatusPageView().render();
+  admin: () => {
+    new AdminView().render();
   },
 
 });

@@ -4,58 +4,39 @@ import Backbone from 'backbone';
 
 import db from './../services/db'
 import AdminTemplate from './../templates/admin.hbs';
+import MigrationView from './migration';
+import ServerShipmentsCollection from './../collections/server-shipments.js';
 
 export default Backbone.View.extend({
   template: AdminTemplate,
-  pctLoaded: 0,
+  el: "#container",
+  totalShipments: 0,
   initialize: function(){
     this.db = new db();
-  },
-  render: function() {
-    return this.$el.html(this.template());
+    this.serverShipmentCollection = new ServerShipmentsCollection();
   },
   events:{
-    'click #destroyDB': 'destroyDB'
+    'click #start-migration': 'startMigration'
   },
-  destroyDB: function(e){
+  startMigration: function(e){
     e.preventDefault();
-    $('#adminDropDown').hide();
-    $('#destroyDB').toggleClass('hide');
-    // this.loadingView.showOverlay("Clearing local data.");
-    console.log('destroying db');
-    this.db.destroy_db().then((response) => {
-      // this.loadingView.hide("Clearing complete!");
-      console.log('destroy complete');
-    }).catch(function (err) {
-      console.log(err);
-    });      
-    // hack to reload page with no data
-    // window.location.reload()
-  }
-  initialize: function(){
-    Backbone.on('migrationStarted',this.loading,this);
-    Backbone.on('migrationComplete',this.upToDate,this);
-    this.migrationService = new MigrationService();
-  },
-  loading: function(newTransactionsCount,offset,latestTransactions){
-    $("#status-starting").hide();
-    if (offset) this.pctLoaded = ((offset / newTransactionsCount) * 100);
-    $("#load-status").html(this.loadingTemplate({
-      newTransactions: newTransactionsCount,
-      offset: offset,
-      pct: this.pctLoaded
-    }));
-  },
-  upToDate: function(totalTransactions){
-    $("#status-starting").hide();
-    $("#load-status").html(this.completeTemplate({
-      totalTransactions: totalTransactions,
-    }));
-  },
-  offline: function(){
-    console.log('TODO. WE OFFLINE.')
+    this.db.initdb().then(()=>{
+      this.serverShipmentCollection.all_shipment_ids()
+      .then((shipmentIds)=>{
+        this.totalShipments = shipmentIds.length;
+        this.migrationView = new MigrationView();
+        this.migrationView.migrate(shipmentIds)
+        .then(()=>{
+          $('#totalShipments').html(this.totalShipments);
+          $("#migration-progress").hide();
+          $("#status-complete").show();
+        });
+      });
+    });
   },
   render: function() {
-    return this.$el.html(this.template({starting: true,checkedDate: new Date()}));
+    this.$el.html(this.template());
+    $("#status-complete").hide();
+    $("#clearing-db").hide();
   }
 });

@@ -9,8 +9,9 @@ export default Backbone.Collection.extend({
   },
   save: function(){
     return this.db.bulkDocs(this.toJSON());
-  }
-  convertFromTransactions: function(){
-    // debugger;
+  },
+  convertFromTransactions: function(transactions){
+    console.log(transactions[0]);
+    return true;
   }
 });

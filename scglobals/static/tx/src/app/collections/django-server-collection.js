@@ -3,7 +3,7 @@ import Backbone from 'backbone';
 
 export default Backbone.Collection.extend({
   makeUrlParams: function(){
-    var str = "";
+    var str = "?";
     for (var key in this.urlParams) {
       if (str != "") str += "&";
       str += key + "=" + encodeURIComponent(this.urlParams[key]);
