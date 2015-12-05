@@ -17,7 +17,7 @@ export default Backbone.View.extend({
     this.serverShipmentsCollection = new ServerShipmentsCollection();
   },
   render: function(){
-    this.pct = this.offset / this.totalShipments;
+    this.pct = (this.offset / this.totalShipments)*100;
     this.$el.html(this.template({offset: this.offset, pct: this.pct, totalShipments: this.totalShipments}));
   },
   _loadAndSave: function(){
