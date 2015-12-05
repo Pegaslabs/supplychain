@@ -19,7 +19,6 @@ export default Backbone.Collection.extend({
       result[transaction[16]].push(transaction);
       return result;
     },{});
-    console.log(ourShipments);
     return true;
   }
 });

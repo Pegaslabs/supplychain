@@ -21,7 +21,7 @@ export default Backbone.View.extend({
   startMigration: function(e){
     e.preventDefault();
     this.db.initdb().then(()=>{
-      this.serverShipmentCollection.all_shipment_ids()
+      this.serverShipmentCollection.allShipmentIds()
       .then((shipmentIds)=>{
         this.totalShipments = shipmentIds.length;
         this.migrationView = new MigrationView();

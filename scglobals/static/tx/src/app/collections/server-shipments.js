@@ -11,7 +11,7 @@ export default DjangoServerCollection.extend({
   fetch: function(){
     return $.getJSON(this.url() + this.makeUrlParams());
   },
-  all_shipment_ids: function(){
+  allShipmentIds: function(){
     return $.getJSON('http://localhost:8000/all_shipment_ids.json');
   }
 });

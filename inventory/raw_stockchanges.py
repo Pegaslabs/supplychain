@@ -74,7 +74,7 @@ def get_stockchanges(requestGet):
     join inventory_itemlot il on il.id=sc.itemlot_id
     join inventory_item i on i.id=il.item_id
     join inventory_itemcategory c on c.id=i.category_id
-    join auth_user u on u.id=sc.user_id where s.active=1 
+    join auth_user u on u.id=sc.user_id where s.active=1 and sc.qty > 0 
     %s %s %s %s %s;""" % (shipmentIdsBetween,orderBy, ascordesc, limit, offset)
     c.execute(q)
     data = c.fetchall()

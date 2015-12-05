@@ -1,7 +1,12 @@
-import $ from 'jquery';
-import _ from 'lodash';
 import Backbone from 'backbone';
+import TablesDefaultModel from './tables-default';
 
-export default Backbone.Model.extend({
-
+export default TablesDefaultModel({
+  // defaults: {
+  //   from_location: "",
+  //   to_location: "",
+  //   date: "",
+  //   vendor_id: "",
+  //   transactions: []
+  // }
 });
