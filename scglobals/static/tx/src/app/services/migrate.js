@@ -21,13 +21,14 @@ export default class Migration {
     var transactions = [], shipment_model, shipment, shipments_models;
     // our server response is at the transaction level
     // so we need to split them into shipments.
-    shipments_models = _.map(this.serverShipmentsCollection.urlParams.idsBetween,function(id){
+    shipments_models = _.map(this.serverShipmentsCollection.urlParams.idsBetween,(id)=>{
       // prep a shipment object to be saved in couch
       // (we should never have an empty length because the sql length )
-      transactions = _.map(django_transactions,function(t){
+      transactions = _.reduce(django_transactions,function(result,t){
         // shipment_id is at position 16
-        if (t[16] === id) return t;
-      });
+        if (t[16] === id) result.push(t);
+        return result;
+      },[]);
       shipment_model = new ShipmentModel(this.convertDjangoDataService.shipmentFromTransaction(transactions[0]));
       shipment_model.transactions = this.convertDjangoDataService.convertTansactions(transactions);
       return shipment_model;
@@ -39,9 +40,8 @@ export default class Migration {
     .then((data)=>{
       return this._convertAndSaveShipment(data);
     })
-    .then(function(){
+    .then(()=>{
       // update our counters & url params
-      debugger;
       this.offset += this.limit;
       this.serverShipmentsCollection.urlParams.idsBetween = this.shipmentIds.slice(this.offset,this.offset+this.limit);
       Backbone.trigger('MigrationProgress',this.offset);

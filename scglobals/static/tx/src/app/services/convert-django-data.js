@@ -47,17 +47,17 @@ export default class TransactionsService {
       transaction['django'] = true;
       // strip fields we do not need as they're on shipment
       _.omit(transaction,this.shipment_headers);
-      debugger;
       return transaction;
     });
   }
   // expecting the key-less server response transaction
+  // server transaction:
+  // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3]
   shipmentFromTransaction(transaction){
     var shipment = {'django': true};
     // put 'transaction' in front of the array so doc_type has a value
     transaction.unshift("transaction");
     transaction = _.object(this.transaction_headers,transaction);
-    debugger;
     return _.pick(transaction,this.shipment_headers);
   }
 }
