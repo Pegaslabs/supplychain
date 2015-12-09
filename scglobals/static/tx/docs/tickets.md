@@ -1,12 +1,17 @@
-# Requirements
+# Tickets
+Tasks - high
+* docs stored in couchdb
+	* latest: transaction fields all sotred wrong....
 
-# Tests
+Low
+* think through security around patient names
+* When couch is offline, user sees error message
+
+# Stories
 ## Sync
 	## One-time in session
 		* Sync API allows getting transactions by shipment
 		* Sync saves shipments as documents
-	## Ongoing Sync: view & filter only
-	## Ongoing sync: editing
 ## Shipments
 	### View all
 		* Dashboard displays all shipments

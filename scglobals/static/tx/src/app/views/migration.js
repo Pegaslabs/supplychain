@@ -11,11 +11,11 @@ export default Backbone.View.extend({
   pct:0,
   totalShipments:0,
   initialize: function(){
-    Backbone.on('MigrationProgress',this.render);
+    Backbone.on('MigrationProgress',this.render,this);
   },
   render: function(offset){
     this.pct = (offset / this.totalShipments)*100;
-    this.$el.html(this.template({pct: this.pct, totalShipments: this.totalShipments}));
+    this.$el.html(this.template({pct: this.pct, offset: offset, totalShipments: this.totalShipments}));
   },
   migrate: function(shipmentIds) {
     this.migrationService = new MigrationService(shipmentIds);

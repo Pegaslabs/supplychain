@@ -15,7 +15,11 @@ def isSafeDate(d):
 def get_all_shipment_ids():
     conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
     c = conn.cursor()
-    q = "select s.id from inventory_shipment s where s.active=1"
+    q = """select s.id from inventory_shipment s 
+            join inventory_stockchange sc on sc.shipment_id=s.id 
+            where s.active=1 
+            and sc.qty > 0 
+            group by s.id;"""
     c.execute(q)
     data = c.fetchall()
     conn.commit()

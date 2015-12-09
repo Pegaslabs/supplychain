@@ -38,15 +38,17 @@ export default class TransactionsService {
   }
   // take array of values without keys and add keys
   convertTansactions(transactions){
-    return _.map(transactions,(transaction)=>{
+    var transaction;
+    return _.map(transactions,(server_transaction)=>{
       // put 'transaction' in front of the array so doc_type has a value
-      transaction.unshift("transaction");
+      server_transaction.unshift("transaction");
       // _.object takes list of keys & list of values & makes object
-      transaction = _.object(this.transaction_headers,transaction);
+      transaction = _.object(this.transaction_headers,server_transaction);
+      debugger;
       transaction['total_value'] = Number(transaction['total_value']) || 0;
       transaction['django'] = true;
       // strip fields we do not need as they're on shipment
-      _.omit(transaction,this.shipment_headers);
+      transaction = _.omit(transaction,this.shipment_headers);
       return transaction;
     });
   }
@@ -58,6 +60,7 @@ export default class TransactionsService {
     // put 'transaction' in front of the array so doc_type has a value
     transaction.unshift("transaction");
     transaction = _.object(this.transaction_headers,transaction);
+    transaction.shift();
     return _.pick(transaction,this.shipment_headers);
   }
 }

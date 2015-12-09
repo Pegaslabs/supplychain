@@ -30,7 +30,7 @@ export default class Migration {
         return result;
       },[]);
       shipment_model = new ShipmentModel(this.convertDjangoDataService.shipmentFromTransaction(transactions[0]));
-      shipment_model.transactions = this.convertDjangoDataService.convertTansactions(transactions);
+      shipment_model.set('transactions',this.convertDjangoDataService.convertTansactions(transactions));
       return shipment_model;
     });
     return this.db.bulkDocs(new ShipmentsCollection(shipments_models).toJSON());
