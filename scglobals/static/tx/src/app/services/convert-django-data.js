@@ -36,28 +36,38 @@ export default class TransactionsService {
       "django_shipment_id"];
   }
   // take array of values without keys and add keys
-  convertTansactions(transactions){
-    var newTransaction;
+  _convertTansactions(transactions){
+    var new_transaction;
     return _.map(transactions,(server_transaction)=>{
       // _.object takes list of keys & list of values & makes object
-      newTransaction = _.object(this.transaction_headers,server_transaction);
-      newTransaction['total_value'] = Number(newTransaction['total_value']) || 0;
-      newTransaction['django'] = true;
+      new_transaction = _.object(this.transaction_headers,server_transaction);
+      new_transaction['total_value'] = Number(new_transaction['total_value']) || 0;
+      new_transaction['django'] = true;
       // strip fields we do not need as they're on shipment
-      newTransaction = _.omit(newTransaction,this.shipment_headers);
-      return newTransaction;
+      new_transaction = _.omit(new_transaction,this.shipment_headers);
+      return new_transaction;
     });
   }
   // expecting the key-less server response transaction
   // server transaction:
   // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3]
-  shipmentFromTransaction(transaction){
-    var transactionForShipmentFields,newShipment;
+  shipmentFromTransactions(server_transactions){
+    var transaction_for_shipment_fields,new_shipment;
     // need an actual copy, not a reference
-    transactionForShipmentFields = transaction.slice();
+    transaction_for_shipment_fields = server_transactions[0].slice();
     // put 'transaction' in front of the array so doc_type has a value
-    newShipment = _.object(this.transaction_headers,transactionForShipmentFields);
-    newShipment = _.pick(newShipment,this.shipment_headers);
-    return _.extend(newShipment,{django: true, doc_type: 'shipment'});
+    new_shipment = _.object(this.transaction_headers,transaction_for_shipment_fields);
+    new_shipment = _.pick(new_shipment,this.shipment_headers);
+    new_shipment['total_items'] = server_transactions.length;
+    new_shipment['transactions'] = this._convertTansactions(server_transactions);
+    new_shipment['total_value'] = _.reduce(new_shipment['transactions'], function(result, transaction){ 
+      if (Number(transaction['total_value'])){
+        return result + Number(transaction['total_value']);
+      }
+      else{
+        return result;
+      }
+    }, 0);
+    return _.extend(new_shipment,{django: true, doc_type: 'shipment'});
   }
 }
