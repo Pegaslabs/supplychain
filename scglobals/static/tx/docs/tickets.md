@@ -1,9 +1,17 @@
 # Tickets
 Tasks - high
-* docs stored in couchdb
-	* latest: transaction fields all sotred wrong....
+User
+* sees 100 shipments as date, from, to, total items, total value
+* sees the total number of shipments, their total value, and their total number of items
+* can paginate through shipments
+* sees a date filter
+* can filter on a range of dates
+* can filter on a specific location
+
+* When they create a patient, they don't store it on their name, it's on their ID
 
 Low
+* id on shipment is date_from_to_rand
 * think through security around patient names
 * When couch is offline, user sees error message
 

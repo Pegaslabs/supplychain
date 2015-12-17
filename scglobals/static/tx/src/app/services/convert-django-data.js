@@ -7,9 +7,8 @@ export default class TransactionsService {
     // except 'doc_type', which will be "transaction"
      // and is unshifted onto the data
     this.transaction_headers = [
-      "doc_type",
-      "shipment_date",
-      "location_name",
+      "date",
+      "django_location_name",
       "from_location_name",
       "from_location_location_type",
       "to_location_name",
@@ -23,44 +22,42 @@ export default class TransactionsService {
       "username",
       "modified",
       "total_value", 
-      "stockchange_id",
-      "shipment_id",
-      "item_lot_id",
-      "item_id"];
+      "django_stockchange_id",
+      "django_shipment_id",
+      "django_item_lot_id",
+      "django_item_id"];
     this.shipment_headers = [
-      "shipment_date",
-      "location_name",
+      "date",
+      "django_location_name",
       "from_location_name",
       "from_location_location_type",
       "to_location_name",
       "to_location_location_type",
-      "shipment_id"];
+      "django_shipment_id"];
   }
   // take array of values without keys and add keys
   convertTansactions(transactions){
-    var transaction;
+    var newTransaction;
     return _.map(transactions,(server_transaction)=>{
-      // put 'transaction' in front of the array so doc_type has a value
-      server_transaction.unshift("transaction");
       // _.object takes list of keys & list of values & makes object
-      transaction = _.object(this.transaction_headers,server_transaction);
-      transaction['total_value'] = Number(transaction['total_value']) || 0;
-      transaction['django'] = true;
+      newTransaction = _.object(this.transaction_headers,server_transaction);
+      newTransaction['total_value'] = Number(newTransaction['total_value']) || 0;
+      newTransaction['django'] = true;
       // strip fields we do not need as they're on shipment
-      transaction = _.omit(transaction,this.shipment_headers);
-      return transaction;
+      newTransaction = _.omit(newTransaction,this.shipment_headers);
+      return newTransaction;
     });
   }
   // expecting the key-less server response transaction
   // server transaction:
   // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3]
   shipmentFromTransaction(transaction){
+    var transactionForShipmentFields,newShipment;
     // need an actual copy, not a reference
-    var transactionForShipmentFields = transaction.slice();
-    var shipment = {'django': true};
+    transactionForShipmentFields = transaction.slice();
     // put 'transaction' in front of the array so doc_type has a value
-    transactionForShipmentFields.unshift("transaction");
-    return _.pick(_.object(this.transaction_headers,
-      transactionForShipmentFields),this.shipment_headers);
+    newShipment = _.object(this.transaction_headers,transactionForShipmentFields);
+    newShipment = _.pick(newShipment,this.shipment_headers);
+    return _.extend(newShipment,{django: true, doc_type: 'shipment'});
   }
 }

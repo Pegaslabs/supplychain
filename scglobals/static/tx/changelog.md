@@ -1,6 +1,7 @@
 ## tx handelbars
 
 ## 2015-12-?
+* docs stored in couchdb
 
 #### improvements
 
