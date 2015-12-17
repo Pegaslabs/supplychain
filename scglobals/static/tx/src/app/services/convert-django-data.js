@@ -44,7 +44,6 @@ export default class TransactionsService {
       server_transaction.unshift("transaction");
       // _.object takes list of keys & list of values & makes object
       transaction = _.object(this.transaction_headers,server_transaction);
-      debugger;
       transaction['total_value'] = Number(transaction['total_value']) || 0;
       transaction['django'] = true;
       // strip fields we do not need as they're on shipment
@@ -56,11 +55,12 @@ export default class TransactionsService {
   // server transaction:
   // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3]
   shipmentFromTransaction(transaction){
+    // need an actual copy, not a reference
+    var transactionForShipmentFields = transaction.slice();
     var shipment = {'django': true};
     // put 'transaction' in front of the array so doc_type has a value
-    transaction.unshift("transaction");
-    transaction = _.object(this.transaction_headers,transaction);
-    transaction.shift();
-    return _.pick(transaction,this.shipment_headers);
+    transactionForShipmentFields.unshift("transaction");
+    return _.pick(_.object(this.transaction_headers,
+      transactionForShipmentFields),this.shipment_headers);
   }
 }

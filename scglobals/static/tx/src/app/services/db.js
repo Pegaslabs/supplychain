@@ -28,7 +28,6 @@ export default class DB {
     return this.db.query(q,ops).then((result)=> {
       return _.pluck(result.rows, 'doc');
     }).catch(function (err) {
-      console.log(err);
       return err;
     });
   }
