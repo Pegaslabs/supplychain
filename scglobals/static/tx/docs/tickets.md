@@ -1,19 +1,24 @@
 # Tickets
 Tasks - high
 User
-* sees 100 shipments as date, from, to, total items, total value
-* sees the total number of shipments, their total value, and their total number of items
-* can paginate through shipments
-* sees a date filter
-* can filter on a range of dates
-* can filter on a specific location
+* sees the total number of shipments, their total value, and their total number of items | Sm
+* sees pagination | Sm
+* can paginate through shipments | M
+* sees a date filter | Sm
+* can filter on a range of dates | L
+* can filter on a specific location | L
 
 * When they create a patient, they don't store it on their name, it's on their ID
+
+Django
+* fix shipment values on dispensing
+* clean up pre-initial shipments
 
 Low
 * id on shipment is date_from_to_rand
 * think through security around patient names
 * When couch is offline, user sees error message
+* loading start better on migration | xSm
 
 # Stories
 ## Sync

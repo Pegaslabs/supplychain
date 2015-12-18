@@ -9,12 +9,12 @@
     </tr>
   </thead>
   <tbody>
-    {{#each shipments}}
+    {{#each this}}
       <tr>
-        <td>{{$dateFormat this.transactions.[0].shipment_date}}</td>
-        <td>{{this.transactions.[0].from_location_name}}</td>
-        <td>{{this.transactions.[0].to_location_name}}</td>
-        <td>{{this.transaction_count}}</td>
+        <td>{{$dateFormat this.date}}</td>
+        <td>{{this.from_location_name}}</td>
+        <td>{{this.to_location_name}}</td>
+        <td>{{this.total_transactions}}</td>
         <td>{{$currency this.total_value}}</td>
       </tr>
     {{/each}}

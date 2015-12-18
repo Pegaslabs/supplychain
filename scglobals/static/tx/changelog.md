@@ -2,6 +2,8 @@
 
 ## 2015-12-?
 * docs stored in couchdb
+User
+* sees 100 shipments as date, from, to, total items, total value | Sm | Sm
 
 #### improvements
 

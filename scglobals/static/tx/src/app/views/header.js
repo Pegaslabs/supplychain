@@ -4,19 +4,19 @@ import Backbone from 'backbone';
 
 import db from './../services/db'
 import MainTemplate from './../templates/header.hbs';
-import LoadingView from './loading';
+// import LoadingView from './loading';
 
 export default Backbone.View.extend({
   template: MainTemplate,
   // el: '#header',
   initialize: function(){
     this.db = new db();
-    this.loadingView = new LoadingView();
+    // this.loadingView = new LoadingView();
   },
   render: function() {
     return this.$el.empty()
     .append(this.template())
-    .append(this.loadingView.render())
+    // .append(this.loadingView.render())
     $("#sync-syncing").hide();
   },
   events:{
@@ -44,18 +44,18 @@ export default Backbone.View.extend({
   hideServerStatus: function(e){
     e.preventDefault();
     $('.status').fadeOut('fast');
-  },
-  destroyDB: function(e){
-    e.preventDefault();
-    $('#adminDropDown').hide();
-    $('#destroyDB').toggleClass('hide');
-    this.loadingView.showOverlay("Clearing local data.");
-    this.db.destroy_db().then((response) => {
-      this.loadingView.hide("Clearing complete!");
-    }).catch(function (err) {
-      console.log(err);
-    });      
-    // hack to reload page with no data
-    // window.location.reload()
   }
+  // destroyDB: function(e){
+  //   e.preventDefault();
+  //   $('#adminDropDown').hide();
+  //   $('#destroyDB').toggleClass('hide');
+  //   this.loadingView.showOverlay("Clearing local data.");
+  //   this.db.destroy_db().then((response) => {
+  //     this.loadingView.hide("Clearing complete!");
+  //   }).catch(function (err) {
+  //     console.log(err);
+  //   });      
+  //   // hack to reload page with no data
+  //   // window.location.reload()
+  // }
 });

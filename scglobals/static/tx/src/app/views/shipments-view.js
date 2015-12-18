@@ -3,6 +3,8 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import ShipmentsTemplate from './../templates/shipments.hbs';
+import ShipmentsCollection from './../collections/shipments';
+import LoadingView from './loading';
 
 export default Backbone.View.extend({
 
@@ -11,23 +13,16 @@ export default Backbone.View.extend({
   events:{
     'click .dropdown-toggle': 'toggleTransactions',
   },
-  toggleTransactions: function(e){
-    console.log(e);
+  initialize: function(){
+    this.loadingView = new LoadingView();
+    this.shipmentsCollection = new ShipmentsCollection();
   },
   render: function(transactions) {
-    this.shipments = _.reduce(transactions,function(result,transaction){
-      if (!result[transaction.shipment_id]) result[transaction.shipment_id] = {
-        'transactions': [],
-        'transaction_count': 0,
-        'total_value': 0
-      };
-      if (transaction.qty > 0){
-        result[transaction.shipment_id]['transactions'].push(transaction);
-        result[transaction.shipment_id]['transaction_count'] += 1;
-        result[transaction.shipment_id]['total_value'] += transaction.total_value;
-      }
-      return result;
-    },{});
+    // this.$el.
+    // this.loading();
+    // this.shipmentsCollection.fetch().then((shipments)=>{
+
+    // });
     return this.$el.html(this.template({shipments: this.shipments}));
   },
 });

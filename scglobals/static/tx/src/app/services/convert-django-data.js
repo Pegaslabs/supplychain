@@ -58,7 +58,7 @@ export default class TransactionsService {
     // put 'transaction' in front of the array so doc_type has a value
     new_shipment = _.object(this.transaction_headers,transaction_for_shipment_fields);
     new_shipment = _.pick(new_shipment,this.shipment_headers);
-    new_shipment['total_items'] = server_transactions.length;
+    new_shipment['total_transactions'] = server_transactions.length;
     new_shipment['transactions'] = this._convertTansactions(server_transactions);
     new_shipment['total_value'] = _.reduce(new_shipment['transactions'], function(result, transaction){ 
       if (Number(transaction['total_value'])){
