@@ -6,23 +6,15 @@ import ShipmentModel from './../models/shipment';
 
 export default Backbone.Collection.extend({
   model: ShipmentModel,
+  query: 'shipments-by-date',
   initialize: function(){
     this.db = new DB();
   },
   save: function(){
     return this.db.bulkDocs(this.toJSON());
   },
-  fetch: function(){
-    return this.db.query('shipments-by-date');
+  fetch: function(options,query){
+    query = query || this.query; 
+    return this.db.query(query,options);
   }
-  // Promise.all([
-  //   this.db.query('scbydate',{reduce: true}),
-  //   this.db.query('scbyvalue',{reduce: true})
-  //   ]).then((result)=>{
-  //     $("#transactions-summary").html(
-  //       tsTemplate({total_transactions: result[0][0], total_value: result[1][0]})
-  //     );
-  //   },(err)=>{
-  //     console.log(err);
-  //   });
 });

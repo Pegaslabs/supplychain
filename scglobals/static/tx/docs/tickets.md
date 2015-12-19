@@ -1,7 +1,6 @@
 # Tickets
 Tasks - high
 User
-* sees the total number of shipments, their total value, and their total number of items | Sm
 * sees pagination | Sm
 * can paginate through shipments | M
 * sees a date filter | Sm
@@ -14,6 +13,7 @@ Django + Migration
 * bring over creator, created, modified stamps
 * fix shipment values on dispensing
 * clean up pre-initial shipments
+* clean up dates to be correct day
 
 Low
 * id on shipment is date_from_to_rand

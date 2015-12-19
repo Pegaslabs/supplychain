@@ -51,6 +51,11 @@ export default class Migration {
   }
   start(){
     this.serverShipmentsCollection.urlParams = {ascordesc: "asc",idsBetween: this.shipmentIds.slice(this.offset,this.offset+this.limit)};
-    return this._loadAndSave();
+    return this.db.destroy().then((response) => {
+      this.db = new DB();
+      return this.db.initdb().then(()=>{
+        return this._loadAndSave();
+      });
+    });
   }
 }
