@@ -31,4 +31,7 @@ export default class DB {
       return err;
     });
   }
+  get(docId){
+    return this.db.get(docId);
+  }
 }

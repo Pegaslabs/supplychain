@@ -10,15 +10,18 @@ User
 
 * When they create a patient, they don't store it on their name, it's on their ID
 
-Django
+Django + Migration
+* bring over creator, created, modified stamps
 * fix shipment values on dispensing
 * clean up pre-initial shipments
 
 Low
 * id on shipment is date_from_to_rand
+* backbone model works w/ created/updated timestamps
 * think through security around patient names
 * When couch is offline, user sees error message
 * loading start better on migration | xSm
+* if user is scrolled down on shipments & clicks a shipment with lots of values, they are not scrolled to the top of the page
 
 # Stories
 ## Sync

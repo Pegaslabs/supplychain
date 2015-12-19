@@ -4,6 +4,7 @@
 * docs stored in couchdb
 User
 * sees 100 shipments as date, from, to, total items, total value | Sm | Sm
+* can click a shipment and see the shipment's transactions | already have the shipment loaded on list view, so this could be one less hit to the DB... | sm
 
 #### improvements
 

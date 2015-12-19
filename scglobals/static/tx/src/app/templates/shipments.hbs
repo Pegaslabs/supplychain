@@ -6,6 +6,7 @@
       <th>To</th>
       <th>Transactions</th>
       <th>Value</th>
+      <th>Details</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,7 @@
         <td>{{this.to_location_name}}</td>
         <td>{{this.total_transactions}}</td>
         <td>{{$currency this.total_value}}</td>
+        <td><a href="#/shipment/{{this._id}}">details</a></td>
       </tr>
     {{/each}}
   </tbody>

@@ -4,13 +4,15 @@ import Backbone from 'backbone';
 import DashView from './views/dash';
 import HeaderView from './views/header';
 import AdminView from './views/admin';
+import ShipmentView from './views/shipment';
 import Config from './services/config';
 
 export default Backbone.Router.extend({
 
   routes: {
     '': 'dashboard',
-    'admin': 'admin'
+    'admin': 'admin',
+    'shipment/:id': 'shipment'
   },
   initialize: function() {
     this.config = new Config();
@@ -24,6 +26,9 @@ export default Backbone.Router.extend({
   },
   admin: () => {
     new AdminView().render();
+  },
+  shipment: (id) => {
+    new ShipmentView(id).render();
   },
 
 });
