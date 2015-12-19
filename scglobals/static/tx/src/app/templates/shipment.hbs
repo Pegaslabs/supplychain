@@ -1,0 +1,32 @@
+<div id="shipment">
+  <h4>{{$dateFormat this.date}} | from {{this.from_location_name}} to {{this.to_location_name}}</h4>
+  transactions: <strong>{{this.total_transactions}}</strong> | total value: <strong>{{$currency this.total_value}}</strong>
+  <hr>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Category</th>
+        <th>Lot Number</th>
+        <th>Expiration</th>
+        <th>Quantity</th>
+        <th>Total Value</th>
+        <th>User</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.transactions}}
+        <tr>
+          <td>{{this.item_name}}</td>
+          <td>{{this.item_category_name}}</td>
+          <td>{{this.item_lot_lot_num}}</td>
+          <td>{{this.item_lot_expiration}}</td>
+          <td>{{$currency this.qty}}</td>
+          <td>{{$currency this.total_value}}</td>
+          <td>{{this.username}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table> 
+
+</div>
