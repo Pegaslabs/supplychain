@@ -5,6 +5,7 @@ import DashView from './views/dash';
 import HeaderView from './views/header';
 import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
+import FilterView from './views/filter';
 import Config from './services/config';
 
 export default Backbone.Router.extend({
@@ -13,7 +14,8 @@ export default Backbone.Router.extend({
     '': 'dashboard',
     '/:options': 'dashboard',
     'admin': 'admin',
-    'shipment/:id': 'shipment'
+    'shipment/:id': 'shipment',
+    'filter/:options': 'filter'
   },
   _urlParamsToObject: function(queryParams){
     if (!queryParams) return;
@@ -37,6 +39,9 @@ export default Backbone.Router.extend({
   },
   shipment: (id) => {
     new ShipmentView(id).render();
+  },
+  filter: (options) => {
+    new FilterView().render(options);
   },
 
 });

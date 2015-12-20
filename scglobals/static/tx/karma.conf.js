@@ -14,7 +14,12 @@ module.exports = function(config) {
   preprocessors: {
     'tests/*': ['webpack']
   },
-
+  client: {
+    captureConsole: true,
+    mocha: {
+      bail: true
+    }
+  },
   webpack: {
     module: {
       loaders : [

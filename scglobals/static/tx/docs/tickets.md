@@ -2,7 +2,8 @@
 Tasks - high
 User
 * sees a date filter | Sm
-* can filter on a range of dates | L
+* can filter on last six months, last year | M
+* can filter on a range of dates | Sm
 * can filter on a specific location | L
 
 * When they create a patient, they don't store it on their name, it's on their ID
