@@ -23,14 +23,6 @@ export default class DB {
     return this.db.bulkDocs(docs);
   }
   query(q,ops){
-    // putting here instead of in constructor as _.extend modifies actual object
-    var default_options = {reduce:false,limit:1000,include_docs:true};
-    if (!ops){
-      ops = default_options;
-    }
-    else if (!ops['reduce']){
-      ops = _.extend(ops,default_options);
-    }
     return this.db.query(q,ops).then((result)=> {
       // making rows straight up docs instead of {_id,_rev,doc} bs
       if (!ops['reduce']){

@@ -1,2 +1,9 @@
-<h4>{{$dateString date_string}} 2013 - 2015 | All Locations </h4>
-shipments: <strong>{{$num this.[0]}}</strong> | total value: <strong>{{$currency this.[1]}}</strong> | total transactions: <strong>{{$num this.[2]}}</strong>
+<h4>{{$dateString this.date_string}} 2013 - 2015 | All Locations </h4>
+shipments: <strong>{{$num this.total_shipments}}</strong> | total value: <strong>{{$currency this.total_value}}</strong> | total transactions: <strong>{{$num this.total_transactions}}</strong>
+<div class="right">
+  <ul class="pagination pagination-sm">
+    <li id="previous"><a href="/#/{{this.previousURLParams}}">&laquo;</a></li>
+    <li class="disabled"><a class="darker" href="#">{{$pageNumbers this.skip this.limit this.total_shipments}} of {{$num this.total_shipments}}</a></li>
+    <li id="next"><a href="/#/{{this.nextURLParams}}">&raquo;</a></li>
+  </ul>
+</div>

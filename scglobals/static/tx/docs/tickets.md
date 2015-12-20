@@ -1,8 +1,6 @@
 # Tickets
 Tasks - high
 User
-* sees pagination | Sm
-* can paginate through shipments | M
 * sees a date filter | Sm
 * can filter on a range of dates | L
 * can filter on a specific location | L
@@ -16,6 +14,7 @@ Django + Migration
 * clean up dates to be correct day
 
 Low
+* pagination should only load new shipments table, not summary
 * id on shipment is date_from_to_rand
 * backbone model works w/ created/updated timestamps
 * think through security around patient names

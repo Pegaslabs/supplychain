@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
-import DjangoServerCollection from './django-server-collection.js';
+import TablesCollection from './tables-collection.js';
 
-export default DjangoServerCollection.extend({
+export default TablesCollection.extend({
   url: function () {
     return 'http://localhost:8000/stockchanges.json';
   },

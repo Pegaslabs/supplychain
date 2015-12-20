@@ -11,18 +11,26 @@ export default Backbone.Router.extend({
 
   routes: {
     '': 'dashboard',
+    '/:options': 'dashboard',
     'admin': 'admin',
     'shipment/:id': 'shipment'
+  },
+  _urlParamsToObject: function(queryParams){
+    if (!queryParams) return;
+    return _.reduce(queryParams.split("&"),function(result,option){
+      result[option.split("=")[0]] = option.split("=")[1];
+      return result;
+    },{});
   },
   initialize: function() {
     this.config = new Config();
     let headerView = new HeaderView();
     $('#supplychain').append(headerView.render());
     $('#supplychain').append("<div id='container'></div>");
+    this.dashView = new DashView();
   },
-  dashboard: () => {
-    let dashView = new DashView();
-    dashView.render();
+  dashboard: function(urlOptions) {
+    this.dashView.render(this._urlParamsToObject(urlOptions));
   },
   admin: () => {
     new AdminView().render();
