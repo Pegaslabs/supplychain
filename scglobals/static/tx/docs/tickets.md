@@ -1,7 +1,6 @@
 # Tickets
 Tasks - high
 User
-* sees a date filter | Sm | 1.5h
 * can filter on last six months, last year | M
 * can filter on a range of dates | Sm
 * can filter on a specific location | L

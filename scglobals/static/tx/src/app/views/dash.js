@@ -6,6 +6,7 @@ import DashTemplate from './../templates/dash.hbs';
 import ShipmentsSummaryTemplate from './../templates/shipments-summary.hbs';
 import ShipmentsTemplate from './../templates/shipments.hbs';
 import ShipmentsCollection from './../collections/shipments';
+import FilterView from './../views/filter';
 
 export default Backbone.View.extend({
 
@@ -13,7 +14,9 @@ export default Backbone.View.extend({
   shipmentsTemplate: ShipmentsTemplate,
   el: '#container',
   initialize: function(){
+    this.filterView = new FilterView();
     this.shipmentsCollection = new ShipmentsCollection();
+    Backbone.on('FilterUpdated',this.filterUpdated,this);
   },
   showShipments: function(){
     $("#loading").hide()
@@ -26,6 +29,8 @@ export default Backbone.View.extend({
   render: function(options) {
     options = options || {};
     this.$el.html(this.template());
+    this.filterView.render();
+    $("#filters").html(this.filterView.$el);
     var shipments_promise = this.shipmentsCollection.fetch(options).then((shipments)=>{
       $("#shipments").html(this.shipmentsTemplate(shipments.doc_rows));
       return shipments.total_rows;
@@ -54,4 +59,7 @@ export default Backbone.View.extend({
       this.showShipments();
     });
   },
+  filterUpdated: function(options,filter_description){
+    $("#filter-description").html(": " + filter_description);
+  }
 });
