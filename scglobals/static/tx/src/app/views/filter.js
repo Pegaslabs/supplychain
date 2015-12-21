@@ -28,9 +28,15 @@ export default Backbone.View.extend({
   dateFilter: function(event){
     $('.date_filters').toggle();
     $("." + event.target.id).show();
-    this.currentDateFilter = this.dateFilterCollection.get(event.target.id);
-    this._filterDates(this.dateFilterCollection.get(event.target.id));
-    Backbone.trigger('FilterUpdated',this._getFilters(),this._getDescription());
+    if (!this.currentDateFilter){
+      this.currentDateFilter = this.dateFilterCollection.get(event.target.id);
+      this._filterDates(this.dateFilterCollection.get(event.target.id));
+      Backbone.trigger('FilterUpdated',this._getFilters(),this._getDescription());
+    }
+    else{
+      this.currentDateFilter = null;
+      Backbone.trigger('FilterUpdated',"","");
+    }
   },
   _getDescription: function(){
     return dateFormat(this.currentDateFilter.get('startdate')) + " - " +

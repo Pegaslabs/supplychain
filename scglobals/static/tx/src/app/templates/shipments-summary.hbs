@@ -1,8 +1,11 @@
-total shipments: <strong>{{$num this.total_shipments}}</strong> | total value: <strong>{{$currency this.total_value}}</strong> | total transactions: <strong>{{$num this.total_transactions}}</strong>
-<div class="right">
-  <ul class="pagination pagination-sm">
+<div class="summary-pagination">
+  <div id="summary" class="left">
+    total shipments: <strong>{{$num this.total_shipments}}</strong> | total value: <strong>{{$currency this.total_value}}</strong> | total transactions: <strong>{{$num this.total_transactions}}</strong>
+  </div>
+  <ul class="pagination pagination-sm right">
     <li id="previous"><a href="/#/{{this.previousURLParams}}">&laquo;</a></li>
     <li class="disabled"><a class="darker" href="#">{{$pageNumbers this.skip this.limit this.total_shipments}} of {{$num this.total_shipments}}</a></li>
     <li id="next"><a href="/#/{{this.nextURLParams}}">&raquo;</a></li>
   </ul>
+  <div class="float"></div>
 </div>

@@ -18,26 +18,21 @@ export default Backbone.View.extend({
     this.shipmentsCollection = new ShipmentsCollection();
     Backbone.on('FilterUpdated',this.filterUpdated,this);
   },
-  showShipments: function(){
-    $("#loading").hide()
-    $("#shipments").removeClass('hidden').hide().fadeIn(500);
+  toggleShipments: function(){
+    $("#loading").toggle();
+    $("#shipments-loading-container").toggleClass('hidden');
   },
-  showSummary: function(){
-    $("#loading-summary").fadeOut('fast');
-    $("#shipments-summary").removeClass('hidden').hide().fadeIn(500);
-  },
-  render: function(options) {
-    options = options || {};
-    this.$el.html(this.template());
-    this.filterView.render();
-    $("#filters").html(this.filterView.$el);
-    var shipments_promise = this.shipmentsCollection.fetch(options).then((shipments)=>{
+  _loadShipments: function(options){
+    // get numbers
+    var total_shipments_promise = this.shipmentsCollection.fetch(options,'shipments-by-date',true);
+    var shipments_value_promise = this.shipmentsCollection.fetch(options,'shipments-by-value',true);
+    var shipments_transactions_promise = this.shipmentsCollection.fetch(options,'shipments-by-count',true);
+    // get shipments for display
+    var all_shipments_promise = this.shipmentsCollection.fetch(options).then((shipments)=>{
       $("#shipments").html(this.shipmentsTemplate(shipments.doc_rows));
       return shipments.total_rows;
     });
-    var shipments_value_promise = this.shipmentsCollection.fetch(options,'shipments-by-value',true);
-    var shipments_transactions_promise = this.shipmentsCollection.fetch(options,'shipments-by-count',true);
-    Promise.all([shipments_promise,shipments_value_promise,shipments_transactions_promise]).then((results)=>{
+    Promise.all([total_shipments_promise,shipments_value_promise,shipments_transactions_promise,all_shipments_promise]).then((results)=>{
       var shipmentSummary = {
         date_string: "",
         total_shipments: results[0],
@@ -55,11 +50,19 @@ export default Backbone.View.extend({
       if (Number(shipmentSummary.skip) + Number(shipmentSummary.limit) > shipmentSummary.total_shipments){
         $("#next").addClass('disabled');
       }
-      this.showSummary();
-      this.showShipments();
+      this.toggleShipments();
     });
   },
+  render: function(options) {
+    options = options || {};
+    this.$el.html(this.template());
+    this.filterView.render();
+    $("#filters").html(this.filterView.$el);
+    this._loadShipments(options);
+  },
   filterUpdated: function(options,filter_description){
+    this.toggleShipments();
+    this._loadShipments(options);
     $("#filter-description").html(": " + filter_description);
   }
 });

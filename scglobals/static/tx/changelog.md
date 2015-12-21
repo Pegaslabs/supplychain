@@ -2,6 +2,7 @@
 
 ## 2015-12-21
 * sees a date filter | Sm | 2.25h
+* can filter on last six months, last year | M
 
 ## 2015-12-20
 * can paginate through shipments | M | 2.5h

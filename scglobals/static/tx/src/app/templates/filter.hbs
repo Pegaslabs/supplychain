@@ -1,8 +1,8 @@
 <div>
   <button id="filter-toggle" class="btn btn-default btn-sm">Filters</button>
 </div>
+<br>
 <div id="show-filters" class="hidden">
-  <br>
   <strong>Dates</strong> | 
   {{#each this}}
     <span class="date_filters checkbox filter {{this.id}}"><label><input type="checkbox" class="date_filter" id="{{this.id}}">{{this.name}}</label></span>
@@ -10,4 +10,3 @@
   <span class="checkbox filter date_filters chooserange"><label><input type="checkbox" class="date_filter" id="chooserange">choose range </label></span> 
   <hr>
 </div>
-<br>

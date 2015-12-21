@@ -1,7 +1,8 @@
 # Tickets
 Tasks - high
 User
-* can filter on last six months, last year | M
+* can filter on last week | Sm
+* when filtering, sees URL updated and can revisit URL | Sm
 * can filter on a range of dates | Sm
 * can filter on a specific location | L
 
