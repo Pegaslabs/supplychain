@@ -1,62 +1,72 @@
 # Tickets
-Tasks - high
-User
+
+## Dashboard - go live
+* user does full comparision of first, last, random shipments between the systems and sees parity | Sm
 * can filter on last week | Sm
 * when filtering, sees URL updated and can revisit URL | Sm
 * can filter on a range of dates | Sm
-* can filter on a specific location | L
+* sees a drop down of possible from locations for filtering | M
+* sees a drop down of possible to locations for filtering | Sm
+* can filter on a specific from location | M
+* can filter on a specific to location | rebuild query because of couch sort order | Sm
+* BUG:  filter doesn't work after pagination | Sm
+* BUG: last year isn't "2014" and is on the wrong days | Sm
 
-* When they create a patient, they don't store it on their name, it's on their ID
-
-Django + Migration
-* bring over creator, created, modified stamps
-* fix shipment values on dispensing
-* clean up pre-initial shipments
-* clean up dates to be correct day
-
-Low
-* pagination should only load new shipments table, not summary
-* id on shipment is date_from_to_rand
+## Dashboard - Low Priority
+* pagination should only load new shipments table, not summary | Sm
 * backbone model works w/ created/updated timestamps
 * think through security around patient names
 * When couch is offline, user sees error message
 * loading start better on migration | xSm
 * if user is scrolled down on shipments & clicks a shipment with lots of values, they are not scrolled to the top of the page
 
-# Stories
-## Sync
-	## One-time in session
-		* Sync API allows getting transactions by shipment
-		* Sync saves shipments as documents
-## Shipments
-	### View all
-		* Dashboard displays all shipments
-			* User sees full count of shipments, value (items a nice to have)
-			* User sees pagination
-	### Sort on location
-	### Sort on dates
-## Stock cards
-## Shipment
-## Reports
+## Stock Cards -- go live
+* user sees drop down of items in the search bar | new reduce query on shipments | M
+* user can select an item and go to its stock card | Sm
+* on the stock card, the user sees a paginated display of 1000 transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M
+* user can click on the shipment link of a transaction and go to the shipment page | Sm
+
+## Stock Cards -- phase 2
+* on each transaction, the user sees a resulting balance | M
+* user sees a monthly consumption tab | Sm
+* when user clicks monthly consumtion, they see the monthly consumption | XL
+
+## Stock Cards -- low priority
+* user can filter on an expiration | M
+* qty by lot, at inventories, at dispensaries | M
+
+## Reporting -- phase 2
+* consumption report at lot level | XL
+* data quality | XL
+* inventory report at all locations -- lot level | L
+* expiration report | M
+* future expirations report | M
+* download reports | M
+
+## Reporting -- low priority
+* inventory report at item level | Sm
+
+## Django Migration
+### Django Migration - go live
+* bring over creator, created, modified stamps | Sm
+* fix shipment values on dispensing | add item dispense size to export query, add logic to django-migration on front end | Sm
+* clean up dates to be correct day  | Sm
+
+## Django Migration - Low Priority
+* clean up pre july 2013 shipments | Sm
+* When they create a patient, they don't store it on their name, it's on their ID (?)
+
+## Permissions & Auth & Backend -- go live
+* Seyfu's deploy strategy | XL
+* Auth: port auth code & proper CORS setup | M
+
+## Permissions & Auth & Backend -- phase 2
+* Permissions | XL
+
+# Editing | XL
 ## CRUD models
-	## Item, Item Category, Location, Location Category, User, Patient
-## Crud shipments 
+* Item, Item Category, Location, Location Category, User, Patient, Shipment
+* Shipment -- add a link to current system
 ## Edit shipment: receive
 ## Edit shipment: transfer
 ## Edit shipment: dispense
-## User permissions
-## User preferences
-
-## Launch plan 1 -- can we do this in 2015?
-* Sync: first views shipments & stock cards 
-* Sync 2: doesn't have to refresh 
-* Sync 3: All views including reports
-* Sync 4: Edits
-# Migration: full user permissions, roll out to all clinics & dispensaries
-
-## New launch plan 2 2015: sync is too ambitious
-* Migration button: Seyfu can migrate to a couch read-only instance for the time being
-* We build out views on it
-* We build out update
-* Permissions, couch workflow, deploy strategies
-* Launch full migration

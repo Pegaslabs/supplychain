@@ -1,12 +1,11 @@
-import _ from 'lodash';
+import Moment from 'moment';
 
 export default function(val) {
-  var date = new Date(val);
-  return date.getMonth() + '/' + date.getFullYear();
-  if (!_.isDate(date)) {
-    return " ";
+  var moment_date = Moment(val);
+  if (moment_date.isValid()){
+    return moment_date.format('MM/YYYY');
   }
   else{
-    return date.getMonth() + '/' + date.getFullYear();
+    return "";
   }
 };
