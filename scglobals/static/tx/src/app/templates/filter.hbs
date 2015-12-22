@@ -7,6 +7,18 @@
   {{#each this}}
     <span class="date_filters checkbox filter {{this.id}}"><label><input type="checkbox" class="date_filter" id="{{this.id}}">{{this.name}}</label></span>
   {{/each}}
-  <span class="checkbox filter date_filters chooserange"><label><input type="checkbox" class="date_filter" id="chooserange">choose range </label></span> 
+
+  <div id="select-dates" class="form-inline hidden">
+    <div class="form-group start-date-group">
+      <label for="startdate">Start Date</label>
+      <input type="text" class="form-control" id="startdate" placeholder="2014-01-01">
+    </div>
+    <div class="form-group end-date-group">
+      <label for="enddate">End Date</label>
+      <input type="text" class="form-control" id="enddate" placeholder="2014-02-01">
+    </div>
+    <button id="dates-chosen" class="btn btn-default">select</button>
+  </div>
+
   <hr>
 </div>

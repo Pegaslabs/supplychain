@@ -15,7 +15,6 @@ export default Backbone.Model.extend({
   },
   fetch: function(){
     return this.db.get(this.id).then((results)=>{
-      console.log(results);
       return this.set(results);
     });
   }

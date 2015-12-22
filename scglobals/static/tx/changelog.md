@@ -3,6 +3,11 @@
 ## 2015-12-21
 * sees a date filter | Sm | 2.25h
 * can filter on last six months, last year | M
+* Shipment -- add a link to current system | Sm | 10m
+* user does full comparision of first, last, random shipments between the systems and sees parity | Sm
+* can filter on last week | Sm
+* BUG: last year isn't "2014" and is on the wrong days, & YTD | Sm
+* can filter on a range of dates | Sm | 1h
 
 ## 2015-12-20
 * can paginate through shipments | M | 2.5h

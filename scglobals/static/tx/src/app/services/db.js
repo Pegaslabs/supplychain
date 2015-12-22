@@ -29,8 +29,13 @@ export default class DB {
         result['doc_rows'] = _.pluck(result.rows, 'doc');
         delete result['rows'];
       }
-      else{
-        return result.rows[0].value;
+      else {
+        if (result.rows.length) {
+          return result.rows[0].value;
+        }
+        else{
+          return 0;
+        }
       }
       return result;
     }).catch(function (err) {

@@ -1,6 +1,6 @@
 <div id="shipment">
-  <h4>{{$dateFormat this.date}} | from {{this.from_location_name}} to {{this.to_location_name}}</h4>
-  transactions: <strong>{{this.total_transactions}}</strong> | total value: <strong>{{$currency this.total_value}}</strong>
+  <h4>{{$dateFormat this.shipment.date}} | {{this.shipment.from_location_name}} to {{this.shipment.to_location_name}}</h4>
+  transactions: <strong>{{this.shipment.total_transactions}}</strong> | total value: <strong>{{$currency this.shipment.total_value}}</strong> | <a target="_blank" href="{{this.djangoUrl}}/#/shipment/{{this.shipment.django_shipment_id}}">original</a>
   <hr>
   <table class="table table-striped table-hover">
     <thead>
@@ -15,13 +15,13 @@
       </tr>
     </thead>
     <tbody>
-      {{#each this.transactions}}
+      {{#each this.shipment.transactions}}
         <tr>
           <td>{{this.item_name}}</td>
           <td>{{this.item_category_name}}</td>
           <td>{{this.item_lot_lot_num}}</td>
           <td>{{$expiration this.item_lot_expiration}}</td>
-          <td>{{$currency this.qty}}</td>
+          <td>{{$num this.qty}}</td>
           <td>{{$currency this.total_value}}</td>
           <td>{{this.username}}</td>
         </tr>

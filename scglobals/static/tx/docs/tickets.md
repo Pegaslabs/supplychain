@@ -1,24 +1,23 @@
 # Tickets
 
 ## Dashboard - go live
-* user does full comparision of first, last, random shipments between the systems and sees parity | Sm
-* can filter on last week | Sm
-* when filtering, sees URL updated and can revisit URL | Sm
-* can filter on a range of dates | Sm
 * sees a drop down of possible from locations for filtering | M
 * sees a drop down of possible to locations for filtering | Sm
 * can filter on a specific from location | M
 * can filter on a specific to location | rebuild query because of couch sort order | Sm
-* BUG:  filter doesn't work after pagination | Sm
-* BUG: last year isn't "2014" and is on the wrong days | Sm
+* BUG:  filter doesn't work after pagination | tied to url updating | Sm
+* BUG: page numbers off on 0, 1 jan 14 - 8 jan 14
+* BUG: on the fence error probably applies for input range | Sm
 
-## Dashboard - Low Priority
+## Dashboard - backlog
+* when filtering, sees URL updated and can revisit URL | Sm
 * pagination should only load new shipments table, not summary | Sm
 * backbone model works w/ created/updated timestamps
 * think through security around patient names
 * When couch is offline, user sees error message
 * loading start better on migration | xSm
 * if user is scrolled down on shipments & clicks a shipment with lots of values, they are not scrolled to the top of the page
+* get seyfu's feedback on what date filters are good | Sm
 
 ## Stock Cards -- go live
 * user sees drop down of items in the search bar | new reduce query on shipments | M
@@ -66,7 +65,6 @@
 # Editing | XL
 ## CRUD models
 * Item, Item Category, Location, Location Category, User, Patient, Shipment
-* Shipment -- add a link to current system
 ## Edit shipment: receive
 ## Edit shipment: transfer
 ## Edit shipment: dispense

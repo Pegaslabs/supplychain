@@ -8,8 +8,11 @@ module.exports = function(context, block) {
   else{
     f = block.hash.format || "LL";
   }
-  if (block && block.hash && block.hash.calendar)
+  if (block && block.hash && block.hash.calendar){
     return Moment().calendar(context,{sameElse : f}).toLowerCase();
-  else
-    return Moment(new Date(context)).format(f);
+  }
+  else{
+    // awful: http://stackoverflow.com/questions/7556591/javascript-date-object-always-one-day-off
+    return Moment(new Date(context.replace(/-/g, '\/').replace(/T.+/, ''))).format(f);
+  }
 };

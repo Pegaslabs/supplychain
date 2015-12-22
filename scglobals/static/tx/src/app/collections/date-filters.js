@@ -41,8 +41,14 @@ export default FiltersCollection.extend({
     {
       id: '0_filter_lastyear',
       name: 'last year',
-      startdate: Moment().subtract(1,'year').startOf('year').toISOString().split('T')[0],
-      enddate: Moment().subtract(1,'year').endOf('year').toISOString().split('T')[0],
+      startdate: Moment().startOf('year').subtract(1,'year').toISOString().split('T')[0],
+      enddate: Moment().endOf('year').subtract(1,'year').toISOString().split('T')[0],
+    },
+    {
+      id: '0_filter_chooserange',
+      name: 'choose range',
+      startdate: null,
+      enddate: null,
     }
     ]);
   }
