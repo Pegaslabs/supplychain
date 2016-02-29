@@ -27,7 +27,7 @@ export default class DB {
       // making rows straight up docs instead of {_id,_rev,doc} bs
       if (!ops['reduce']){
         result['doc_rows'] = _.pluck(result.rows, 'doc');
-        delete result['rows'];
+        // delete result['rows'];
       }
       else {
         if (result.rows.length) {

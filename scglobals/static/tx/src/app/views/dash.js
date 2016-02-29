@@ -12,11 +12,11 @@ export default Backbone.View.extend({
 
   template: DashTemplate,
   shipmentsTemplate: ShipmentsTemplate,
-  el: '#container',
-  initialize: function(){
+  initialize: function(options){
     this.filterView = new FilterView();
     this.shipmentsCollection = new ShipmentsCollection();
     Backbone.on('FilterUpdated',this.filterUpdated,this);
+    this.render(options);
   },
   toggleShipments: function(){
     $("#loading").toggle();
@@ -56,8 +56,7 @@ export default Backbone.View.extend({
   render: function(options) {
     options = options || {};
     this.$el.html(this.template());
-    this.filterView.render();
-    $("#filters").html(this.filterView.$el);
+    this.$el.find('.filters').append(this.filterView.$el);
     this._loadShipments(options);
   },
   filterUpdated: function(options,filter_description){

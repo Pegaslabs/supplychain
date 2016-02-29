@@ -3,14 +3,14 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import db from './../services/db'
-import MainTemplate from './../templates/header.hbs';
+import HeaderTemplate from './../templates/header.hbs';
 // import LoadingView from './loading';
 
 export default Backbone.View.extend({
-  template: MainTemplate,
-  // el: '#header',
+  template: HeaderTemplate,
   initialize: function(){
     this.db = new db();
+    this.render();
     // this.loadingView = new LoadingView();
   },
   render: function() {
@@ -54,7 +54,7 @@ export default Backbone.View.extend({
   //     this.loadingView.hide("Clearing complete!");
   //   }).catch(function (err) {
   //     console.log(err);
-  //   });      
+  //   });
   //   // hack to reload page with no data
   //   // window.location.reload()
   // }

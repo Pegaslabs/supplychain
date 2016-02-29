@@ -9,14 +9,14 @@ import ServerShipmentsCollection from './../collections/server-shipments.js';
 
 export default Backbone.View.extend({
   template: AdminTemplate,
-  el: "#container",
   totalShipments: 0,
   initialize: function(){
     this.db = new db();
     this.serverShipmentCollection = new ServerShipmentsCollection();
+    this.render();
   },
   events:{
-    'click #start-migration': 'startMigration'
+    'click .start-migration': 'startMigration'
   },
   startMigration: function(e){
     e.preventDefault();
@@ -27,16 +27,15 @@ export default Backbone.View.extend({
         this.migrationView = new MigrationView();
         this.migrationView.migrate(shipmentIds)
         .then(()=>{
-          $('#totalShipments').html(this.totalShipments);
-          $("#migration-progress").hide();
-          $("#status-complete").show();
+          this.$el.find('.totalShipments').html(this.totalShipments);
+          this.$el.find('.migration-progress').addClass('hidden');
+          this.$el.find('.status-complete').removeClass('hidden');
         });
       });
     });
   },
   render: function() {
     this.$el.html(this.template());
-    $("#status-complete").hide();
-    $("#clearing-db").hide();
+    this.$el.find('.status-complete').addClass('hidden');
   }
 });

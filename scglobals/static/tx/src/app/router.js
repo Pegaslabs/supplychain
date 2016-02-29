@@ -5,17 +5,17 @@ import DashView from './views/dash';
 import HeaderView from './views/header';
 import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
-import FilterView from './views/filter';
+import ItemView from './views/item';
 import Config from './services/config';
 
 export default Backbone.Router.extend({
 
   routes: {
-    '': 'dashboard',
-    '/:options': 'dashboard',
-    'admin': 'admin',
-    'shipment/:id': 'shipment',
-    'filter/:options': 'filter'
+    '': 'dashboardRoute',
+    '/:options': 'dashboardRoute',
+    'admin': 'adminRoute',
+    'shipment/:id': 'shipmentRoute',
+    'item/:id': 'itemRoute'
   },
   _urlParamsToObject: function(queryParams){
     if (!queryParams) return;
@@ -27,21 +27,28 @@ export default Backbone.Router.extend({
   initialize: function() {
     this.config = new Config();
     let headerView = new HeaderView();
-    $('#supplychain').append(headerView.render());
-    $('#supplychain').append("<div id='container'></div>");
-    this.dashView = new DashView();
+    $('.supplychain').append(headerView.$el);
   },
-  dashboard: function(urlOptions) {
-    this.dashView.render(this._urlParamsToObject(urlOptions));
+
+  adminRoute: function(){
+    this.switchView(new AdminView());
   },
-  admin: () => {
-    new AdminView().render();
+  dashboardRoute: function(urlOptions) {
+    this.switchView(new DashView(this._urlParamsToObject(urlOptions)));
   },
-  shipment: (id) => {
-    new ShipmentView(id).render();
+  shipmentRoute: function(shipmentId){
+    this.switchView(new ShipmentView(shipmentId));
   },
-  filter: (options) => {
-    new FilterView().render(options);
+  itemRoute: function(id){
+    this.switchView(new ItemView(id));
   },
+
+  switchView: function(newView) {
+    if (this.mainView) {
+      this.mainView.remove();
+    }
+    this.mainView = (newView);
+    $('.container').append(newView.$el);
+  }
 
 });

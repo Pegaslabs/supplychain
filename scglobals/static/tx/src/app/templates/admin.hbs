@@ -1,15 +1,15 @@
 <div>
   <h2>Admin</h2>
     <hr>
-    <button class="btn btn-primary" id="start-migration">Start New Local Copy</button>
-    <div id="clearing-db">
+    <button class="btn btn-primary start-migration">Start New Local Copy</button>
+    <div class="clearing-db hidden">
       <br>
       <h4>Clearing local data <i class="fa fa-spinner fa-pulse"></i></h4>
-      <h4 class="hide clearing-db-error">Error clearing db: <span id="server-error"></span></h4>
+      <h4 class="hide clearing-db-error">Error clearing db: <span class="server-error"></span></h4>
     </div>
-    <div id="migration-progress"></div>
-    <div id="status-complete">
+    <div class="migration-progress"></div>
+    <div class="status-complete">
       <hr>
-      <h4> <span class="label label-success success-box"><i class="fa fa-check"></i></span> All <span id="totalShipments"></span> shipments copied as of {{$dateFormat dateLoaded calendar=true}}.</h4>
+      <h4> <span class="label label-success success-box"><i class="fa fa-check"></i></span> All <span class="totalShipments"></span> shipments copied as of {{$dateFormat dateLoaded calendar=true}}.</h4>
     </div>
 </div>

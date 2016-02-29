@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
@@ -9,10 +8,10 @@ import Config from './../services/config.js';
 export default Backbone.View.extend({
 
   template: ShipmentTemplate,
-  el: '#container',
   initialize: function(id){
     this.config = new Config();
     this.model = new ShipmentModel({id: id});
+    this.render();
   },
   render: function(transactions) {
     this.model.fetch().then(()=>{

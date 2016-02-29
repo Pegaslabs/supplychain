@@ -7,7 +7,7 @@ import MigrationProgress from './../templates/migration-progress.hbs';
 
 export default Backbone.View.extend({
   template: MigrationProgress,
-  el: "#migration-progress",
+  el: ".migration-progress",
   pct:0,
   totalShipments:0,
   initialize: function(){

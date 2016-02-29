@@ -1,15 +1,15 @@
 # Tickets
 
 ## Dashboard - go live
-* sees a drop down of possible from locations for filtering | M
-* sees a drop down of possible to locations for filtering | Sm
-* can filter on a specific from location | M
-* can filter on a specific to location | rebuild query because of couch sort order | Sm
 * BUG:  filter doesn't work after pagination | tied to url updating | Sm
 * BUG: page numbers off on 0, 1 jan 14 - 8 jan 14
 * BUG: on the fence error probably applies for input range | Sm
 
 ## Dashboard - backlog
+* sees a drop down of possible from locations for filtering | M
+* sees a drop down of possible to locations for filtering | Sm
+* can filter on a specific from location | M
+* can filter on a specific to location | rebuild query because of couch sort order | Sm
 * when filtering, sees URL updated and can revisit URL | Sm
 * pagination should only load new shipments table, not summary | Sm
 * backbone model works w/ created/updated timestamps
@@ -20,6 +20,7 @@
 * get seyfu's feedback on what date filters are good | Sm
 
 ## Stock Cards -- go live
+* BUG: names need to be url escaped
 * user sees drop down of items in the search bar | new reduce query on shipments | M
 * user can select an item and go to its stock card | Sm
 * on the stock card, the user sees a paginated display of 1000 transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M

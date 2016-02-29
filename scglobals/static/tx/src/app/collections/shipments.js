@@ -21,11 +21,13 @@ export default TablesCollection.extend({
       delete options.limit;
       delete options.include_docs;
       delete options.skip;
+      delete options.descending;
     }
     else {
       options.limit = options.limit || 1000;
       options.include_docs = true;
       options.reduce = false;
+      options.descending = true;
     }
     query = query || this.query;
     return this.db.query(query,options);
