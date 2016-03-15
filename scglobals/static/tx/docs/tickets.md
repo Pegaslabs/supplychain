@@ -29,7 +29,7 @@
 ## Stock Cards -- phase 2
 * on each transaction, the user sees a resulting balance | M
 * user sees a monthly consumption tab | Sm
-* when user clicks monthly consumtion, they see the monthly consumption | XL
+* when user clicks monthly consumption, they see the monthly consumption | XL
 
 ## Stock Cards -- low priority
 * user can filter on an expiration | M

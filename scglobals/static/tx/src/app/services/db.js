@@ -31,7 +31,8 @@ export default class DB {
       }
       else {
         if (result.rows.length) {
-          return result.rows[0].value;
+          if (result.rows.length === 1) return result.rows[0].value;
+          else return result.rows;
         }
         else{
           return 0;

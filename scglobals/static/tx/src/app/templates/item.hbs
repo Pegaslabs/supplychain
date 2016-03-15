@@ -21,6 +21,8 @@
       <th>Item</th>
       <th>Category</th>
       <th>Date</th>
+      <th>Expiration</th>
+      <th>Item Lot</th>
       <th>From</th>
       <th>To</th>
       <th>Value</th>
@@ -32,9 +34,11 @@
         <td>{{this.key.[0]}}</td>
         <td>{{this.key.[1]}}</td>
         <td>{{$dateFormat this.key.[2]}}</td>
-        <td>{{this.key.[3]}}</td>
-        <td>{{this.key.[4]}}</td>
-        <td>{{$currency this.value}}</td>
+        <td>{{this.key.[7]}}</td>
+        <td>{{this.key.[8]}}</td>
+        <td>{{this.key.[9]}}</td>
+        <td>{{this.key.[10]}}</td>
+        <td>{{$num this.value}}</td>
       </tr>
     {{/each}}
   </tbody>

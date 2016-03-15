@@ -1,6 +1,7 @@
 import Moment from 'moment';
 
 module.exports = function(context, block) {
+  if (!context) return "";
   let f;
   if (!block){
     f = "LL";

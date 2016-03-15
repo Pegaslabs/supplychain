@@ -13,6 +13,6 @@ export default TablesDefaultModel.extend({
       descending: true,
       limit: 1000
     };
-    return this.db.query('item-by-name',options);
+    return this.db.query('all-transactions',options);
   }
 });

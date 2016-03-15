@@ -4,30 +4,21 @@ import Backbone from 'backbone';
 
 import db from './../services/db'
 import HeaderTemplate from './../templates/header.hbs';
-// import LoadingView from './loading';
+import SearchView from './search.js';
 
 export default Backbone.View.extend({
   template: HeaderTemplate,
   initialize: function(){
     this.db = new db();
     this.render();
-    // this.loadingView = new LoadingView();
   },
   render: function() {
-    return this.$el.empty()
-    .append(this.template())
-    // .append(this.loadingView.render())
-    $("#sync-syncing").hide();
+    this.$el.html(this.template());
+    this.$el.find('.search-holder').append(new SearchView('items-by-name').el);
   },
   events:{
     'click #admin': 'toggleAdmin',
-    'click #toggleNav': 'toggleNav',
-    'mouseenter #server-status': 'showServerStatus',
-    'mouseleave #server-status': 'hideServerStatus'
-  },
-  syncActivity: function(){
-    $("#sync-syncing").toggle();
-    $("#sync-complete").toggle();
+    'click #toggleNav': 'toggleNav'
   },
   toggleNav: function(e){
     e.preventDefault();
@@ -36,26 +27,5 @@ export default Backbone.View.extend({
   toggleAdmin: function(e){
     e.preventDefault();
     $('#adminDropDown').toggle();
-  },
-  showServerStatus: function(e){
-    e.preventDefault();
-    $('.status').fadeIn('fast');
-  },
-  hideServerStatus: function(e){
-    e.preventDefault();
-    $('.status').fadeOut('fast');
   }
-  // destroyDB: function(e){
-  //   e.preventDefault();
-  //   $('#adminDropDown').hide();
-  //   $('#destroyDB').toggleClass('hide');
-  //   this.loadingView.showOverlay("Clearing local data.");
-  //   this.db.destroy_db().then((response) => {
-  //     this.loadingView.hide("Clearing complete!");
-  //   }).catch(function (err) {
-  //     console.log(err);
-  //   });
-  //   // hack to reload page with no data
-  //   // window.location.reload()
-  // }
 });
