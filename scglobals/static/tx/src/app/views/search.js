@@ -11,8 +11,7 @@ export default Backbone.View.extend({
   resultsTemplate: ResultsTemplate,
   className: 'search',
   events: {
-    'click .search-view': 'showItem',
-    'focus .search-input': 'showSearch',
+    'focus .search-button': 'showSearch',
     'focusout .search-input': 'hideSearch',
     'keydown .search-input': 'keyChanged'
   },
@@ -23,7 +22,7 @@ export default Backbone.View.extend({
   },
   render: function() {
     this.$el.html(this.template());
-    this.showSearch();
+    // this.showSearch();
   },
   // TODO search only needs to run once against the server if it's a reduce
   // but then it'll need to refresh when a shipment is added
@@ -35,7 +34,11 @@ export default Backbone.View.extend({
       var decorated_results = _.map(results,(result)=>{
         var item = result.key;
         if (item[0]){
-            return {background: item[0][0], name: item[0] + " " + item[1], link: item[0] + " " + item[1]};
+            return {
+              primary: item[0],
+              secondary: item[1],
+              link: item[0] + " " + item[1]
+            };
         } else{
           return {background: "", name: "", link: ""};
         }
@@ -43,11 +46,8 @@ export default Backbone.View.extend({
       this.$el.find('.search-results').html(this.resultsTemplate(decorated_results));
     });
   },
-  showItem: function(){
-    console.log(':)');
-  },
   showSearch: function(){
-    this.$el.find('.search-view').removeClass('hidden');
+    this.$el.find('.search').show();
   },
   keyChanged: function(e){
     // tab is 9, enter 13, escape 27, 38 arrow up, 40 arrow down
@@ -73,6 +73,6 @@ export default Backbone.View.extend({
   },
   leaveSearch: function(e){
     // focusout
-    this.$el.find('.search-view').addClass('hidden');
+    this.$el.find('.search').hide();
   }
 });
