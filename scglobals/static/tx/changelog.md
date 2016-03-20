@@ -2,6 +2,8 @@
 
 # 2016-03-20
 * BUG: names need to be url escaped
+* user sees drop down of items in the search bar | new reduce query on shipments | M
+* user can select an item and go to its stock card | Sm
 
 ## 2015-12-21
 * sees a date filter | Sm | 2.25h

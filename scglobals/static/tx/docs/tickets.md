@@ -20,9 +20,11 @@
 * get seyfu's feedback on what date filters are good | Sm
 
 ## Stock Cards -- go live
-* user sees drop down of items in the search bar | new reduce query on shipments | M
-* user can select an item and go to its stock card | Sm
-* on the stock card, the user sees a paginated display of 1000 transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M
+* on the stock card, the user sees a of transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M
+* user sees stock card filtered to a location
+* the user can paginate through transactions
+
+* user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg
 * user can click on the shipment link of a transaction and go to the shipment page | Sm
 
 ## Stock Cards -- phase 2
