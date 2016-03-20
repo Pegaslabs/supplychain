@@ -1,4 +1,3 @@
 module.exports = function(object) {
-  debugger;
-  return JSON.stringify(object);
+  return 'item/' + encodeURIComponent(object.item_category_name) + '/' + encodeURIComponent(object.item_name);
 };

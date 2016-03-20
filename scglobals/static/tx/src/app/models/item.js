@@ -7,8 +7,8 @@ export default TablesDefaultModel.extend({
   },
   fetch: function(){
     var options = {
-      startkey: [this.get('name'),{},{},{},{}],
-      endkey: [this.get('name')],
+      startkey: [this.get('name'),this.get('category'),{},{},{}],
+      endkey: [this.get('name'),this.get('category')],
       reduce: false,
       descending: true,
       limit: 1000

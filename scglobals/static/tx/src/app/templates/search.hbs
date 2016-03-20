@@ -1,9 +1,18 @@
-<button type="button" class="btn btn-default search-button">search</button>
-<div class="modal search">
-  <div class="modal-dialog modal-lg">
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#item-search-modal">search</button>
+<div class="modal fade" id="item-search-modal" tabindex="-1" role="dialog" aria-labelledby="item-search-modal">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <i class="loading-spinner" class="fa fa-spinner fa-pulse"></i>
-      <div class="search-results"></div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Item Search</h4>
+      </div>
+      <div class="modal-body">
+        <i class="loading-spinner" class="fa fa-spinner fa-pulse"></i>
+        <div class="search-results"></div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
     </div>
   </div>
 </div>

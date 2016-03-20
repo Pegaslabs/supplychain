@@ -1,5 +1,8 @@
 ## tx handelbars
 
+# 2016-03-20
+* BUG: names need to be url escaped
+
 ## 2015-12-21
 * sees a date filter | Sm | 2.25h
 * can filter on last six months, last year | M

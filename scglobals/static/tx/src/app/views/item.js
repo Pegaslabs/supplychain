@@ -7,8 +7,8 @@ import ItemModel from './../models/item.js';
 
 export default Backbone.View.extend({
   template: ItemTemplate,
-  initialize: function(name){
-    this.model = new ItemModel({name: name});
+  initialize: function(category,itemName){
+    this.model = new ItemModel({name: itemName,category: category});
     this.render();
   },
   render: function() {

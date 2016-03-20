@@ -15,7 +15,7 @@ export default Backbone.Router.extend({
     '/:options': 'dashboardRoute',
     'admin': 'adminRoute',
     'shipment/:id': 'shipmentRoute',
-    'item/:id': 'itemRoute'
+    'item/:category/:itemName': 'itemRoute'
   },
   _urlParamsToObject: function(queryParams){
     if (!queryParams) return;
@@ -39,8 +39,8 @@ export default Backbone.Router.extend({
   shipmentRoute: function(shipmentId){
     this.switchView(new ShipmentView(shipmentId));
   },
-  itemRoute: function(id){
-    this.switchView(new ItemView(id));
+  itemRoute: function(category,itemName){
+    this.switchView(new ItemView(category,itemName));
   },
 
   switchView: function(newView) {

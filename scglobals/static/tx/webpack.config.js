@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 var entry = './src/app/main.js',
   output = {
@@ -14,6 +15,12 @@ module.exports.development = {
     resolve: {
         fallback: path.join(__dirname, "./src/app/helpers")
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
+    ],
     module : {
         loaders : [
             { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },

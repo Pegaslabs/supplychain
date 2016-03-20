@@ -2,6 +2,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 import DB from './../services/db';
+import bootstrap from 'bootstrap';
 
 import SearchTemplate from './../templates/search.hbs';
 import ResultsTemplate from './../templates/search-results.hbs';
