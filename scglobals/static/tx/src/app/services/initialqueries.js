@@ -14,8 +14,8 @@ export default class InitialQueries {
           // then 0 for "From" and 1 for "To", to determine positive or negative
           // then from or to location for location filtering
           doc.transactions.forEach(function(transaction,i){
-            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,0,doc.from_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name], transaction.qty);
-            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,1,doc.to_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name], transaction.qty);
+            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,0,doc.from_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
+            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,1,doc.to_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
           });
         }
     }.toString();

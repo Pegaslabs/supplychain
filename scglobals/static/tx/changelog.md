@@ -4,6 +4,7 @@
 * BUG: names need to be url escaped
 * user sees drop down of items in the search bar | new reduce query on shipments | M
 * user can select an item and go to its stock card | Sm
+* on the stock card, the user sees a of transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M
 
 ## 2015-12-21
 * sees a date filter | Sm | 2.25h

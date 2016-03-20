@@ -20,7 +20,6 @@
 * get seyfu's feedback on what date filters are good | Sm
 
 ## Stock Cards -- go live
-* on the stock card, the user sees a of transactions for that item with the fields date, shipmentid, from, to,expiration, lot num, qty, user | new item specific map query | M
 * user sees stock card filtered to a location
 * the user can paginate through transactions
 
