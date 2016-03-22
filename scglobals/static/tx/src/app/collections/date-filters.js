@@ -3,9 +3,7 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 import Moment from 'moment';
 
-import FiltersCollection from './filters.js';
-
-export default FiltersCollection.extend({
+export default Backbone.Collection.extend({
   initialize: function(){
     this.set([
     {

@@ -5,8 +5,7 @@ import Backbone from 'backbone';
 import DashTemplate from './../templates/dash.hbs';
 import ShipmentsSummaryTemplate from './../templates/shipments-summary.hbs';
 import ShipmentsTemplate from './../templates/shipments.hbs';
-import ShipmentsCollection from './../collections/shipments';
-import FilterView from './../views/filter';
+// import FilterView from './../views/filter';
 
 export default Backbone.View.extend({
 
@@ -14,9 +13,9 @@ export default Backbone.View.extend({
   shipmentsTemplate: ShipmentsTemplate,
   initialize: function(options,userSettings){
     this.userSettings = userSettings;
-    this.filterView = new FilterView(userSettings);
+    // this.filterView = new FilterView(userSettings);
     this.shipmentsCollection = new ShipmentsCollection();
-    Backbone.on('FilterUpdated',this.filterUpdated,this);
+    // Backbone.on('FilterUpdated',this.filterUpdated,this);
     this.render(options);
   },
   toggleShipments: function(){
@@ -59,12 +58,12 @@ export default Backbone.View.extend({
     options.startkey = [this.userSettings.get('location'),{}];
     options.endkey = [this.userSettings.get('location')];
     this.$el.html(this.template());
-    this.$el.find('.filters').append(this.filterView.$el);
+    // this.$el.find('.filters').append(this.filterView.$el);
     this._loadShipments(options);
-  },
-  filterUpdated: function(options,filter_description){
-    this.toggleShipments();
-    this._loadShipments(options);
-    $("#filter-description").html(": " + filter_description);
   }
+  // filterUpdated: function(options,filter_description){
+  //   this.toggleShipments();
+  //   this._loadShipments(options);
+  //   $("#filter-description").html(": " + filter_description);
+  // }
 });

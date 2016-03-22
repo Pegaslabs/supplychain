@@ -15,7 +15,7 @@ export default Backbone.View.extend({
     this.render();
   },
   render: function() {
-    this.$el.html(this.template(this.userSettings.get('location')));
+    this.$el.html(this.template());
     var itemSearchModel = new Backbone.Model({
       query: 'items-by-name',
       buttonText: 'Items',
@@ -29,19 +29,11 @@ export default Backbone.View.extend({
       placeholder: 'search locations',
       userSettings: this.userSettings
     });
-    this.$el.find('.search-holder').append(new SearchView(itemSearchModel).el);
-    this.$el.find('.location-holder').append(new SearchLocationsView(locationSearchModel).el);
+    // this.$el.find('.search-holder').append(new SearchView(itemSearchModel).el);
+    // this.$el.find('.location-holder').append(new SearchLocationsView(locationSearchModel).el);
   },
   events:{
     'click #admin': 'toggleAdmin',
     'click #toggleNav': 'toggleNav'
-  },
-  toggleNav: function(e){
-    e.preventDefault();
-    $('#collapsedNav').toggle();
-  },
-  toggleAdmin: function(e){
-    e.preventDefault();
-    $('#adminDropDown').toggle();
   }
 });

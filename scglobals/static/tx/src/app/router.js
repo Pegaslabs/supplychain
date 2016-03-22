@@ -6,6 +6,8 @@ import HeaderView from './views/header';
 import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
 import ItemView from './views/item';
+import QueryView from './views/query-view';
+import DefaultQueryModel from './models/default-query';
 import Config from './services/config';
 import UserSettingsModel from './models/user-settings';
 
@@ -15,6 +17,7 @@ export default Backbone.Router.extend({
     '': 'dashboardRoute',
     '/:options': 'dashboardRoute',
     'admin': 'adminRoute',
+    'query/:options': 'queryRoute',
     'shipment/:id': 'shipmentRoute',
     'item/:category/:itemName': 'itemRoute'
   },
@@ -44,7 +47,9 @@ export default Backbone.Router.extend({
   itemRoute: function(category,itemName){
     this.switchView(new ItemView(this.userSettings,category,itemName));
   },
-
+  queryRoute: function(options){
+    this.switchView(new QueryView({model: new DefaultQueryModel({'query': 'shipments-with-value'})}));
+  },
   switchView: function(newView) {
     if (this.mainView) {
       this.mainView.remove();

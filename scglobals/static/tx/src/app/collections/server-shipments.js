@@ -1,9 +1,8 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
-import TablesCollection from './tables-collection.js';
 
-export default TablesCollection.extend({
+export default Backbone.Collection.extend({
   url: function () {
     return 'http://localhost:8000/stockchanges.json';
   },

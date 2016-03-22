@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb';
-import InitialQueries from './initialqueries'
+import CreateCouchViews from './create-couch-views';
 import Config from './../services/config';
 
 // interface for CRUD to our couchdb data via pouchdb
@@ -9,39 +9,21 @@ export default class DB {
     this.config = new Config();
     this.db = new PouchDB(this.config.dbUrl + this.config.dbName);
     this.db.on('error', function (err) { console.log(err) });
-    this.initialQueries = new InitialQueries(this.db);
+    this.createCouchViews = new CreateCouchViews(this.db);
   }
   destroy(){
     return this.db.destroy();
   }
   initdb(){
-    return this.db.get('_design/shipments-by-date').catch((err) => {
-      return this.initialQueries.saveDefaultQueries(this.db);
+    return this.db.get(this.db.couch_views[0].name).catch((err) => {
+      return this.createCouchViews.create();
     });
   }
   bulkDocs(docs){
     return this.db.bulkDocs(docs);
   }
   query(q,ops){
-    return this.db.query(q,ops).then((result)=> {
-      // making rows straight up docs instead of {_id,_rev,doc} bs
-      if (!ops['reduce']){
-        result['doc_rows'] = _.pluck(result.rows, 'doc');
-        // delete result['rows'];
-      }
-      else {
-        if (result.rows.length) {
-          if (result.rows.length === 1) return result.rows[0].value;
-          else return result.rows;
-        }
-        else{
-          return 0;
-        }
-      }
-      return result;
-    }).catch(function (err) {
-      return err;
-    });
+    return this.db.query(q,ops);
   }
   get(docId){
     return this.db.get(docId);

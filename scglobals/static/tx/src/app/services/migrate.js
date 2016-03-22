@@ -1,4 +1,3 @@
-import ShipmentsCollection from './../collections/shipments';
 import ShipmentModel from './../models/shipment';
 import ServerShipmentsCollection from './../collections/server-shipments';
 import ConvertDjangoDataService from './../services/convert-django-data';
@@ -33,7 +32,7 @@ export default class Migration {
       // shipment_model.set('transactions',this.convertDjangoDataService.convertTansactions(transactions));
       return shipment_model;
     });
-    return this.db.bulkDocs(new ShipmentsCollection(shipments_models).toJSON());
+    return this.db.bulkDocs(new Backbone.Collection(shipments_models).toJSON());
   }
   _loadAndSave(){
     return this.serverShipmentsCollection.fetch()
