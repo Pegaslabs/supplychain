@@ -14,8 +14,8 @@ export default class InitialQueries {
           // then 0 for "From" and 1 for "To", to determine positive or negative
           // then from or to location for location filtering
           doc.transactions.forEach(function(transaction,i){
-            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,0,doc.from_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
-            emit([transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,1,doc.to_location_name,transaction.item_lot_expiration,transaction.item_lot_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
+            emit([doc.from_location_name,transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,0,transaction.item_lot_expiration,transaction.item_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
+            emit([doc.to_location_name,transaction.item_name,transaction.item_category_name,doc.date,doc._id,i,1,transaction.item_lot_expiration,transaction.item_lot_num,doc.from_location_name,doc.to_location_name,transaction.username], transaction.qty);
           });
         }
     }.toString();
@@ -26,6 +26,13 @@ export default class InitialQueries {
           doc.transactions.forEach(function(transaction,i){
             emit([transaction.item_name,transaction.item_category_name], 1);
           });
+        }
+    }.toString();
+    // used for getting a list of unique locations.
+    var locationsByName = function(doc){
+        if (doc.doc_type && doc.doc_type === "shipment"){
+          emit([doc.to_location_type,doc.to_location_name], 1);
+          emit([doc.from_location_type,doc.from_location_name], 1);
         }
     }.toString();
     return [
@@ -43,6 +50,15 @@ export default class InitialQueries {
         views:{
           'items-by-name': {
             map: itemsByName,
+            reduce: '_sum'
+          }
+        }
+      },
+      {
+        _id: '_design/locations-by-name',
+        views:{
+          'locations-by-name': {
+            map: locationsByName,
             reduce: '_sum'
           }
         }

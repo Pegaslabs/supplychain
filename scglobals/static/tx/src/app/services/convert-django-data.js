@@ -1,8 +1,8 @@
-// transforms & saves new transactions from server to local pouchdb 
+// transforms & saves new transactions from server to local pouchdb
 
 export default class TransactionsService {
   constructor() {
-    // this needs to corralate to raw sql query in 
+    // this needs to corralate to raw sql query in
     // raw_stockchanges.py
     // except 'doc_type', which will be "transaction"
      // and is unshifted onto the data
@@ -10,18 +10,18 @@ export default class TransactionsService {
       "date",
       "django_location_name",
       "from_location_name",
-      "from_location_location_type",
+      "from_location_type",
       "to_location_name",
-      "to_location_location_type",
+      "to_location_type",
       "item_name",
       "item_category_name",
       "item_lot_expiration",
-      "item_lot_lot_num",
+      "item_lot_num",
       "item_lot_unit_price",
       "qty",
       "username",
       "modified",
-      "total_value", 
+      "total_value",
       "django_stockchange_id",
       "django_shipment_id",
       "django_item_lot_id",
@@ -30,9 +30,9 @@ export default class TransactionsService {
       "date",
       "django_location_name",
       "from_location_name",
-      "from_location_location_type",
+      "from_location_type",
       "to_location_name",
-      "to_location_location_type",
+      "to_location_type",
       "django_shipment_id"];
   }
   // take array of values without keys and add keys
@@ -60,7 +60,7 @@ export default class TransactionsService {
     new_shipment = _.pick(new_shipment,this.shipment_headers);
     new_shipment['total_transactions'] = server_transactions.length;
     new_shipment['transactions'] = this._convertTansactions(server_transactions);
-    new_shipment['total_value'] = _.reduce(new_shipment['transactions'], function(result, transaction){ 
+    new_shipment['total_value'] = _.reduce(new_shipment['transactions'], function(result, transaction){
       if (Number(transaction['total_value'])){
         return result + Number(transaction['total_value']);
       }

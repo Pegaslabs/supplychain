@@ -7,15 +7,7 @@ export default Backbone.Model.extend({
   },
   defaults: function () {
     return {
-      created: new Date(),
-      updated: new Date(),
-      creator: '',
-      updated_by: ''
+      location: 'Central Warehouse'
     };
-  },
-  fetch: function(){
-    return this.db.get(this.id).then((results)=>{
-      return this.set(results);
-    });
   }
 });

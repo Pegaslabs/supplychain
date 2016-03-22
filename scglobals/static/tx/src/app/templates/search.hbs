@@ -1,11 +1,11 @@
-<button type="button" class="btn btn-default search-button" data-toggle="modal" data-target="#item-search-modal">search</button>
-<div class="modal fade" id="item-search-modal" role="dialog" aria-labelledby="item-search-modal">
+<button type="button" class="btn btn-default search-button" data-toggle="modal" data-target="#{{this.id}}">{{this.model.buttonText}}</button>
+<div class="modal fade" id="{{this.id}}" role="dialog" aria-labelledby="item-search-modal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Item Search</h4>
-        <input type="text" class="form-control search-input" placeholder="item name">
+        <h4 class="modal-title">{{this.model.titleText}}</h4>
+        <input type="text" class="form-control search-input" placeholder="{{this.model.placeholder}}">
       </div>
       <div class="modal-body">
         <i class="loading-spinner" class="fa fa-spinner fa-pulse"></i>

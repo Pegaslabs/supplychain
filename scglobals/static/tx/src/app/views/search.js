@@ -15,15 +15,16 @@ export default Backbone.View.extend({
   className: 'search',
   events: {
     'keyup .search-input': 'keyChanged',
-    'click .search-drop-item': 'itemSelected'
+    'click .search-drop-item': 'leaveSearch'
   },
-  initialize: function(query){
+  initialize: function(model){
     this.db = new DB();
-    this.runSearch(query);
+    this.runSearch(model.get('query'));
+    this.model = model;
     this.render();
   },
   render: function() {
-    this.$el.html(this.template());
+    this.$el.html(this.template({id: this.cid, model: this.model.toJSON()}));
     // this.showSearch();
   },
   renderSearch: function(search_query){
@@ -47,12 +48,13 @@ export default Backbone.View.extend({
     this.$el.find('.search-results').empty();
     this.db.query(query,{reduce: true, group: true}).then((results)=>{
       this.$el.find('.loading-spinner').hide();
-      this.decorated_results = _.map(results,(result)=>{
+      this.decorated_results = _.map(_.sortBy(results,'value').reverse(),(result)=>{
         var item = result.key;
         if (item.length === 2){
             return {
               primary: item[0],
               secondary: item[1],
+              tertiary: result.value,
               url: itemUrl({
                 item_name: item[0],
                 item_category_name: item[1]
@@ -89,7 +91,7 @@ export default Backbone.View.extend({
       this.renderSearch(this.$el.find('.search-input').val());
     }
   },
-  itemSelected: function(e){
+  leaveSearch: function(e){
     this.$el.find('.search-input').val("");
     $(".close").click();
     this.renderSearch();

@@ -1,9 +1,25 @@
 # Tickets
 
 ## Dashboard - go live
+* can filter on location
+* BUG: descending dates on filter doesn't work
 * BUG:  filter doesn't work after pagination | tied to url updating | Sm
-* BUG: page numbers off on 0, 1 jan 14 - 8 jan 14
+* BUG: page numbers off on 0, 1 jan 14 - 8 jan 14 | Sm
 * BUG: on the fence error probably applies for input range | Sm
+
+## Stock Cards -- go live
+* sees the current stock on hand | Sm
+* the user can paginate through transactions | M
+* user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg | Sm
+
+## Permissions & Auth & Backend -- go live
+* Seyfu's deploy strategy | XL
+* Auth: port auth code & proper CORS setup | M
+
+### Django Migration - go live
+* bring over creator, created, modified stamps | Sm
+* fix shipment values on dispensing | add item dispense size to export query, add logic to django-migration on front end | L
+* clean up dates to be correct day  | Sm
 
 ## Dashboard - backlog
 * sees a drop down of possible from locations for filtering | M
@@ -19,14 +35,7 @@
 * if user is scrolled down on shipments & clicks a shipment with lots of values, they are not scrolled to the top of the page
 * get seyfu's feedback on what date filters are good | Sm
 
-## Stock Cards -- go live
-* user sees stock card filtered to a location
-* the user can paginate through transactions
-
-* user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg
-* user can click on the shipment link of a transaction and go to the shipment page | Sm
-
-## Stock Cards -- phase 2
+## Stock Cards -- backlog
 * on each transaction, the user sees a resulting balance | M
 * user sees a monthly consumption tab | Sm
 * when user clicks monthly consumption, they see the monthly consumption | XL
@@ -35,7 +44,7 @@
 * user can filter on an expiration | M
 * qty by lot, at inventories, at dispensaries | M
 
-## Reporting -- phase 2
+## Reporting -- backlog
 * consumption report at lot level | XL
 * data quality | XL
 * inventory report at all locations -- lot level | L
@@ -47,18 +56,10 @@
 * inventory report at item level | Sm
 
 ## Django Migration
-### Django Migration - go live
-* bring over creator, created, modified stamps | Sm
-* fix shipment values on dispensing | add item dispense size to export query, add logic to django-migration on front end | Sm
-* clean up dates to be correct day  | Sm
 
 ## Django Migration - Low Priority
 * clean up pre july 2013 shipments | Sm
 * When they create a patient, they don't store it on their name, it's on their ID (?)
-
-## Permissions & Auth & Backend -- go live
-* Seyfu's deploy strategy | XL
-* Auth: port auth code & proper CORS setup | M
 
 ## Permissions & Auth & Backend -- phase 2
 * Permissions | XL

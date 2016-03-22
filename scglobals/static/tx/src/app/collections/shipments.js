@@ -1,12 +1,9 @@
-import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 import DB from './../services/db';
-import ShipmentModel from './../models/shipment';
 import TablesCollection from './tables-collection';
 
 export default TablesCollection.extend({
-  model: ShipmentModel,
   query: 'shipments-by-date',
   initialize: function(){
     this.db = new DB();
@@ -29,6 +26,10 @@ export default TablesCollection.extend({
       options.reduce = false;
       options.descending = true;
     }
+    //
+    // if (options.startkey){
+    //   options.descending = false;
+    // }
     query = query || this.query;
     return this.db.query(query,options);
   }

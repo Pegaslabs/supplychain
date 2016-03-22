@@ -7,6 +7,7 @@ import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
 import ItemView from './views/item';
 import Config from './services/config';
+import UserSettingsModel from './models/user-settings';
 
 export default Backbone.Router.extend({
 
@@ -26,8 +27,9 @@ export default Backbone.Router.extend({
   },
   initialize: function() {
     this.config = new Config();
-    let headerView = new HeaderView();
-    $('.supplychain').append(headerView.$el);
+    this.userSettings = new UserSettingsModel();
+    this.headerView = new HeaderView(this.userSettings);
+    $('.supplychain').append(this.headerView.$el);
   },
 
   adminRoute: function(){
@@ -40,7 +42,7 @@ export default Backbone.Router.extend({
     this.switchView(new ShipmentView(shipmentId));
   },
   itemRoute: function(category,itemName){
-    this.switchView(new ItemView(category,itemName));
+    this.switchView(new ItemView(this.userSettings,category,itemName));
   },
 
   switchView: function(newView) {

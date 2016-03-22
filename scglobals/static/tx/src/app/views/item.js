@@ -4,12 +4,12 @@ import Backbone from 'backbone';
 
 import ItemTemplate from './../templates/item.hbs';
 import TransactionsTemplate from './../templates/transactions-table.hbs';
-import ItemModel from './../models/item.js';
+import ItemQueryModel from './../models/item-query.js';
 
 export default Backbone.View.extend({
   template: ItemTemplate,
-  initialize: function(category,itemName){
-    this.model = new ItemModel({name: itemName,category: category});
+  initialize: function(userSettings,category,itemName){
+    this.model = new ItemQueryModel({location: userSettings.get('location'),name: itemName,category: category});
     this.render();
   },
   render: function() {
@@ -18,7 +18,7 @@ export default Backbone.View.extend({
       // we have two emits for each transaction to get from & two location
       // emits send 0 if it's the from location, and 1 if it's the to location
       transactions.rows.forEach(function(transaction,i,transactions){
-        if (!transaction.key[5]){
+        if (!transaction.key[6]){
           transaction.value = transaction.value * -1;
         }
       });

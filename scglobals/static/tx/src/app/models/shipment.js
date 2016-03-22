@@ -1,8 +1,10 @@
 import Backbone from 'backbone';
-import TablesDefaultModel from './tables-default';
+import DefaultDocModel from './default-doc';
 
-export default TablesDefaultModel.extend({
-  defaults: {
-    // transactions: []
+export default DefaultDocModel.extend({
+  defaults: function () {
+    return {
+      // location: 'Central Warehouse'
+    };
   }
 });

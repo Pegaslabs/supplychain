@@ -2,7 +2,7 @@
 <hr>
 <div class="same-shipment ">
   <div>&nbsp;
-    <div class="left"> 
+    <div class="left">
       <div class="btn-group">
         <a href="#" class="btn btn-default dropdown-toggle">
           {{$dateFormat this.transactions.[0].shipment_date}}
@@ -31,14 +31,14 @@
         <tr>
           <td>{{this.item_name}} -- <small>{{this.item_category_name}}</small></td>
           <td>{{$expiration this.item_lot_expiration}}</td>
-          <td>{{this.item_lot_lot_num}}</td>
+          <td>{{this.item_lot_num}}</td>
           <td>{{this.qty}}</td>
           <td>{{$currency this.item_lot_unit_price}}</td>
           <td>{{$currency this.total_value}}</td>
         </tr>
       {{/each}}
     </tbody>
-  </table> 
+  </table>
 
 </div>
 {{/each}}
