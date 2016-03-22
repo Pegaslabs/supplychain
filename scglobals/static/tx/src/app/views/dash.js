@@ -12,8 +12,9 @@ export default Backbone.View.extend({
 
   template: DashTemplate,
   shipmentsTemplate: ShipmentsTemplate,
-  initialize: function(options){
-    this.filterView = new FilterView();
+  initialize: function(options,userSettings){
+    this.userSettings = userSettings;
+    this.filterView = new FilterView(userSettings);
     this.shipmentsCollection = new ShipmentsCollection();
     Backbone.on('FilterUpdated',this.filterUpdated,this);
     this.render(options);
@@ -55,6 +56,8 @@ export default Backbone.View.extend({
   },
   render: function(options) {
     options = options || {};
+    options.startkey = [this.userSettings.get('location'),{}];
+    options.endkey = [this.userSettings.get('location')];
     this.$el.html(this.template());
     this.$el.find('.filters').append(this.filterView.$el);
     this._loadShipments(options);

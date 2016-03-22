@@ -1,6 +1,7 @@
 ## tx handelbars
 
 # 2016-03-21
+* can filter on location
 * user sees stock card filtered to a location | M
 
 # 2016-03-20

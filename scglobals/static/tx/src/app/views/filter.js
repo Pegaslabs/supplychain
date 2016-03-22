@@ -8,8 +8,8 @@ import DateFilterCollection from './../collections/date-filters';
 
 export default Backbone.View.extend({
   template: FilterTemplate,
-  startkey: [{},{},{}],
-  endkey: [{},{},{}],
+  startkey: [{},{},{},{}],
+  endkey: [{},{},{},{}],
   // from_location: null,
   // to_location: null,
   currentDateFilter: null,
@@ -18,23 +18,17 @@ export default Backbone.View.extend({
     'click .filter-toggle': 'toggleFilter',
     "click #dates-chosen": 'filterOnRange'
   },
-  initialize: function(){
+  initialize: function(userSettings){
+    this.startkey[0] = userSettings.get('location');
+    this.endkey[0] = userSettings.get('location');
     this.dateFilterCollection = new DateFilterCollection();
     this.render();
   },
   _getKeys: function(){
     // on the fence issues...
     var startdate = Moment(this.currentDateFilter.get('startdate')).subtract(1,'days').format('YYYY-MM-DD');
-    this.startkey[0] = startdate;
-    this.endkey[0] = this.currentDateFilter.get('enddate') + "{}";
-    // if (this.from_location){
-    //   this.startkey[1] = this.from_location;
-    //   this.endkey[1] = this.from_location + "{}";
-    // }
-    // if (this.to_location){
-    //   this.startkey[2] = this.to_location;
-    //   this.endkey[2] = this.to_location + "{}";
-    // }
+    this.startkey[1] = startdate;
+    this.endkey[1] = this.currentDateFilter.get('enddate') + "{}";
     return {startkey: this.startkey, endkey: this.endkey};
   },
   _triggerFilter: function(){

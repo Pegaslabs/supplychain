@@ -1,7 +1,7 @@
 # Tickets
 
 ## Dashboard - go live
-* can filter on location
+* BUG: pagination is f'ed when less than 1000
 * BUG: descending dates on filter doesn't work
 * BUG:  filter doesn't work after pagination | tied to url updating | Sm
 * BUG: page numbers off on 0, 1 jan 14 - 8 jan 14 | Sm

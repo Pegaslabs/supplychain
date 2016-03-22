@@ -19,6 +19,11 @@ export default TablesCollection.extend({
       delete options.include_docs;
       delete options.skip;
       delete options.descending;
+      if (options.startkey){
+        var startkeyholder = options.startkey;
+        options.startkey = options.endkey;
+        options.endkey = startkeyholder;
+      }
     }
     else {
       options.limit = options.limit || 1000;

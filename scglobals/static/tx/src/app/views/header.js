@@ -18,7 +18,7 @@ export default Backbone.View.extend({
     this.$el.html(this.template(this.userSettings.get('location')));
     var itemSearchModel = new Backbone.Model({
       query: 'items-by-name',
-      buttonText: 'search',
+      buttonText: 'Items',
       titleText: 'Item Search',
       placeholder: 'item name'
     });

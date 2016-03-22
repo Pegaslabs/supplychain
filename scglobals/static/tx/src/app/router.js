@@ -36,7 +36,7 @@ export default Backbone.Router.extend({
     this.switchView(new AdminView());
   },
   dashboardRoute: function(urlOptions) {
-    this.switchView(new DashView(this._urlParamsToObject(urlOptions)));
+    this.switchView(new DashView(this._urlParamsToObject(urlOptions),this.userSettings));
   },
   shipmentRoute: function(shipmentId){
     this.switchView(new ShipmentView(shipmentId));
