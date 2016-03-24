@@ -17,7 +17,7 @@ export default Backbone.Router.extend({
     '': 'dashboardRoute',
     '/:options': 'dashboardRoute',
     'admin': 'adminRoute',
-    'query/:options': 'queryRoute',
+    'query': 'queryRoute',
     'shipment/:id': 'shipmentRoute',
     'item/:category/:itemName': 'itemRoute'
   },
@@ -47,8 +47,11 @@ export default Backbone.Router.extend({
   itemRoute: function(category,itemName){
     this.switchView(new ItemView(this.userSettings,category,itemName));
   },
-  queryRoute: function(options){
-    this.switchView(new QueryView({model: new DefaultQueryModel({'query': 'shipments-with-value'})}));
+  queryRoute: function(url_params){
+    var options = this._urlParamsToObject(url_params);
+    var query_model_options = options || {};
+    query_model_options.query = 'shipments-with-value';
+    this.switchView(new QueryView({model: new DefaultQueryModel(query_model_options)}));
   },
   switchView: function(newView) {
     if (this.mainView) {

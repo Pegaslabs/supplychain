@@ -14,7 +14,7 @@ export default Backbone.View.extend({
   initialize: function(options,userSettings){
     this.userSettings = userSettings;
     // this.filterView = new FilterView(userSettings);
-    this.shipmentsCollection = new ShipmentsCollection();
+    this.shipmentsCollection = new Backbone.Collection();
     // Backbone.on('FilterUpdated',this.filterUpdated,this);
     this.render(options);
   },
