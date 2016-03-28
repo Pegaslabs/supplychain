@@ -15,7 +15,7 @@ export default class DB {
     return this.db.destroy();
   }
   initdb(){
-    return this.db.get(this.db.couch_views[0].name).catch((err) => {
+    return this.db.get(this.createCouchViews.couch_views[0].name).catch((err) => {
       return this.createCouchViews.create();
     });
   }

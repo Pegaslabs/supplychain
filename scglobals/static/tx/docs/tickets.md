@@ -1,16 +1,9 @@
 # Tickets
 
 ## Dashboard - go live
-* BUG: pagination is f'ed when less than 1000
-* BUG: descending dates on filter doesn't work
-* BUG:  filter doesn't work after pagination | tied to url updating | Sm
-* BUG: page numbers off on 0, 1 jan 14 - 8 jan 14 | Sm
-* BUG: on the fence error probably applies for input range | Sm
 
 ## Stock Cards -- go live
-* sees the current stock on hand | Sm
-* the user can paginate through transactions | M
-* user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg | Sm
+* sees the current stock on hand | need to do qty dispense size translation | M
 
 ## Permissions & Auth & Backend -- go live
 * Seyfu's deploy strategy | XL

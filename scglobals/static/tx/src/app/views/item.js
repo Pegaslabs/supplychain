@@ -2,27 +2,24 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import ItemTemplate from './../templates/item.hbs';
 import TransactionsTemplate from './../templates/transactions-table.hbs';
-import ItemQueryModel from './../models/item-query.js';
+import QueryView from './query-view';
+import DefaultQueryModel from './../models/default-query';
 
-export default Backbone.View.extend({
-  template: ItemTemplate,
-  initialize: function(userSettings,category,itemName){
-    this.model = new ItemQueryModel({location: userSettings.get('location'),name: itemName,category: category});
+export default QueryView.extend({
+  initialize: function(userSettings,category,itemName,options){
+    var options = options || {};
+    options.startkey = [userSettings.get('location'),itemName,category,{}];
+    options.endkey = [userSettings.get('location'),itemName,category];
+    options.query = 'all-transactions';
+    options.include_docs = false;
+    options.title = itemName;
+    options.secondary_title = category;
+    this.model = new DefaultQueryModel(options);
     this.render();
   },
-  render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
-    this.model.fetch().then((transactions)=>{
-      // we have two emits for each transaction to get from & two location
-      // emits send 0 if it's the from location, and 1 if it's the to location
-      transactions.rows.forEach(function(transaction,i,transactions){
-        if (!transaction.key[6]){
-          transaction.value = transaction.value * -1;
-        }
-      });
-      this.$el.find('.transactions').html(TransactionsTemplate(transactions.rows));
-    });
-  },
+  renderTable: function(){
+    this.$el.find('.results-table').html(TransactionsTemplate(this.model.get('results').rows));
+  }
 });
+

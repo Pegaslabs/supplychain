@@ -17,7 +17,7 @@ export default Backbone.Router.extend({
     '': 'dashboardRoute',
     '/:options': 'dashboardRoute',
     'admin': 'adminRoute',
-    'query': 'queryRoute',
+    // 'query': 'queryRoute',
     'shipment/:id': 'shipmentRoute',
     'item/:category/:itemName': 'itemRoute'
   },
@@ -44,15 +44,15 @@ export default Backbone.Router.extend({
   shipmentRoute: function(shipmentId){
     this.switchView(new ShipmentView(shipmentId));
   },
-  itemRoute: function(category,itemName){
-    this.switchView(new ItemView(this.userSettings,category,itemName));
+  itemRoute: function(category,itemName,urlOptions){
+    this.switchView(new ItemView(this.userSettings,category,itemName,this._urlParamsToObject(urlOptions)));
   },
-  queryRoute: function(url_params){
-    var options = this._urlParamsToObject(url_params);
-    var query_model_options = options || {};
-    query_model_options.query = 'all-transactions';
-    this.switchView(new QueryView({model: new DefaultQueryModel(query_model_options)}));
-  },
+  // queryRoute: function(url_params){
+  //   var options = this._urlParamsToObject(url_params);
+  //   var query_model_options = options || {};
+  //   query_model_options.query = 'all-transactions';
+  //   this.switchView(new QueryView({model: new DefaultQueryModel(query_model_options)}));
+  // },
   switchView: function(newView) {
     if (this.mainView) {
       this.mainView.remove();

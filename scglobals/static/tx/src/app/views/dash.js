@@ -2,24 +2,22 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import DashTemplate from './../templates/dash.hbs';
-import ShipmentsSummaryTemplate from './../templates/shipments-summary.hbs';
 import ShipmentsTemplate from './../templates/shipments.hbs';
-import QueryView from './views/query-view';
+import QueryView from './query-view';
+import DefaultQueryModel from './../models/default-query';
 
 export default QueryView.extend({
-  shipmentsTemplate: ShipmentsTemplate,
   initialize: function(options,userSettings){
-    this.userSettings = userSettings;
-    this.render(options);
-  },
-  render: function(options) {
     options = options || {};
+    options.startkey = [userSettings.get('location'),{}];
+    options.endkey = [userSettings.get('location')];
     options.query = 'shipments-with-value';
-    options.startkey = [this.userSettings.get('location'),{}];
-    options.endkey = [this.userSettings.get('location')];
-    var queryView = new QueryView({model: new DefaultQueryModel(options)});
-    queryView.tableTemplate =
-    this.$el.html(this.template());
+    options.title = "Shipments: " + userSettings.get('location');
+    this.model = new DefaultQueryModel(options);
+    this.render();
+  },
+  renderTable: function(){
+    var rows = _.pluck(this.model.get('results').rows,"doc");
+    this.$el.find('.results-table').html(ShipmentsTemplate(rows));
   }
 });

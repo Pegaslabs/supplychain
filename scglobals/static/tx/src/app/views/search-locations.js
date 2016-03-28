@@ -8,7 +8,7 @@ export default SearchView.extend({
     this.$el.find('.search-results').empty();
     this.db.query(query,{startkey: ['D'], endkey:['I',{}], reduce: true, group: true}).then((results)=>{
       this.$el.find('.loading-spinner').hide();
-      this.decorated_results = _.map(results,(result)=>{
+      this.decorated_results = _.map(results.rows,(result)=>{
         var item = result.key;
         if (item.length === 2){
             return {

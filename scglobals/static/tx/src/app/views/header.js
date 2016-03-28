@@ -29,8 +29,8 @@ export default Backbone.View.extend({
       placeholder: 'search locations',
       userSettings: this.userSettings
     });
-    // this.$el.find('.search-holder').append(new SearchView(itemSearchModel).el);
-    // this.$el.find('.location-holder').append(new SearchLocationsView(locationSearchModel).el);
+    this.$el.find('.search-holder').append(new SearchView(itemSearchModel).el);
+    this.$el.find('.location-holder').append(new SearchLocationsView(locationSearchModel).el);
   },
   events:{
     'click #admin': 'toggleAdmin',

@@ -48,13 +48,14 @@ export default Backbone.View.extend({
     this.$el.find('.search-results').empty();
     this.db.query(query,{reduce: true, group: true}).then((results)=>{
       this.$el.find('.loading-spinner').hide();
-      this.decorated_results = _.map(_.sortBy(results,'value').reverse(),(result)=>{
+      var sorted_results = _.sortBy(results.rows, function(r) { return r.value.count; } ).reverse();
+      this.decorated_results = _.map(sorted_results,(result)=>{
         var item = result.key;
         if (item.length === 2){
             return {
               primary: item[0],
               secondary: item[1],
-              tertiary: result.value,
+              tertiary: result.value.count,
               url: itemUrl({
                 item_name: item[0],
                 item_category_name: item[1]
@@ -69,33 +70,19 @@ export default Backbone.View.extend({
   },
   keyChanged: function(e){
     // tab is 9, enter 13, escape 27, 38 arrow up, 40 arrow down
+    // TODO: make arrow keys work
     if ([9,27,38,40,13].indexOf(e.keyCode) > -1){
-      // if (e.keyCode === 9){
-      //   e.preventDefault();
-      //   if (e.shiftKey)
-      //     this.arrowUp();
-      //   else
-      //     this.arrowDown();
-      // }
       if (e.keyCode === 27){
           this.leaveSearch();
       }
-        // this.leave();
-      // else if (e.keyCode === 38)
-        // this.arrowUp();
-      // else if (e.keyCode === 40)
-        // this.arrowDown();
-      // else if (e.keyCode === 13)
-        // this.selectItem(this.get('activeIndex'));
     } else{
       this.renderSearch(this.$el.find('.search-input').val());
     }
   },
   leaveSearch: function(e){
     this.$el.find('.search-input').val("");
+    // TODO: remove this hack & get to work with native bootstrap
     $(".close").click();
     this.renderSearch();
-    // jQuery("#item-search-modal").modal('close');
-    // $("#item-search-modal").modal('close');
   }
 });

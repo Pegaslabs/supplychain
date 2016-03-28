@@ -16,11 +16,10 @@ export default Backbone.View.extend({
   template: QueryViewTemplate,
   tableTemplate: QueryTableTemplate,
   initialize: function(){
-    this.title = this.model.get('title') || this.model.get('query');
     this.render();
   },
   render: function() {
-    this.$el.html(this.template({title: this.title}));
+    this.$el.html(this.template(this.model.toJSON()));
     this.model.fetch().then((results)=>{
       this.renderTable();
       // if there's no key filtering, total_rows will be an accurate reflection

@@ -1,5 +1,10 @@
 ## tx handelbars
 
+# 2016-03-28
+* sees a header of the item
+* user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg | Sm
+* the user can paginate through transactions | present but BUG on http://localhost:8080/#/item/TB%20Medication/Pyridoxine%2025mg%201000 |   M
+
 # 2016-03-21
 * can filter on location
 * user sees stock card filtered to a location | M
