@@ -50,7 +50,7 @@ export default Backbone.Router.extend({
   queryRoute: function(url_params){
     var options = this._urlParamsToObject(url_params);
     var query_model_options = options || {};
-    query_model_options.query = 'shipments-with-value';
+    query_model_options.query = 'all-transactions';
     this.switchView(new QueryView({model: new DefaultQueryModel(query_model_options)}));
   },
   switchView: function(newView) {

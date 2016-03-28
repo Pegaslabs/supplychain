@@ -14,8 +14,9 @@ import PaginationView from './pagination';
 
 export default Backbone.View.extend({
   template: QueryViewTemplate,
+  tableTemplate: QueryTableTemplate,
   initialize: function(){
-    this.title = this.model.get('query');
+    this.title = this.model.get('title') || this.model.get('query');
     this.render();
   },
   render: function() {
@@ -51,7 +52,7 @@ export default Backbone.View.extend({
   },
   renderDetails: function(obj){
     this.$el.find('.details').html(QueryDetailsTemplate(obj))
-    .append(new PaginationView({model: new Backbone.Model(obj)}).$el);
+    .append(new PaginationView(obj).$el);
   },
   renderTable: function(){
     var map_fun, headers;
@@ -62,7 +63,7 @@ export default Backbone.View.extend({
       if (map_fun && (map_fun.indexOf("[") !== -1) && (map_fun.indexOf("]" !== -1))){
           headers = map_fun.substring(map_fun.indexOf("[")+1,map_fun.indexOf("]")).split(",");
       }
-      this.$el.find('.results-table').html(QueryTableTemplate({
+      this.$el.find('.results-table').html(this.tableTemplate({
         headers: headers,
         results: this.model.get('results').rows
       }));
