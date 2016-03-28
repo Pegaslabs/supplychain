@@ -1,13 +1,10 @@
 # Tickets
 
-## Dashboard - go live
-
 ## Stock Cards -- go live
 * sees the current stock on hand | need to do qty dispense size translation | M
 
 ## Permissions & Auth & Backend -- go live
 * Seyfu's deploy strategy | XL
-* Auth: port auth code & proper CORS setup | M
 
 ### Django Migration - go live
 * bring over creator, created, modified stamps | Sm

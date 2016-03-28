@@ -7,6 +7,8 @@ import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
 import ItemView from './views/item';
 import QueryView from './views/query-view';
+import LoginView from './views/login';
+import LogOutView from './views/logout';
 import DefaultQueryModel from './models/default-query';
 import Config from './services/config';
 import UserSettingsModel from './models/user-settings';
@@ -19,7 +21,9 @@ export default Backbone.Router.extend({
     'admin': 'adminRoute',
     // 'query': 'queryRoute',
     'shipment/:id': 'shipmentRoute',
-    'item/:category/:itemName': 'itemRoute'
+    'item/:category/:itemName': 'itemRoute',
+    'login': 'login',
+    'logout': 'logout'
   },
   _urlParamsToObject: function(queryParams){
     if (!queryParams) return;
@@ -34,7 +38,6 @@ export default Backbone.Router.extend({
     this.headerView = new HeaderView(this.userSettings);
     $('.supplychain').append(this.headerView.$el);
   },
-
   adminRoute: function(){
     this.switchView(new AdminView());
   },
@@ -46,6 +49,13 @@ export default Backbone.Router.extend({
   },
   itemRoute: function(category,itemName,urlOptions){
     this.switchView(new ItemView(this.userSettings,category,itemName,this._urlParamsToObject(urlOptions)));
+  },
+  login: function(){
+    this.switchView(new LoginView());
+    $('.username').focus();
+  },
+  logout: function(){
+    this.switchView(new LogOutView());
   },
   // queryRoute: function(url_params){
   //   var options = this._urlParamsToObject(url_params);
