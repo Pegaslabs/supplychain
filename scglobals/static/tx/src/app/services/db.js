@@ -75,4 +75,12 @@ export default class DB {
       data: JSON.stringify(securityDoc)
     });
   }
+  // force couch to start indexing
+  // not sure why, but couch doesn't seem to show tasks creating these indexes
+  // until they're first queried.
+  triggerAllQueryIndexBuild(){
+    _.each(this.createCouchViews.couch_views,(view)=>{
+      this.db.query(view.name);
+    });
+  }
 }

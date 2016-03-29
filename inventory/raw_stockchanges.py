@@ -18,7 +18,7 @@ def isSafeList(l):
         issafenumber(val)
 
 def get_stockchanges(requestGet):
-    if "ascordesc" in requestGet: 
+    if "ascordesc" in requestGet:
         ascordesc = requestGet["ascordesc"]
         if ((ascordesc != "asc") and (ascordesc != "desc")):
             raise SuspiciousOperation('non valid text sent to reports query.')
@@ -58,7 +58,7 @@ def get_stockchanges(requestGet):
         selectOrCount = "select s.date,sc_location.name,from_location.name,\
         from_location.location_type,to_location.name,to_location.location_type, \
         i.name,c.name,il.expiration,il.lot_num,il.unit_price,sc.qty,u.username,\
-        sc.modified,(il.unit_price*sc.qty), sc.id, s.id, il.id, i.id"
+        sc.modified,(il.unit_price*sc.qty), sc.id, s.id, il.id, i.id, i.dispense_size"
     if "idsBetween" in requestGet:
         isSafeList(requestGet['idsBetween'].split(','))
         shipmentIdsBetween = " and s.id in (" + str(requestGet['idsBetween']) + ")"
@@ -74,7 +74,7 @@ def get_stockchanges(requestGet):
     join inventory_itemlot il on il.id=sc.itemlot_id
     join inventory_item i on i.id=il.item_id
     join inventory_itemcategory c on c.id=i.category_id
-    join auth_user u on u.id=sc.user_id where s.active=1 and sc.qty > 0 
+    join auth_user u on u.id=sc.user_id where s.active=1 and sc.qty > 0
     %s %s %s %s %s;""" % (shipmentIdsBetween,orderBy, ascordesc, limit, offset)
     c.execute(q)
     data = c.fetchall()

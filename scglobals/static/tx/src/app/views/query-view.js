@@ -43,7 +43,8 @@ export default Backbone.View.extend({
             fetched_rows_length: this.model.get('results').rows.length,
             total_rows_length: count,
             skip: this.model.get('skip'),
-            sum: sum
+            sum: sum,
+            include_sum: this.model.get('include_sum')
           });
         });
       }

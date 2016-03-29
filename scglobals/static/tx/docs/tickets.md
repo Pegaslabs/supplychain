@@ -1,15 +1,7 @@
 # Tickets
 
-## Stock Cards -- go live
-* sees the current stock on hand | need to do qty dispense size translation | M
-
 ## Permissions & Auth & Backend -- go live
 * Seyfu's deploy strategy | XL
-
-### Django Migration - go live
-* bring over creator, created, modified stamps | Sm
-* fix shipment values on dispensing | add item dispense size to export query, add logic to django-migration on front end | L
-* clean up dates to be correct day  | Sm
 
 ## Dashboard - backlog
 * sees a drop down of possible from locations for filtering | M
@@ -29,12 +21,11 @@
 * on each transaction, the user sees a resulting balance | M
 * user sees a monthly consumption tab | Sm
 * when user clicks monthly consumption, they see the monthly consumption | XL
-
-## Stock Cards -- low priority
 * user can filter on an expiration | M
 * qty by lot, at inventories, at dispensaries | M
 
 ## Reporting -- backlog
+* inventory report at item level | Sm
 * consumption report at lot level | XL
 * data quality | XL
 * inventory report at all locations -- lot level | L
@@ -42,12 +33,8 @@
 * future expirations report | M
 * download reports | M
 
-## Reporting -- low priority
-* inventory report at item level | Sm
-
-## Django Migration
-
-## Django Migration - Low Priority
+## Django Migration - backlog
+* bring over creator, created, modified stamps | Sm
 * clean up pre july 2013 shipments | Sm
 * When they create a patient, they don't store it on their name, it's on their ID (?)
 

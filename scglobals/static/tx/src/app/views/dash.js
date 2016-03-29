@@ -12,12 +12,13 @@ export default QueryView.extend({
     options.startkey = [userSettings.get('location'),{}];
     options.endkey = [userSettings.get('location')];
     options.query = 'shipments-with-value';
+    options.include_sum = false;
+    options.include_docs = false;
     options.title = "Shipments: " + userSettings.get('location');
     this.model = new DefaultQueryModel(options);
     this.render();
   },
   renderTable: function(){
-    var rows = _.pluck(this.model.get('results').rows,"doc");
-    this.$el.find('.results-table').html(ShipmentsTemplate(rows));
+    this.$el.find('.results-table').html(ShipmentsTemplate(this.model.get('results').rows));
   }
 });

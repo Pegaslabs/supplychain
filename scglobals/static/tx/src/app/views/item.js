@@ -22,4 +22,3 @@ export default QueryView.extend({
     this.$el.find('.results-table').html(TransactionsTemplate(this.model.get('results').rows));
   }
 });
-

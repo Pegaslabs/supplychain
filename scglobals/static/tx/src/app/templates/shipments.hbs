@@ -5,20 +5,20 @@
       <th>From</th>
       <th>To</th>
       <th>Transactions</th>
-      <th>Value</th>
+      <th>Total Value</th>
       <th>Details</th>
     </tr>
   </thead>
   <tbody>
     {{#each this}}
       <tr>
-        <td>{{$dateFormat this.date}}</td>
-        <td>{{this.from_location_name}}</td>
-        <td>{{this.to_location_name}}</td>
-        <td>{{this.total_transactions}}</td>
-        <td>{{$currency this.total_value}}</td>
-        <td><a href="#/shipment/{{this._id}}">details</a></td>
+        <td>{{$dateFormat this.key.[1]}}</td>
+        <td>{{this.key.[2]}}</td>
+        <td>{{this.key.[3]}}</td>
+        <td>{{this.key.[4]}}</td>
+        <td>{{$currency this.value}}</td>
+        <td><a href="#/shipment/{{this.id}}">details</a></td>
       </tr>
     {{/each}}
   </tbody>
-</table> 
+</table>

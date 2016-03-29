@@ -107,3 +107,9 @@ td.nowrap {
 .hidden{
   display: none;
 }
+
+@media print {
+  a[href]:after {
+    content: none;
+  }
+}

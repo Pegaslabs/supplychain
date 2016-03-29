@@ -53,7 +53,11 @@ export default class Migration {
     return this.db.destroy().then((response) => {
       this.db.createCouch();
       return this.db.initdb().then(()=>{
-        return this._loadAndSave();
+        return this._loadAndSave().then(()=>{
+          // trigger building indexes by calling views
+          // these calls will likely timeout
+          this.db.triggerAllQueryIndexBuild();
+        });
       });
     });
   }

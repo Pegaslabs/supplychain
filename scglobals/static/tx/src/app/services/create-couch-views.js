@@ -8,17 +8,8 @@ export default class CreateCouchViews {
         name: 'shipments-with-value',
         mapFun: function(doc){
           if (doc.doc_type && doc.doc_type === "shipment"){
-            emit([doc.from_location_name,doc.date,doc.from_location_name,doc.to_location_name],doc.total_value);
-            emit([doc.to_location_name,doc.date,doc.from_location_name,doc.to_location_name],doc.total_value);
-          }
-        }
-      },
-      {
-        name: 'shipments-with-transaction-count',
-        mapFun: function(doc){
-          if (doc.doc_type && doc.doc_type === "shipment"){
-            emit([doc.from_location_name,doc.date,doc.from_location_name,doc.to_location_name],doc.total_transactions);
-            emit([doc.to_location_name,doc.date,doc.from_location_name,doc.to_location_name],doc.total_transactions);
+            emit([doc.from_location_name,doc.date,doc.from_location_name,doc.to_location_name,doc.total_transactions],doc.total_value);
+            emit([doc.to_location_name,doc.date,doc.from_location_name,doc.to_location_name,doc.total_transactions],doc.total_value);
           }
         }
       },

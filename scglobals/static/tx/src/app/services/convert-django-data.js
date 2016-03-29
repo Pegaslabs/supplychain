@@ -25,7 +25,8 @@ export default class TransactionsService {
       "django_stockchange_id",
       "django_shipment_id",
       "django_item_lot_id",
-      "django_item_id"];
+      "django_item_id",
+      "django_item_dispense_size"];
     this.shipment_headers = [
       "date",
       "django_location_name",
@@ -43,6 +44,20 @@ export default class TransactionsService {
       new_transaction = _.object(this.transaction_headers,server_transaction);
       new_transaction['total_value'] = Number(new_transaction['total_value']) || 0;
       new_transaction['django'] = true;
+      // translating everything to dispense size
+      // django system was built to have everything in a "pack" size
+      // until it was transferred to a dispensary (type "D").
+      // here, we need everything uniform for couchdb sum reduces to work
+      // so this does the "translation" backwards and puts everything in dispense size
+      if (new_transaction.django_item_dispense_size !== 1){
+        if (new_transaction.from_location_type !== 'D' && new_transaction.to_location_type !== 'D'){
+          new_transaction.qty = (new_transaction.qty * new_transaction.django_item_dispense_size);
+        }
+        // fix price on dispense shipments 
+        else if (new_transaction.django_item_dispense_size){
+          new_transaction.total_value = new_transaction.total_value / new_transaction.django_item_dispense_size
+        }
+      }
       // strip fields we do not need as they're on shipment
       new_transaction = _.omit(new_transaction,this.shipment_headers);
       return new_transaction;
@@ -50,7 +65,7 @@ export default class TransactionsService {
   }
   // expecting the key-less server response transaction
   // server transaction:
-  // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3]
+  // ["2013-07-01", "Central Warehouse", "Initial Warehouse Count", "S", "Central Warehouse", "I", "Alcophyllex 200ml", "SYRUPS, MIXTURE, SUSPENSIONS ETC", "2014-07-01", null, 6.35, 64, "system", "2014-02-04", 406.4, 1, 1, 1, 3, 1]
   shipmentFromTransactions(server_transactions){
     var transaction_for_shipment_fields,new_shipment;
     // need an actual copy, not a reference

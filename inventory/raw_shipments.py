@@ -15,9 +15,9 @@ def isSafeDate(d):
 def get_all_shipment_ids():
     conn = sqlite3.connect(settings.DATABASES['default']['NAME'])
     c = conn.cursor()
-    q = """select s.id from inventory_shipment s 
-            join inventory_stockchange sc on sc.shipment_id=s.id 
-            where s.active=1 
+    q = """select s.id from inventory_shipment s
+            join inventory_stockchange sc on sc.shipment_id=s.id
+            where s.active=1
             and sc.qty > 0 
             group by s.id;"""
     c.execute(q)
@@ -37,7 +37,7 @@ def get_shipment_stockchanges(shipStartId,shipEndId):
     join inventory_itemlot il on il.id=sc.itemlot_id
     join inventory_item i on i.id=il.item_id
     join inventory_itemcategory c on c.id=i.category_id
-    join auth_user u on u.id=sc.user_id where s.active=1 
+    join auth_user u on u.id=sc.user_id where s.active=1
     and s.id >= %d and s.id =<%d;""" % (shipStartId, shipEndId)
     c.execute(q)
     data = c.fetchall()
@@ -46,7 +46,7 @@ def get_shipment_stockchanges(shipStartId,shipEndId):
     return data
 
 def get_shipments(requestGet):
-    if "ascordesc" in requestGet: 
+    if "ascordesc" in requestGet:
         ascordesc = requestGet["ascordesc"]
         if ((ascordesc != "asc") and (ascordesc != "desc")):
             raise SuspiciousOperation('non valid text sent to reports query.')
@@ -88,7 +88,7 @@ def get_shipments(requestGet):
     from inventory_shipment s
     join inventory_location from_location on s.from_location_id=from_location.id
     join inventory_location to_location on s.to_location_id=to_location.id
-    join auth_user u on u.id=s.user_id where s.active=1 
+    join auth_user u on u.id=s.user_id where s.active=1
     %s %s %s
     %s %s %s %s;""" % (startdate, enddate, modified, orderBy, ascordesc, limit, offset)
     c.execute(q)

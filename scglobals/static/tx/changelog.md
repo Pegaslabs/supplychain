@@ -1,7 +1,11 @@
 ## tx handelbars
 
 # 2016-03-28
+* clean up dates to be correct day  | Sm
 * Bug on auth & create db
+* sees the current stock on hand | need to do qty dispense size translation | M
+* fix shipment values on dispensing | add item dispense size to export query, add logic to django-migration on front end | L
+* fix $$ values
 
 # 2016-03-28
 * Auth: port auth code & proper CORS setup | M
