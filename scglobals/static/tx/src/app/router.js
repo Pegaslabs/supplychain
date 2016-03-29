@@ -12,6 +12,7 @@ import LogOutView from './views/logout';
 import DefaultQueryModel from './models/default-query';
 import Config from './services/config';
 import UserSettingsModel from './models/user-settings';
+import DB from './services/db';
 
 export default Backbone.Router.extend({
 
@@ -37,6 +38,7 @@ export default Backbone.Router.extend({
     this.userSettings = new UserSettingsModel();
     this.headerView = new HeaderView(this.userSettings);
     $('.supplychain').append(this.headerView.$el);
+    this.db = new DB();
   },
   adminRoute: function(){
     this.switchView(new AdminView());
@@ -67,8 +69,15 @@ export default Backbone.Router.extend({
     if (this.mainView) {
       this.mainView.remove();
     }
-    this.mainView = (newView);
-    $('.container').append(newView.$el);
+    this.db.checkAuthentication().then((isAuthenticated)=>{
+      if (!isAuthenticated){
+        this.mainView = new LoginView();
+      } else{
+        this.mainView = newView;
+      }
+      $('.container').append(this.mainView.$el);
+      this.mainView.$el.find(this.mainView.focusEl).focus();
+    });
   }
 
 });

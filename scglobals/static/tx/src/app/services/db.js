@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import PouchDB from 'pouchdb';
 import PouchDBAuth from 'pouchdb-authentication';
 import CreateCouchViews from './create-couch-views';
@@ -14,33 +15,64 @@ export default class DB {
     } else{
       return db_instance;
     }
-    this.config = new Config();
     PouchDB.plugin(PouchDBAuth);
+    this.config = new Config();
+    this.createCouch();
+    return db_instance;
+  }
+  bulkDocs(docs){
+    return this.db.bulkDocs(docs);
+  }
+  get(docId){
+    return this.db.get(docId);
+  }
+  createCouch(){
     this.db = new PouchDB(this.config.dbUrl + this.config.dbName);
     this.db.on('error', function (err) { console.log(err) });
     this.createCouchViews = new CreateCouchViews(this.db);
-    return db_instance;
   }
   destroy(){
     return this.db.destroy();
   }
   initdb(){
-    return this.db.get(this.createCouchViews.couch_views[0].name).catch((err) => {
-      return this.createCouchViews.create();
+    return this.db.get('_design/' + this.createCouchViews.couch_views[0].name).catch((err) => {
+      return this.secureDB().then(()=>{
+        return this.createCouchViews.create();
+      });
     });
   }
-  bulkDocs(docs){
-    return this.db.bulkDocs(docs);
+  checkAuthentication(){
+    if (this.checkedAuth){
+      return this.isAuthenticated;
+    }
+    else{
+      return this.db.get('_design/' + this.createCouchViews.couch_views[0].name).catch((err) => {
+        if (err.status === 401){
+          this.isAuthenticated = false;
+        } else{
+          this.isAuthenticated = true;
+        }
+        this.checkedAuth = true;
+        return this.isAuthenticated;
+      });
+    }
+  }
+  login(username,pass){
+    return this.db.login(username,pass);
+  }
+  logout(){
+    return this.db.logout();
   }
   query(q,ops){
-    return this.db.query(q,ops).catch(function(error){
-      // TODO: get this into router
-      if (error.status === 401){
-        window.location.href = "/#/login";
-      }
-    });
+    return this.db.query(q,ops);
   }
-  get(docId){
-    return this.db.get(docId);
+  secureDB(){
+    var securityDoc = {"admins":{"names":[],"roles":[]},"members":{"names":["admin"],"roles":[]}};
+    return $.ajax({
+      method: "PUT",
+      url: this.config.dbUrl + this.config.dbName + "/_security",
+      xhrFields: {withCredentials: true},
+      data: JSON.stringify(securityDoc)
+    });
   }
 }

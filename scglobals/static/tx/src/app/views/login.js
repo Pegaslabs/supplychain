@@ -9,6 +9,7 @@ export default Backbone.View.extend({
   events: {
     'submit .login': 'submitLogin'
   },
+  focusEl: '.username',
   initialize: function(options,userSettings){
     this.db = new DB();
     this.render();
@@ -18,9 +19,9 @@ export default Backbone.View.extend({
   },
   submitLogin: function(e){
     e.preventDefault();
-    this.db.db.login(this.$el.find('.username').val(), this.$el.find('.password').val())
+    this.db.login(this.$el.find('.username').val(), this.$el.find('.password').val())
     .then(()=> {
-      window.location.href = "/#/";
+      window.location.href = "/";
     }).catch((error)=> {
       this.$el.find('.input-group').addClass('has-error');
     });

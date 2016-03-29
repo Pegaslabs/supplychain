@@ -1,6 +1,9 @@
 ## tx handelbars
 
 # 2016-03-28
+* Bug on auth & create db
+
+# 2016-03-28
 * Auth: port auth code & proper CORS setup | M
 * sees a header of the item
 * user sees loading http://localhost:8080/#/item/ARV'S%20PREPARATIONS/ABC%2F3TC%20600%2F300%20mg | Sm
