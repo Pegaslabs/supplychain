@@ -29,6 +29,7 @@
     "gulp-livereload": "^3.7.0",
     "gulp-load-plugins": "1.0.0",
     "gulp-merge": "^0.1.1",
+    "gulp-replace": "^0.5.4",
     "gulp-size": "^1.2.0",
     "gulp-stylus": "^2.0.0",
     "gulp-uglifyjs": "^0.6.0",

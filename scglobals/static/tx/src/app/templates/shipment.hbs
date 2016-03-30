@@ -17,7 +17,7 @@
     <tbody>
       {{#each this.shipment.transactions}}
         <tr>
-          <td><a href="/#/{{$itemUrl this}}">{{this.item_name}}</a></td>
+          <td><a href="{{$baseUrl}}{{$itemUrl this}}">{{this.item_name}}</a></td>
           <td>{{this.item_category_name}}</td>
           <td>{{this.item_lot_num}}</td>
           <td>{{$expiration this.item_lot_expiration}}</td>
