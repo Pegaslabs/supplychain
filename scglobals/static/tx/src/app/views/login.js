@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 import LoginTemplate from './../templates/login.hbs';
 import DB from './../services/db';
+import baseUrl from './../helpers/baseUrl';
 
 export default Backbone.View.extend({
   template: LoginTemplate,
@@ -21,7 +22,7 @@ export default Backbone.View.extend({
     e.preventDefault();
     this.db.login(this.$el.find('.username').val(), this.$el.find('.password').val())
     .then(()=> {
-      window.location.href = "/";
+      window.location.reload();
     }).catch((error)=> {
       this.$el.find('.input-group').addClass('has-error');
     });

@@ -46,6 +46,7 @@ gulp.task('styles', function () {
   return gulp.src(src + 'less/**/*.less')
     .pipe($.less())
     .pipe($.concat('main.css'))
+    // .pipe($.cleanCss())
     .pipe(gulp.dest(dist + 'css'))
     .pipe($.size({ title : 'styles' }))
     .pipe($.connect.reload());
@@ -84,14 +85,13 @@ gulp.task('default', ['build', 'serve', 'watch']);
 
 // waits until clean is finished then builds the project
 gulp.task('build', ['clean'], function(){
-  gulp.start(['static', 'html','scripts','styles']);
+  gulp.start(['static','html','scripts','styles']);
 });
 
 // couchdb deploy
 // TODO move to separate gulp file
 
 var dbname = "tables_sc_app";
-var releaseNo = "0.1.0";
 
 try{
     var credentials = JSON.parse(fs.readFileSync('couchdb_credentials.json', 'utf8'));
@@ -115,18 +115,21 @@ var createdb = function(callback){
 };
 
 var move_files = function(){
-  var tablesjs_filename = 'tables-' + releaseNo + '.js';
-  var tablescss_filename = 'tables-' + releaseNo + '.css';
   // get rev if doc exists
   request(url +  dbname + "/_design/tables", function(err, response, body) {
-    var rev = null;
-    var b = JSON.parse(body)
-    if (!b.error) rev = b._rev;
+    var b = JSON.parse(body);
+    if (b._rev){
+        var rev = b._rev.split("-")[0];
+    } else{
+      var rev = 0;
+    }
+    var tablesjs_filename = 'tables-' + rev + '.js';
+    var tablescss_filename = 'tables-' + rev + '.css';
     var htmlfile = new Buffer(fs.readFileSync('./dist/index.html','utf8')
-      .replace(/tables.js/g, tablesjs_filename)
-      .replace(/tables.css/g, tablescss_filename))
+      .replace(/js\/main.js/g, tablesjs_filename)
+      .replace(/css\/main.css/g, tablescss_filename))
       .toString('base64');
-    var tablescss = new Buffer(fs.readFileSync('./dist/css/main.css','utf8').toString('base64'));
+    var tablescss = fs.readFileSync('./dist/css/main.css').toString('base64');
       // .replace(/..\/fonts\//g, '')).toString('base64');
     var tablesjs = fs.readFileSync('./dist/js/main.js').toString('base64');
     var data = {
@@ -137,21 +140,21 @@ var move_files = function(){
     data['_attachments'][tablesjs_filename] = {"content_type":"application\/javascript", "data":  tablesjs};
     data['_attachments'][tablescss_filename] = { "content_type" : "text\/css", "data" : tablescss};
 
-    if (rev) data['_rev'] = rev;
+    if (rev) data['_rev'] = b._rev || null;
     data = JSON.stringify(data);
-    // console.log(data);
     request({
       uri: url +  dbname + "/_design/tables",
       method: "PUT",
       form : data
     }, function(err, response, body) {
-      console.log(err,response);
+      if (err) throw err;
+      console.log(body);
       // mfCallback();
     });
   });
 };
 
-gulp.task('deploy',function(){
+gulp.task('postDocs',function(){
   // login
   return request({
     uri: url + "_session",
@@ -179,4 +182,9 @@ gulp.task('deploy',function(){
       }
     });
   });
+});
+
+// todo: actually make concurrent
+gulp.task('deploy', ['build'], function(){
+  setTimeout(function(){gulp.start(['postDocs'])},6000);
 });

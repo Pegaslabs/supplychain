@@ -7,7 +7,7 @@ export default Backbone.View.extend({
   initialize: function(options,userSettings){
     this.db = new DB();
     this.db.logout().then(function(){
-      window.location.href = "/#/";
+      window.location.reload();
     });
   }
 });
