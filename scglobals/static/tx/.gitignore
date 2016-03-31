@@ -4,3 +4,4 @@ src/bundles
 *.log
 .DS_Store
 dist
+couchdb_credentials.json

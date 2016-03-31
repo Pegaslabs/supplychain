@@ -2,10 +2,13 @@ var gulp = require('gulp');
 var path = require('path');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
+var fs = require('fs');
 
 var environment = $.util.env.type || 'development';
 var isProduction = environment === 'production';
 var webpackConfig = require('./webpack.config.js')[environment];
+
+var request = require("request").defaults({jar: true});
 
 var port = $.util.env.port || 8080;
 var src = 'src/';
@@ -85,50 +88,64 @@ gulp.task('build', ['clean'], function(){
 });
 
 // couchdb deploy
+// TODO move to separate gulp file
+
+var dbname = "tables_sc_app";
+var releaseNo = "0.1.0";
+
+try{
+    var credentials = JSON.parse(fs.readFileSync('couchdb_credentials.json', 'utf8'));
+    var url = credentials.url;
+    var username = credentials.username;
+    var password = credentials.password;
+} catch(e){
+  throw "credentials file missing, see readme";
+}
+
+var createdb = function(callback){
+  request({
+    uri: url + dbname,
+    method: "PUT",
+  }, function(err, response, body) {
+      if(err) throw err;
+      if (!JSON.parse(body)["ok"]) throw "Error!!" + body.toString();
+      callback();
+    }
+  );
+};
 
 var move_files = function(){
   var tablesjs_filename = 'tables-' + releaseNo + '.js';
-  var vendorjs_filename = 'vendor-' + releaseNo + '.js';
   var tablescss_filename = 'tables-' + releaseNo + '.css';
-  var vendorcss_filename = 'vendor-' + releaseNo + '.css';
   // get rev if doc exists
-  request(url + "tables/_design/tables", function(err, response, body) {
+  request(url +  dbname + "/_design/tables", function(err, response, body) {
     var rev = null;
     var b = JSON.parse(body)
     if (!b.error) rev = b._rev;
-    var htmlfile = new Buffer(fs.readFileSync('./couchdbbound/index.html','utf8')
-      .replace(/assets\//g, '')
+    var htmlfile = new Buffer(fs.readFileSync('./dist/index.html','utf8')
       .replace(/tables.js/g, tablesjs_filename)
-      .replace(/vendor.js/g, vendorjs_filename)
-      .replace(/tables.css/g, tablescss_filename)
-      .replace(/vendor.css/g, vendorcss_filename))
+      .replace(/tables.css/g, tablescss_filename))
       .toString('base64');
-    var vendorcss = new Buffer(fs.readFileSync('./couchdbbound/assets/vendor.css','utf8')
-      .replace(/..\/fonts\//g, '')).toString('base64');
-    var tablescss = new Buffer(fs.readFileSync('./couchdbbound/assets/tables.css','utf8')
-      .replace(/..\/fonts\//g, '')).toString('base64');
-    var vendorjs = fs.readFileSync('./couchdbbound/assets/vendor.js').toString('base64');
-    var tablesjs = fs.readFileSync('./couchdbbound/assets/tables.js').toString('base64');
-    var font = fs.readFileSync('./couchdbbound/fonts/fontawesome-webfont.woff2').toString('base64');
+    var tablescss = new Buffer(fs.readFileSync('./dist/css/main.css','utf8').toString('base64'));
+      // .replace(/..\/fonts\//g, '')).toString('base64');
+    var tablesjs = fs.readFileSync('./dist/js/main.js').toString('base64');
     var data = {
       "_attachments": {
         "index.html": {"content_type" : "text\/html","data" : htmlfile}
       }
     };
     data['_attachments'][tablesjs_filename] = {"content_type":"application\/javascript", "data":  tablesjs};
-    data['_attachments'][vendorjs_filename] = {"content_type":"application\/javascript", "data":  vendorjs};
     data['_attachments'][tablescss_filename] = { "content_type" : "text\/css", "data" : tablescss};
-    data['_attachments'][vendorcss_filename] = { "content_type" : "text\/css", "data" : vendorcss};
-    data['_attachments']["fontawesome-webfont.woff2"] = { "content_type" : "application\/octet-stream", "data" : font};
 
     if (rev) data['_rev'] = rev;
     data = JSON.stringify(data);
+    // console.log(data);
     request({
-      uri: url + "tables/_design/tables",
+      uri: url +  dbname + "/_design/tables",
       method: "PUT",
       form : data
     }, function(err, response, body) {
-      console.log(body);
+      console.log(err,response);
       // mfCallback();
     });
   });
@@ -149,8 +166,7 @@ gulp.task('deploy',function(){
       throw "Error!!" + body.toString();
     }
     // get design doc rev
-    request(url + "tables/_design/tables",function(err,response,body){
-      debugger;
+    request(url + dbname + "/_design/tables",function(err,response,body){
       if (err) throw err;
         var b = JSON.parse(body);
       if (b && b.reason && b.reason === "no_db_file"){
