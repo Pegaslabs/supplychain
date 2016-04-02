@@ -10,10 +10,8 @@ export default Backbone.Model.extend({
     limit: 1000,
     descending: true,
     reduce: false,
-    include_docs: true
-  },
-  initialize: function(){
-    this.db = new DB();
+    include_docs: true,
+    db_service: new DB()
   },
   fetch: function(){
     var options = {};
@@ -31,7 +29,7 @@ export default Backbone.Model.extend({
       delete options.include_sum;
       delete options.results;
     }
-    return this.db.query(this.get('query'),options).then((results)=>{
+    return this.get('db_service').query(this.get('query'),options).then((results)=>{
       this.set('results',results);
       return results;
     });

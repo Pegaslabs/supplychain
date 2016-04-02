@@ -186,5 +186,5 @@ gulp.task('postDocs',function(){
 
 // todo: actually make concurrent
 gulp.task('deploy', ['build'], function(){
-  setTimeout(function(){gulp.start(['postDocs'])},6000);
+  setTimeout(function(){gulp.start(['postDocs'])},7000);
 });
