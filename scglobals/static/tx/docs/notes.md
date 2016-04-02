@@ -54,3 +54,6 @@ curl http://127.0.0.1:5984/
 #  change bind_adress to 0.0.0.0
 
 service couchdb restart
+
+
+supervisorctl restart botsims
