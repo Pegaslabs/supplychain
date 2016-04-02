@@ -15,8 +15,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/kdoran/data/bots_sqlite_db',
-        # 'NAME': '/opt/botsenv/data/bots_sqlite_db',
+        # 'NAME': '/Users/kdoran/data/bots_sqlite_db',
+        'NAME': '/opt/botsenv/data/bots_sqlite_db',
         # 'NAME': "supplychain",                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
@@ -143,8 +143,8 @@ INSTALLED_APPS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'localhost:8080'
+    # 'localhost',
+    lesotho.pih-emr.org
 )
 
 # A sample logging configuration. The only tangible logging
