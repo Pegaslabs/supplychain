@@ -141,7 +141,9 @@ INSTALLED_APPS = (
 
 CORS_ORIGIN_WHITELIST = (
     # 'localhost',
-    'lesotho.pih-emr.org'
+    'lesotho.pih-emr.org',
+    'lesotho.pih-emr.org:8999',
+    'lesotho.pih-emr.org:5984'
 )
 
 # A sample logging configuration. The only tangible logging

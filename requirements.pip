@@ -1,3 +1,4 @@
 simplejson
 django==1.5
 django-tastypie==0.10.0
+corsheaders
