@@ -27,7 +27,7 @@ export default class DB {
     return this.db.get(docId);
   }
   createCouch(){
-    this.db = new PouchDB(this.config.dbUrl + this.config.dbName);
+    this.db = new PouchDB(this.config.dbUrl + this.config.dbName,{ ajax: {timeout: false} });
     this.db.on('error', function (err) { console.log(err) });
     this.createCouchViews = new CreateCouchViews(this.db);
   }

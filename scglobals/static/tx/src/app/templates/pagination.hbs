@@ -1,9 +1,9 @@
 <ul class="pagination pagination-sm right">
   {{#if prevUrl}}
-  <li class="previous"><a href="{{prevUrl}}">&laquo;</a></li>
+  <li class="previous"><a href="{{$baseUrl}}{{prevUrl}}">&laquo;</a></li>
   {{/if}}
-  <li class="disabled"><a class="darker" href="/#/">{{$pageNumbers this.skip this.fetched_rows_length this.total_rows_length}} of {{$num this.total_rows_length}}</a></li>
+  <li class="disabled"><a class="darker" href="{{$baseUrl}}">{{$pageNumbers this.skip this.fetched_rows_length this.total_rows_length}} of {{$num this.total_rows_length}}</a></li>
   {{#if nextUrl}}
-    <li class="next"><a href="{{nextUrl}}">&raquo;</a></li>
+    <li class="next"><a href="{{$baseUrl}}{{nextUrl}}">&raquo;</a></li>
   {{/if}}
 </ul>

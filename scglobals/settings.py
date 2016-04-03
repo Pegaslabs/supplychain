@@ -140,7 +140,8 @@ INSTALLED_APPS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-    # 'localhost',
+    'localhost',
+    'localhost:8080',
     'lesotho.pih-emr.org',
     'lesotho.pih-emr.org:8999',
     'lesotho.pih-emr.org:5984'

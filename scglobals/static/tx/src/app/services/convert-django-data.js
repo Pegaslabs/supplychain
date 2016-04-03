@@ -53,7 +53,7 @@ export default class TransactionsService {
         if (new_transaction.from_location_type !== 'D' && new_transaction.to_location_type !== 'D'){
           new_transaction.qty = (new_transaction.qty * new_transaction.django_item_dispense_size);
         }
-        // fix price on dispense shipments 
+        // fix price on dispense shipments
         else if (new_transaction.django_item_dispense_size){
           new_transaction.total_value = new_transaction.total_value / new_transaction.django_item_dispense_size
         }

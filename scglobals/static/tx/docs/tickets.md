@@ -1,7 +1,12 @@
 # Tickets
 
-## Permissions & Auth & Backend -- go live
-* Seyfu's deploy strategy | XL
+## general
+* Loading missing from item, shipments
+* move config obj to json file & inject env specific obj to a config model defaults
+* nkau dispensary & locations with trailing spaces
+
+## Django Migration - golive
+* any error on migrate needs to alert user there was a failure
 
 ## Dashboard - backlog
 * sees a drop down of possible from locations for filtering | M

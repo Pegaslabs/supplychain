@@ -1,4 +1,8 @@
-## tx handelbars
+## tx backbone
+
+# 2016-04-02
+* Seyfu's deploy strategy | XL
+* bug: Pagination urls on prod
 
 # 2016-03-28
 * clean up dates to be correct day  | Sm

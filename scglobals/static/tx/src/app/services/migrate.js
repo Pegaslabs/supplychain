@@ -11,7 +11,7 @@ export default class Migration {
     this.totalShipments = shipmentIds.length;
     this.offset = 0;
     this.shipmentIds = shipmentIds;
-    this.limit = 25;
+    this.limit = 500;
     this.db = new DB();
     this.convertDjangoDataService = new ConvertDjangoDataService();
     this.serverShipmentsCollection = new ServerShipmentsCollection();
