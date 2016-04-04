@@ -1,5 +1,5 @@
-import Config from './../services/config';
+import Config from './../models/config';
 
 module.exports = function() {
-  return new Config().baseStaticUrl;
+  return new Config().get('baseStaticUrl');
 };

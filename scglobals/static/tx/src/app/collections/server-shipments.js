@@ -1,12 +1,12 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
-import Config from './../services/config';
+import Config from './../models/config';
 
 export default Backbone.Collection.extend({
   url: function () {
     var config = new Config();
-    return config.djangoUrl + '/stockchanges.json';
+    return config.get('djangoUrl') + '/stockchanges.json';
   },
   urlParams: {id: true,ascordesc: 'desc'},
   makeUrlParams: function(params){
@@ -23,7 +23,7 @@ export default Backbone.Collection.extend({
   },
   allShipmentIds: function(){
     var config = new Config();
-    return $.getJSON(config.djangoUrl + '/all_shipment_ids.json')
+    return $.getJSON(config.get('djangoUrl') + '/all_shipment_ids.json')
     .then(function(resp){
       return _.flatten(resp);
     });

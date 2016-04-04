@@ -10,7 +10,6 @@ import QueryView from './views/query-view';
 import LoginView from './views/login';
 import LogOutView from './views/logout';
 import DefaultQueryModel from './models/default-query';
-import Config from './services/config';
 import UserSettingsModel from './models/user-settings';
 import DB from './services/db';
 
@@ -34,7 +33,6 @@ export default Backbone.Router.extend({
     },{});
   },
   initialize: function() {
-    this.config = new Config();
     this.userSettings = new UserSettingsModel();
     this.headerView = new HeaderView(this.userSettings);
     $('.supplychain').append(this.headerView.$el);

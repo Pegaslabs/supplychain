@@ -2,7 +2,7 @@ import $ from 'jquery';
 import PouchDB from 'pouchdb';
 import PouchDBAuth from 'pouchdb-authentication';
 import CreateCouchViews from './create-couch-views';
-import Config from './../services/config';
+import Config from './../models/config';
 
 // interface for CRUD to our couchdb data via pouchdb
 
@@ -27,7 +27,7 @@ export default class DB {
     return this.db.get(docId);
   }
   createCouch(){
-    this.db = new PouchDB(this.config.dbUrl + this.config.dbName,{ ajax: {timeout: false} });
+    this.db = new PouchDB(this.config.get('dbUrl') + this.config.get('dbName'),{ ajax: {timeout: false} });
     this.db.on('error', function (err) { console.log(err) });
     this.createCouchViews = new CreateCouchViews(this.db);
   }
@@ -70,7 +70,7 @@ export default class DB {
     var securityDoc = {"admins":{"names":[],"roles":[]},"members":{"names":["admin"],"roles":[]}};
     return $.ajax({
       method: "PUT",
-      url: this.config.dbUrl + this.config.dbName + "/_security",
+      url: this.config.get('dbUrl') + this.config.get('dbName') + "/_security",
       xhrFields: {withCredentials: true},
       data: JSON.stringify(securityDoc)
     });
