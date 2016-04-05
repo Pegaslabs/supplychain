@@ -3,52 +3,45 @@
 ## general
 * move config obj to json file & inject env specific obj to a config model defaults
 * skip should be removed on page change
+* BUG: skip hard-coded to 1000
 
-## Django Migration - golive
+## Django Migration
 * any error on migrate needs to alert user there was a failure
+--
+* bring over creator, created, modified stamps | Sm
+* clean up pre july 2013 shipments | Sm
 
-## Dashboard - backlog
-* sees a drop down of possible from locations for filtering | M
-* sees a drop down of possible to locations for filtering | Sm
-* can filter on a specific from location | M
-* can filter on a specific to location | rebuild query because of couch sort order | Sm
+## Dashboard
+* sees date filtering
 * when filtering, sees URL updated and can revisit URL | Sm
-* pagination should only load new shipments table, not summary | Sm
-* backbone model works w/ created/updated timestamps
-* think through security around patient names
 * When couch is offline, user sees error message
-* loading start better on migration | xSm
-* if user is scrolled down on shipments & clicks a shipment with lots of values, they are not scrolled to the top of the page
-* get seyfu's feedback on what date filters are good | Sm
 
-## Stock Cards -- backlog
+## Stock Cards
 * on each transaction, the user sees a resulting balance | M
 * link back to old system
 * user sees a monthly consumption | Sm
+--
 * user can filter on an expiration | M
 * qty by lot, at inventories, at dispensaries | M
 
-## Reporting -- backlog
-* inventory report with price | L
-* future expirations report | M
-* data quality | XL
-
+## Reporting
+* add price to inventory report | L
 * expiration report (from last month) | M
 * consumption report at lot level | XL
-
+* download reports | M
+--
 * inventory report at all locations -- lot level | L
 
-* download reports | M
+## Backends * Permissions & Auth
+* works offline @ sites
+* Permissions code & sync strategy | XL
 
-## Django Migration - backlog
-* bring over creator, created, modified stamps | Sm
-* clean up pre july 2013 shipments | Sm
-* When they create a patient, they don't store it on their name, it's on their ID (?)
+## Dev
+* karma tests
+* refactor DB to be actual singleton
+* rip out bootstrap modal js
 
-## Permissions & Auth & Backend -- phase 2
-* Permissions | XL
-
-# Editing | XL
+# Editing
 ## CRUD models
 * Item, Item Category, Location, Location Category, User, Patient, Shipment
 ## Edit shipment: receive

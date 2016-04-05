@@ -1,6 +1,8 @@
 ## tx backbone
 
 # 2016-04-04
+* data quality | XL
+* future expirations report | M
 * inventory report at item level | Sm
 * nkau dispensary & locations with trailing spaces
 * Loading missing from item, shipments
