@@ -14,6 +14,7 @@ export default QueryView.extend({
     options.query = 'shipments-with-value';
     options.include_sum = false;
     options.include_docs = false;
+    options.limit = 100;
     options.title = "Shipments: " + userSettings.get('location');
     this.model = new DefaultQueryModel(options);
     this.render();

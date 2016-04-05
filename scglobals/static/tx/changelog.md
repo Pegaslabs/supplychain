@@ -1,5 +1,8 @@
 ## tx backbone
 
+# 2016-04-04
+* Loading missing from item, shipments
+
 # 2016-04-02
 * Seyfu's deploy strategy | XL
 * bug: Pagination urls on prod
