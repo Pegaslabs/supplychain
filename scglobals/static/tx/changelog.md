@@ -1,6 +1,7 @@
 ## tx backbone
 
 # 2016-04-04
+* nkau dispensary & locations with trailing spaces
 * Loading missing from item, shipments
 
 # 2016-04-02

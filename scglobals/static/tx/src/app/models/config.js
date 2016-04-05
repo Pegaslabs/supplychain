@@ -6,6 +6,7 @@ export default Backbone.Model.extend({
     // env overwritten in gulpfile
     // dev, stg, & prod
     config.environment = "dev";
+
     config.dbUrl = 'http://localhost:5984/';
     config.dbName = 'sctxdb';
     config.dbAppName = 'tables_sc_app';

@@ -36,10 +36,19 @@ export default class TransactionsService {
       "to_location_type",
       "django_shipment_id"];
   }
+  _cleanTransaction(transaction){
+    return _.map(transaction, function(field){
+      if (typeof(field) === 'string'){
+        field = field.trim();
+      }
+      return field;
+    });
+  }
   // take array of values without keys and add keys
   _convertTansactions(transactions){
     var new_transaction;
     return _.map(transactions,(server_transaction)=>{
+      server_transaction = this._cleanTransaction(server_transaction);
       // _.object takes list of keys & list of values & makes object
       new_transaction = _.object(this.transaction_headers,server_transaction);
       new_transaction['total_value'] = Number(new_transaction['total_value']) || 0;
@@ -70,6 +79,7 @@ export default class TransactionsService {
     var transaction_for_shipment_fields,new_shipment;
     // need an actual copy, not a reference
     transaction_for_shipment_fields = server_transactions[0].slice();
+    transaction_for_shipment_fields = this._cleanTransaction(transaction_for_shipment_fields);
     // put 'transaction' in front of the array so doc_type has a value
     new_shipment = _.object(this.transaction_headers,transaction_for_shipment_fields);
     new_shipment = _.pick(new_shipment,this.shipment_headers);
