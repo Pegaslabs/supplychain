@@ -1,10 +1,11 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import Backbone from 'backbone';
-import DashView from './views/dash';
+import ShipmentsView from './views/shipments';
 import HeaderView from './views/header';
 import AdminView from './views/admin';
 import ShipmentView from './views/shipment';
+import InventoryView from './views/inventory';
 import ItemView from './views/item';
 import QueryView from './views/query-view';
 import LoginView from './views/login';
@@ -16,10 +17,10 @@ import DB from './services/db';
 export default Backbone.Router.extend({
 
   routes: {
-    '': 'dashboardRoute',
-    '/:options': 'dashboardRoute',
+    '': 'shipmentsRoute',
+    '/:options': 'shipmentsRoute',
+    'inventory': 'inventoryRoute',
     'admin': 'adminRoute',
-    // 'query': 'queryRoute',
     'shipment/:id': 'shipmentRoute',
     'item/:category/:itemName': 'itemRoute',
     'login': 'login',
@@ -38,11 +39,14 @@ export default Backbone.Router.extend({
     $('.supplychain').append(this.headerView.$el);
     this.db = new DB();
   },
+  inventoryRoute: function(urlOptions){
+    this.switchView(new InventoryView(this._urlParamsToObject(urlOptions),this.userSettings));
+  },
   adminRoute: function(){
     this.switchView(new AdminView());
   },
-  dashboardRoute: function(urlOptions) {
-    this.switchView(new DashView(this._urlParamsToObject(urlOptions),this.userSettings));
+  shipmentsRoute: function(urlOptions) {
+    this.switchView(new ShipmentsView(this._urlParamsToObject(urlOptions),this.userSettings));
   },
   shipmentRoute: function(shipmentId){
     this.switchView(new ShipmentView(shipmentId));

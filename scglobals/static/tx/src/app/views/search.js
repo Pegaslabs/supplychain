@@ -56,10 +56,7 @@ export default Backbone.View.extend({
               primary: item[0],
               secondary: item[1],
               tertiary: result.value.count,
-              url: itemUrl({
-                item_name: item[0],
-                item_category_name: item[1]
-              })
+              url: itemUrl(item[0],item[1])
             };
         } else{
           return {background: "", name: "", link: ""};

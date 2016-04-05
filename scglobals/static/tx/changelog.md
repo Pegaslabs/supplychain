@@ -1,6 +1,7 @@
 ## tx backbone
 
 # 2016-04-04
+* inventory report at item level | Sm
 * nkau dispensary & locations with trailing spaces
 * Loading missing from item, shipments
 * pagination broken on items

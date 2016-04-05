@@ -1,3 +1,3 @@
-module.exports = function(object) {
-  return 'item/' + encodeURIComponent(object.item_category_name) + '/' + encodeURIComponent(object.item_name);
+module.exports = function(name,category) {
+  return 'item/' + encodeURIComponent(category) + '/' + encodeURIComponent(name);
 };

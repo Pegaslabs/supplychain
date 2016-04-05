@@ -5,7 +5,7 @@ export default Backbone.Model.extend({
     var config = {};
     // env overwritten in gulpfile
     // dev, stg, & prod
-    config.environment = "prod";
+    config.environment = "dev";
 
     config.dbUrl = 'http://localhost:5984/';
     config.dbName = 'sctxdb';

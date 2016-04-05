@@ -1,0 +1,27 @@
+<button class="btn btn-default btn-sm inventory-nav {{#if this.inventory}}btn-primary{{/if}}" id="inventory">Inventory ({{this.inventoryResults.length}})</button>
+<button class="btn btn-default btn-sm inventory-nav {{#if this.expiring}}btn-primary{{/if}}" id="expiring">Expiring next 6 months ({{this.expiringResults.length}})</button>
+<button class="btn btn-default btn-sm inventory-nav {{#if this.quality}}btn-primary{{/if}}" id="quality">Data Quality ({{this.qualityResults.length}})</button>
+<button class="btn btn-default btn-sm inventory-nav {{#if this.oostock}}btn-primary{{/if}}" id="oostock">Out Of Stock ({{this.oostockResults.length}})</button>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Category</th>
+      <th>Expiration</th>
+      <th>Lot Num</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.showResults}}
+      <tr>
+        <td><a href="{{$baseUrl}}{{$itemUrl this.key.[1] this.key.[2]}}">{{this.key.[1]}}</a></td>
+        <td>{{this.key.[2]}}</td>
+        <td>{{$expiration this.key.[3]}}</td>
+        <td>{{this.key.[4]}}</td>
+        <td>{{$num this.value.sum}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

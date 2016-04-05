@@ -23,6 +23,9 @@ export default Backbone.Model.extend({
         options.startkey = this.get('endkey');
         options.endkey = this.get('startkey');
       }
+      if (this.get('group_level')){
+        options.group_level = this.get('group_level');
+      }
     } else{
       options = this.toJSON();
       delete options.query;

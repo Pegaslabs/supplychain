@@ -29,12 +29,15 @@
 * qty by lot, at inventories, at dispensaries | M
 
 ## Reporting -- backlog
-* inventory report at item level | Sm
-* consumption report at lot level | XL
-* data quality | XL
-* inventory report at all locations -- lot level | L
-* expiration report | M
+* inventory report with price | L
 * future expirations report | M
+* data quality | XL
+
+* expiration report (from last month) | M
+* consumption report at lot level | XL
+
+* inventory report at all locations -- lot level | L
+
 * download reports | M
 
 ## Django Migration - backlog
