@@ -12,7 +12,7 @@ export default Backbone.View.extend({
     this.render(obj);
   },
   render: function(obj) {
-    var url = "?skip=";
+    var url = window.location.hash.split("?")[0].split("#/")[1] + "?skip=";
     // is there a next page available?
     if (obj.skip + obj.fetched_rows_length < obj.total_rows_length){
       obj.nextUrl = url + (obj.skip + obj.limit);

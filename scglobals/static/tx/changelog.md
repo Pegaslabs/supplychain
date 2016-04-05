@@ -3,6 +3,7 @@
 # 2016-04-04
 * nkau dispensary & locations with trailing spaces
 * Loading missing from item, shipments
+* pagination broken on items
 
 # 2016-04-02
 * Seyfu's deploy strategy | XL

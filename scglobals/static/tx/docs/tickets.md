@@ -1,8 +1,8 @@
 # Tickets
 
 ## general
-* pagination broken on items
 * move config obj to json file & inject env specific obj to a config model defaults
+* skip should be removed on page change
 
 ## Django Migration - golive
 * any error on migrate needs to alert user there was a failure
