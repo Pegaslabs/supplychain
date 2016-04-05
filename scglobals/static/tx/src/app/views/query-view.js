@@ -21,7 +21,6 @@ export default Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     this.model.fetch().then((results)=>{
-      this.renderTable();
       // if there's no key filtering, total_rows will be an accurate reflection
       // of rows for pagination  (but if sum is needed, we have to run the reduce query anyways)
       if (!this.model.get('startkey') && !this.model.get('include_sum')){

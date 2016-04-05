@@ -23,8 +23,8 @@
 
 ## Stock Cards -- backlog
 * on each transaction, the user sees a resulting balance | M
-* user sees a monthly consumption tab | Sm
-* when user clicks monthly consumption, they see the monthly consumption | XL
+* link back to old system
+* user sees a monthly consumption | Sm
 * user can filter on an expiration | M
 * qty by lot, at inventories, at dispensaries | M
 
