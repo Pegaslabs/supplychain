@@ -3,6 +3,7 @@ var path = require('path');
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 var fs = require('fs');
+var runSequence = require('run-sequence');
 
 var environment = $.util.env.type || 'development';
 var isProduction = environment === 'production';
@@ -26,7 +27,6 @@ var autoprefixerBrowsers = [
   'bb >= 10'
 ];
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-
 
 gulp.task('scripts', function() {
   return gulp.src(webpackConfig.entry)
@@ -64,11 +64,11 @@ gulp.task('serve', function() {
   });
 });
 
-gulp.task('static', function(cb) {
-  return gulp.src(src + 'static/**/*')
-    .pipe($.size({ title : 'static' }))
-    .pipe(gulp.dest(dist + '/'));
-});
+// gulp.task('static', function(cb) {
+//   return gulp.src(src + 'static/**/*')
+//     .pipe($.size({ title : 'static' }))
+//     .pipe(gulp.dest(dist + '/'));
+// });
 
 gulp.task('watch', function() {
   gulp.watch(src + 'less/*.less', ['styles']);
@@ -78,16 +78,18 @@ gulp.task('watch', function() {
   gulp.watch(src + 'app/**/*.handlebars', ['scripts']);
 });
 
-gulp.task('clean', function(cb) {
-  del([dist], cb);
+gulp.task('clean', function() {
+  return del([dist]);
 });
 
 // by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['build', 'serve', 'watch']);
+gulp.task('default', function(){
+  return runSequence('build', ['serve', 'watch']);
+});
 
 // waits until clean is finished then builds the project
-gulp.task('build', ['clean'], function(){
-  gulp.start(['static','html','scripts','styles']);
+gulp.task('build',function(){
+  return runSequence('clean',['html','scripts','styles']);
 });
 
 // couchdb deploy

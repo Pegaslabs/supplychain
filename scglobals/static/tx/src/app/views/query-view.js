@@ -52,6 +52,7 @@ export default Backbone.View.extend({
   renderDetails: function(obj){
     this.$el.find('.details').html(QueryDetailsTemplate(obj))
     .append(new PaginationView(obj).$el);
+    this.renderTable(obj);
   },
   renderTable: function(){
     var map_fun, headers;

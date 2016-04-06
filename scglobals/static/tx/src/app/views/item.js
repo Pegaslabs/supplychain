@@ -16,9 +16,19 @@ export default QueryView.extend({
     options.title = itemName;
     options.secondary_title = category;
     this.model = new DefaultQueryModel(options);
+    this.itemName = itemName;
+    this.category = category;
     this.render();
   },
-  renderTable: function(){
+  renderTable: function(obj){
+    var itemId, sum = obj.sum;
+    _.each(this.model.get('results').rows,function(row,index,list){
+      if (index === 0){
+        row.resultQty = sum;
+      } else{
+        row.resultQty = list[index-1].resultQty - list[index-1].value;
+      }
+    });
     this.$el.find('.results-table').html(TransactionsTemplate(this.model.get('results').rows));
   }
 });
