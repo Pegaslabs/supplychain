@@ -1,8 +1,8 @@
 # Tickets
 
 ## general
-* why are the stock levels different on data quality
-* move config obj to json file & inject env specific obj to a config model defaults
+* task: investigate why stock levels different on data quality
+* code: move config obj to json file & inject env specific obj to a config model defaults
 * skip should be removed on page change
 * BUG: skip hard-coded to 1000
 --
@@ -56,20 +56,3 @@
   * receive
   * transfer
   * dispense
-
-
-## Old List of priorities:
-
-1. Online/offline
-2. Database file is getting slow
-3. Weight, cohort on HIV patients (not yet built)
-4. Restrictions/permissions around remote staff (disallowing them from editing central pharmacy)
-5. Better reporting on what's happening at manemananeg (is this still important? no changes to reporting, for now)
-6. Merging locations, merging patients, merging items (not yet built)
-7. Editing shipment dates is still restricted and needs to be fixed
-8. Download everything
-9. Send date is not the same as receive date (not yet built)
-10. Dispensing shipment $$
-11. AMC alongside report downloads (no yet built)
-12. Set up download transactions to be a specific range of dates (not yet built)
-13. receive shipments instead of instantaneous 

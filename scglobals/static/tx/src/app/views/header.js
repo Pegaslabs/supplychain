@@ -9,6 +9,10 @@ import SearchLocationsView from './search-locations.js';
 
 export default Backbone.View.extend({
   template: HeaderTemplate,
+  events:{
+    'click #admin': 'toggleAdmin',
+    'click #toggleNav': 'toggleNav'
+  },
   initialize: function(userSettings){
     this.userSettings = userSettings;
     this.db = new db();
@@ -32,8 +36,8 @@ export default Backbone.View.extend({
     this.$el.find('.search-holder').append(new SearchView(itemSearchModel).el);
     this.$el.find('.location-holder').append(new SearchLocationsView(locationSearchModel).el);
   },
-  events:{
-    'click #admin': 'toggleAdmin',
-    'click #toggleNav': 'toggleNav'
+  toggleNav: function(e){
+    e.preventDefault();
+    $('#collapsedNav').toggle();
   }
 });
