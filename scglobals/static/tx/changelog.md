@@ -1,5 +1,8 @@
 ## tx backbone
 
+# 2016-04-07
+* view items by expiration
+
 # 2016-04-04
 * data quality | XL
 * future expirations report | M

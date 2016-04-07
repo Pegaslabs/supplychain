@@ -26,6 +26,9 @@ export default Backbone.Model.extend({
       if (this.get('group_level')){
         options.group_level = this.get('group_level');
       }
+      if (this.get('group')){
+        options.group = this.get('group');
+      }
     } else{
       options = this.toJSON();
       delete options.query;
